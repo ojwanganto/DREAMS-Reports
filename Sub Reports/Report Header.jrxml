@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-12T10:28:02 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report Header" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0f377c84-afc1-4f51-9657-706864cf495c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<template><![CDATA["Resources/UC_Styles.jrtx"]]></template>
+	<parameter name="REPORT_DESCRIPTION" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement style="UC Report Header Caption" x="430" y="10" width="115" height="15" uuid="90f7f6b5-78bb-4d26-b2f3-e366a59ce083">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[REPORT DATE]]></text>
+			</staticText>
+			<textField pattern="d MMM, yyyy HH:mm">
+				<reportElement style="UC Report Header Section" x="430" y="25" width="115" height="20" uuid="5feddfa1-3bec-4534-93cd-42686c422f8f"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[TODAY( )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="UC Report Header Section" x="0" y="25" width="250" height="60" uuid="028765be-6133-4e85-a604-e6c7d3f6592c"/>
+				<textFieldExpression><![CDATA[$P{REPORT_DESCRIPTION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="UC Report Header Caption" x="430" y="50" width="115" height="15" uuid="39483017-ca4a-465c-a48c-9baea4c6dce7">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[PAGE]]></text>
+			</staticText>
+			<textField pattern="d MMM, yyyy HH:mm">
+				<reportElement style="UC Report Header Section" x="430" y="65" width="115" height="20" uuid="a45b3983-152e-4b62-ac60-34f549f1543d"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} + " of " + $V{MASTER_TOTAL_PAGES}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="UC Report Header Caption" x="0" y="10" width="250" height="15" uuid="24eb2b18-95f2-4576-849e-e1a40d5c8581">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[ABOUT THIS REPORT]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+</jasperReport>
