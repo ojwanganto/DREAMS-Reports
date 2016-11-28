@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-12T12:19:58 -->
+<!-- 2016-11-13T11:19:18 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201b" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["Resources/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
 	<queryString>
 		<![CDATA[SELECT
 	i.name as 'IP',
@@ -27,22 +27,30 @@ GROUP BY
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="300">
+		<band height="260">
 			<pieChart>
 				<chart evaluationTime="Report">
-					<reportElement key="" style="UC Base Colour" x="0" y="0" width="400" height="300" uuid="538af297-c844-4e95-a1a0-680739c17d0e"/>
+					<reportElement key="" style="UC Base Colour" x="0" y="0" width="550" height="260" uuid="538af297-c844-4e95-a1a0-680739c17d0e"/>
 					<chartTitle/>
 					<chartSubtitle/>
-					<chartLegend/>
+					<chartLegend position="Right"/>
 				</chart>
 				<pieDataset>
 					<keyExpression><![CDATA[$F{IP}]]></keyExpression>
 					<valueExpression><![CDATA[$F{Number of clients}]]></valueExpression>
 					<labelExpression><![CDATA[$F{IP}]]></labelExpression>
 				</pieDataset>
-				<piePlot isShowLabels="true" labelFormat="{0}{2}{1}" legendLabelFormat="">
-					<plot/>
-					<itemLabel/>
+				<piePlot isShowLabels="true" isCircular="true" labelFormat="{0}" legendLabelFormat="{0} ({2})">
+					<plot>
+						<seriesColor seriesOrder="0" color="#455C73"/>
+						<seriesColor seriesOrder="1" color="#9B59B6"/>
+						<seriesColor seriesOrder="2" color="#BDC3C7"/>
+						<seriesColor seriesOrder="3" color="#26B99A"/>
+						<seriesColor seriesOrder="4" color="#3498DB"/>
+					</plot>
+					<itemLabel>
+						<font size="8"/>
+					</itemLabel>
 				</piePlot>
 			</pieChart>
 		</band>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-12T12:02:42 -->
+<!-- 2016-11-13T11:08:22 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201a" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["Resources/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
 	<queryString>
 		<![CDATA[SELECT
 	i.name as 'IP',
@@ -33,7 +33,7 @@ GROUP BY
 				<text><![CDATA[IP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="UC Table Header Number" x="150" y="0" width="140" height="20" uuid="dd1b1502-267f-4384-87a9-6b205c6b5168"/>
+				<reportElement style="UC Table Header Number" x="150" y="0" width="90" height="20" uuid="dd1b1502-267f-4384-87a9-6b205c6b5168"/>
 				<text><![CDATA[Number of clients]]></text>
 			</staticText>
 		</band>
@@ -45,7 +45,7 @@ GROUP BY
 				<textFieldExpression><![CDATA[$F{IP}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="UC Table Row Number" x="150" y="0" width="140" height="20" uuid="1e914b7d-10e4-45cf-8345-11ca4f45734a"/>
+				<reportElement style="UC Table Row Number" x="150" y="0" width="90" height="20" uuid="1e914b7d-10e4-45cf-8345-11ca4f45734a"/>
 				<textFieldExpression><![CDATA[$F{Number of clients}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -53,7 +53,7 @@ GROUP BY
 	<summary>
 		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement style="UC Table Header Number" x="150" y="1" width="140" height="20" uuid="78b3011a-ef31-47f6-a997-62c8f57aef10"/>
+				<reportElement style="UC Table Header Number" x="150" y="1" width="90" height="20" uuid="78b3011a-ef31-47f6-a997-62c8f57aef10"/>
 				<textFieldExpression><![CDATA[$V{Number of clients1}]]></textFieldExpression>
 			</textField>
 			<staticText>
