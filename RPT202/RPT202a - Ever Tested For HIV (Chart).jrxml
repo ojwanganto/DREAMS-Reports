@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-30T00:58:18 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202a - Ever Tested For HIV (Chart)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<queryString>
+		<![CDATA[SELECT COUNT(*) as 'number_of_clients',
+    stag_client_ex.implementing_partner as 'ip'
+FROM stag_client_ex
+WHERE stag_client_ex.implementing_partner IS NOT NULL
+GROUP BY stag_client_ex.implementing_partner]]>
+	</queryString>
+	<field name="number_of_clients" class="java.lang.Long"/>
+	<field name="ip" class="java.lang.String"/>
+	<variable name="Number of clients1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{number_of_clients}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="300">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement key="" style="UC Base Colour" x="0" y="0" width="400" height="300" uuid="1c5b4cc4-8eb8-41ca-9207-ae43e29b2652"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{ip}]]></keyExpression>
+					<valueExpression><![CDATA[$F{number_of_clients}]]></valueExpression>
+					<labelExpression><![CDATA[$F{ip}]]></labelExpression>
+				</pieDataset>
+				<piePlot isShowLabels="true" labelFormat="{0}{2}{1}" legendLabelFormat="">
+					<plot>
+						<seriesColor seriesOrder="0" color="#1DE8FB"/>
+						<seriesColor seriesOrder="1" color="#6434C0"/>
+						<seriesColor seriesOrder="2" color="#3191E2"/>
+						<seriesColor seriesOrder="3" color="#196787"/>
+						<seriesColor seriesOrder="4" color="#CF31C7"/>
+						<seriesColor seriesOrder="5" color="#0D0265"/>
+					</plot>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</pageHeader>
+</jasperReport>
