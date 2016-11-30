@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T12:31:08 -->
+<!-- 2016-11-30T11:20:28 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202a - Ever Tested For HIV (Chart)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -36,11 +36,12 @@ GROUP BY implementing_partner_id]]>
 				</pieDataset>
 				<piePlot isShowLabels="true" labelFormat="{0}{2}{1}" legendLabelFormat="">
 					<plot>
-						<seriesColor seriesOrder="0" color="#455C73"/>
-						<seriesColor seriesOrder="1" color="#9B59B6"/>
-						<seriesColor seriesOrder="2" color="#BDC3C7"/>
-						<seriesColor seriesOrder="3" color="#26B99A"/>
-						<seriesColor seriesOrder="4" color="#3498DB"/>
+						<seriesColor seriesOrder="0" color="#1DE8FB"/>
+						<seriesColor seriesOrder="1" color="#6434C0"/>
+						<seriesColor seriesOrder="2" color="#3191E2"/>
+						<seriesColor seriesOrder="3" color="#196787"/>
+						<seriesColor seriesOrder="4" color="#CF31C7"/>
+						<seriesColor seriesOrder="5" color="#0D0265"/>
 					</plot>
 					<itemLabel/>
 				</piePlot>
