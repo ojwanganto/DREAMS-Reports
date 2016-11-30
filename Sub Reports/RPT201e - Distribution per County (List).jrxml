@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-30T12:45:19 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201e2" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<queryString>
+		<![CDATA[SELECT COUNT(*) AS 'Number of clients',
+county as 'County' FROM 
+stag_client_ex
+WHERE county IS NOT NULL
+GROUP BY 
+county]]>
+	</queryString>
+	<field name="Number of clients" class="java.lang.Long"/>
+	<field name="County" class="java.lang.String"/>
+	<variable name="Number of clients1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Number of clients}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement style="UC Table Header" x="0" y="0" width="120" height="20" uuid="e67e8882-9d13-4c54-9175-29621588f89f"/>
+				<text><![CDATA[County]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Table Header Number" x="120" y="0" width="90" height="20" uuid="dd1b1502-267f-4384-87a9-6b205c6b5168"/>
+				<text><![CDATA[Number of clients]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="UC Table Row" x="0" y="0" width="150" height="20" uuid="b64bae1b-7eb0-42f0-aa88-012facbc6d9f"/>
+				<textFieldExpression><![CDATA[$F{County}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="UC Table Row Number" x="150" y="0" width="60" height="20" uuid="1e914b7d-10e4-45cf-8345-11ca4f45734a"/>
+				<textFieldExpression><![CDATA[$F{Number of clients}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement style="UC Table Header Number" x="150" y="1" width="60" height="20" uuid="78b3011a-ef31-47f6-a997-62c8f57aef10"/>
+				<textFieldExpression><![CDATA[$V{Number of clients1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="UC Table Header" x="0" y="1" width="150" height="20" uuid="4200c4d2-9008-4c68-8331-3164972fd789"/>
+				<text><![CDATA[Total number of clients]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
