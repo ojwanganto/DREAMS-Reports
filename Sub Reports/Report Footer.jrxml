@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-13T11:06:03 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report Footer" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0f377c84-afc1-4f51-9657-706864cf495c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<template><![CDATA["/uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<parameter name="REPORT_DESCRIPTION" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="REPORT_CODE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="89" splitType="Stretch">
+			<textField>
+				<reportElement style="UC Report Footer" x="0" y="53" width="550" height="17" uuid="244c13f2-4049-4c7d-8921-b81f1b84fcab">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{REPORT_CODE} + " (C) UCSF"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="0" width="550" height="53" uuid="75d43889-76e6-4247-a9cd-71518a614b25"/>
+				<imageExpression><![CDATA["Images/DREAMS_Banner.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+</jasperReport>

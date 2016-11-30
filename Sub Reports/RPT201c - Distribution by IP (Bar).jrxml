@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-29T14:47:44 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201c - Distribution by IP (Bar)" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="477"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="523"/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<queryString language="SQL">
+		<![CDATA[SELECT COUNT(*) as 'Number of clients',
+	stag_client_ex.implementing_partner as 'IP'
+FROM stag_client_ex
+WHERE stag_client_ex.implementing_partner IS NOT NULL
+GROUP BY stag_client_ex.implementing_partner]]>
+	</queryString>
+	<field name="Number of clients" class="java.lang.Long"/>
+	<field name="IP" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="250" splitType="Stretch">
+			<barChart>
+				<chart isShowLegend="true" evaluationTime="Report" theme="default">
+					<reportElement key="UC Base Color" style="UC Base" x="20" y="10" width="520" height="237" uuid="f973bba2-6911-4063-a3b0-95c7dea30c6d"/>
+					<chartTitle>
+						<titleExpression><![CDATA["Enrollment Distribution by IP (Bar)"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend position="Right"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{IP}]]></seriesExpression>
+						<categoryExpression><![CDATA[0]]></categoryExpression>
+						<valueExpression><![CDATA[$F{Number of clients}]]></valueExpression>
+						<labelExpression><![CDATA["" + $F{Number of clients}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true" isShowTickLabels="true" isShowTickMarks="true">
+					<plot>
+						<seriesColor seriesOrder="0" color="#455C73"/>
+						<seriesColor seriesOrder="1" color="#9B59B6"/>
+						<seriesColor seriesOrder="2" color="#BDC3C7"/>
+						<seriesColor seriesOrder="3" color="#26B99A"/>
+						<seriesColor seriesOrder="4" color="#3498DB"/>
+					</plot>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Number of Girls"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</pageHeader>
+</jasperReport>
