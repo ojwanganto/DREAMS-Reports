@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T12:31:08 -->
+<!-- 2016-11-30T15:50:53 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202a - Ever Tested For HIV (Chart)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
 	<queryString>
-		<![CDATA[SELECT count(id) AS 'number_of_clients', implementing_partner as ip
+		<![CDATA[SELECT count(id) AS 'number_of_clients', IFNULL(HIV_Ever_Tested, 'Missing') AS HIV_Ever_Tested
 FROM stag_client_hiv_testing
 WHERE implementing_partner IS NOT NULL
-AND HIV_Ever_Tested = 'Yes'
-GROUP BY implementing_partner_id]]>
+GROUP BY HIV_Ever_Tested]]>
 	</queryString>
 	<field name="number_of_clients" class="java.lang.Long"/>
-	<field name="ip" class="java.lang.String"/>
+	<field name="HIV_Ever_Tested" class="java.lang.String"/>
 	<variable name="Number of clients1" class="java.lang.Long" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{number_of_clients}]]></variableExpression>
 	</variable>
@@ -23,18 +22,17 @@ GROUP BY implementing_partner_id]]>
 	<pageHeader>
 		<band height="300">
 			<pieChart>
-				<chart evaluationTime="Report">
-					<reportElement key="" style="UC Base Colour" x="0" y="0" width="400" height="300" uuid="1c5b4cc4-8eb8-41ca-9207-ae43e29b2652"/>
+				<chart isShowLegend="false" evaluationTime="Report">
+					<reportElement key="" style="UC Base Colour" x="0" y="0" width="400" height="300" uuid="222e5a97-4ce8-4b6d-8d82-2391d518cd75"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<pieDataset>
-					<keyExpression><![CDATA[$F{ip}]]></keyExpression>
+					<keyExpression><![CDATA[$F{HIV_Ever_Tested}]]></keyExpression>
 					<valueExpression><![CDATA[$F{number_of_clients}]]></valueExpression>
-					<labelExpression><![CDATA[$F{ip}]]></labelExpression>
 				</pieDataset>
-				<piePlot isShowLabels="true" labelFormat="{0}{2}{1}" legendLabelFormat="">
+				<piePlot isShowLabels="true" labelFormat="{0}({2})" legendLabelFormat="">
 					<plot>
 						<seriesColor seriesOrder="0" color="#455C73"/>
 						<seriesColor seriesOrder="1" color="#9B59B6"/>
