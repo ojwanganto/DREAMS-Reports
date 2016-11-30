@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T11:20:28 -->
+<!-- 2016-11-30T15:51:14 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202a - Ever Tested For HIV (Chart)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -23,8 +23,8 @@ GROUP BY implementing_partner_id]]>
 	<pageHeader>
 		<band height="300">
 			<pieChart>
-				<chart evaluationTime="Report">
-					<reportElement key="" style="UC Base Colour" x="0" y="0" width="400" height="300" uuid="1c5b4cc4-8eb8-41ca-9207-ae43e29b2652"/>
+				<chart isShowLegend="false" evaluationTime="Report">
+					<reportElement key="" style="UC Base Colour" x="0" y="0" width="400" height="300" uuid="bc173a28-f262-4b7f-93de-96a2d48c87c2"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -32,9 +32,8 @@ GROUP BY implementing_partner_id]]>
 				<pieDataset>
 					<keyExpression><![CDATA[$F{ip}]]></keyExpression>
 					<valueExpression><![CDATA[$F{number_of_clients}]]></valueExpression>
-					<labelExpression><![CDATA[$F{ip}]]></labelExpression>
 				</pieDataset>
-				<piePlot isShowLabels="true" labelFormat="{0}{2}{1}" legendLabelFormat="">
+				<piePlot isShowLabels="true" labelFormat="{0}({2})" legendLabelFormat="">
 					<plot>
 						<seriesColor seriesOrder="0" color="#1DE8FB"/>
 						<seriesColor seriesOrder="1" color="#6434C0"/>
