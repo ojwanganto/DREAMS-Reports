@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-29T16:23:55 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201d - Distribution by IP per Quarter" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f7cab40f-85ff-46f6-b969-0f17a5480402">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT COUNT(*) AS 'Number of clients',
+implementing_partner as 'IP',
+date_of_enrollment_quarter as enrollment_quarter
+ FROM stag_client_ex
+ WHERE date_of_enrollment IS NOT NULL
+ GROUP BY 
+ implementing_partner,
+ date_of_enrollment_quarter
+ ORDER BY
+ date_of_enrollment_quarter,
+ implementing_partner]]>
+	</queryString>
+	<field name="Number of clients" class="java.lang.Long"/>
+	<field name="IP" class="java.lang.String"/>
+	<field name="enrollment_quarter" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="40" width="200" height="30" uuid="4efd6ddb-fdb9-4e29-b81d-912b9618a137"/>
+				<text><![CDATA[Enrollment Quarter]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="180" height="30" uuid="003a4cbe-5798-453f-86ab-2d899148f8ba"/>
+				<text><![CDATA[Implementing Partner]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="40" width="170" height="30" uuid="80bbb350-471e-49a2-af00-660f149b2992"/>
+				<text><![CDATA[Number of clients]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="180" y="1" width="200" height="30" uuid="8075092d-2ead-40c5-baac-917503ff160a"/>
+				<textFieldExpression><![CDATA[$F{enrollment_quarter}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="2" width="180" height="30" uuid="be3825eb-6dd9-4783-bf22-d651e2248909"/>
+				<textFieldExpression><![CDATA[$F{IP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="1" width="170" height="30" uuid="efbffc0c-5b5c-46e8-93ce-991c0bdd8eba"/>
+				<textFieldExpression><![CDATA[$F{Number of clients}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
