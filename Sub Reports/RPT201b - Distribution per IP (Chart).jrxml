@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-13T11:19:18 -->
+<!-- 2016-11-30T10:42:37 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201b" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -29,8 +29,8 @@ GROUP BY
 	<pageHeader>
 		<band height="260">
 			<pieChart>
-				<chart evaluationTime="Report">
-					<reportElement key="" style="UC Base Colour" x="0" y="0" width="550" height="260" uuid="538af297-c844-4e95-a1a0-680739c17d0e"/>
+				<chart isShowLegend="false" evaluationTime="Report">
+					<reportElement key="" style="UC Chart" x="0" y="0" width="290" height="260" uuid="b4310950-1a4a-4f45-b5a4-82b99d1335a9"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend position="Right"/>
@@ -38,9 +38,8 @@ GROUP BY
 				<pieDataset>
 					<keyExpression><![CDATA[$F{IP}]]></keyExpression>
 					<valueExpression><![CDATA[$F{Number of clients}]]></valueExpression>
-					<labelExpression><![CDATA[$F{IP}]]></labelExpression>
 				</pieDataset>
-				<piePlot isShowLabels="true" isCircular="true" labelFormat="{0}" legendLabelFormat="{0} ({2})">
+				<piePlot isShowLabels="true" isCircular="true" labelFormat="{0} ({2})" legendLabelFormat="{0} ({2})">
 					<plot>
 						<seriesColor seriesOrder="0" color="#455C73"/>
 						<seriesColor seriesOrder="1" color="#9B59B6"/>
