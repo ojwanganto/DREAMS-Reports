@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-01T14:49:40 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202b - When Last Tested for HIV by Age at Enrollment (Crosstab)" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="207150c7-c2ee-47fb-9e47-b89699fcd975">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<subDataset name="Attending School by IP by Age Group Dataset" uuid="9b077150-231a-43fa-9099-ec93d55d346d">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT COUNT(*) AS 'Number of clients',
+age_group as 'Age Group',
+implementing_partner as 'IP'
+FROM stag_client_education_employment
+WHERE currently_in_school_id = 1 
+GROUP BY 
+implementing_partner,
+age_group]]>
+		</queryString>
+		<field name="IP" class="java.lang.String"/>
+		<field name="Age Group" class="java.lang.String"/>
+		<field name="Number of clients" class="java.lang.Long"/>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT number_tested, When_tested_last_HIV, age_group, total, ROUND(((number_tested/total)*100), 0) as percentage FROM ( SELECT (SELECT SUM(number_tested) number_tested FROM (SELECT count(id) AS number_tested, IFNULL(When_tested_last_HIV, 'Missing') AS When_tested_last_HIV, age_group
+FROM stag_client_hiv_testing
+GROUP BY age_group
+ORDER BY age_group) A WHERE A.age_group = B.age_group) AS total, B.number_tested, B.When_tested_last_HIV, B.age_group FROM
+(SELECT count(id) AS number_tested, IFNULL(When_tested_last_HIV, 'Missing') AS When_tested_last_HIV, age_group
+FROM stag_client_hiv_testing
+GROUP BY When_tested_last_HIV, age_group
+ORDER BY age_group) B) C]]>
+	</queryString>
+	<field name="number_tested" class="java.lang.Long"/>
+	<field name="When_tested_last_HIV" class="java.lang.String"/>
+	<field name="age_group" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="percentage" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="262">
+			<crosstab>
+				<reportElement style="UC Base Colour" x="0" y="0" width="560" height="100" uuid="357cc679-72f1-43df-9cda-255389bfa766">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<rowGroup name="When_tested_last_HIV" width="250" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{When_tested_last_HIV}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque">
+							<textField>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="250" height="20" forecolor="#73879C" uuid="b637b4f8-ca39-4a7f-aee4-a3eec1fd41d2"/>
+								<textFieldExpression><![CDATA[$V{When_tested_last_HIV}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header" x="0" y="0" width="250" height="20" forecolor="#73879C" uuid="fa79792e-3400-4ec7-ae92-ab45d14beec1"/>
+								<text><![CDATA[Total ]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="age_group" height="20" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{age_group}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque">
+							<textField>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" uuid="bc1c7b88-fc10-49cb-a5d5-5c5aa7fd189f"/>
+								<textFieldExpression><![CDATA[$V{age_group}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="1a171f12-7aad-46fe-9275-cdbce2a299ea"/>
+								<text><![CDATA[Total age_group]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="number_tested_MEASURE" class="java.lang.Long" calculation="Sum">
+					<measureExpression><![CDATA[$F{number_tested}]]></measureExpression>
+				</measure>
+				<crosstabCell width="60" height="20">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="fc51d617-acaf-4bd7-89b9-872d64a6124a"/>
+							<textFieldExpression><![CDATA[$V{number_tested_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="age_group">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Bold Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="34daf304-6540-4716-90db-03e4a7f91786"/>
+							<textFieldExpression><![CDATA[$V{number_tested_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="When_tested_last_HIV">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="261652c6-f43d-44d0-8a68-8207de4b7b07"/>
+							<textFieldExpression><![CDATA[$V{number_tested_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="When_tested_last_HIV" columnTotalGroup="age_group">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="efc2a3a7-c1c4-4b2b-ac6b-fd1fda6f5d2f"/>
+							<textFieldExpression><![CDATA[$V{number_tested_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>
