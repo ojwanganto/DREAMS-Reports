@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-01T11:37:02 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201i" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<queryString>
+		<![CDATA[SELECT COUNT(*) 'Number of clients',
+IFNULL(age_group, 'Missing') as 'Age Group'
+FROM stag_client_ex 
+GROUP BY 
+age_group]]>
+	</queryString>
+	<field name="Number of clients" class="java.lang.Long"/>
+	<field name="Age Group" class="java.lang.String"/>
+	<variable name="Number of clients1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Number of clients}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="260">
+			<pieChart>
+				<chart isShowLegend="false" evaluationTime="Report">
+					<reportElement key="" style="UC Chart" x="0" y="0" width="290" height="260" uuid="745f8647-29de-48a7-8f71-9331af708286"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Right"/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{Age Group}]]></keyExpression>
+					<valueExpression><![CDATA[$F{Number of clients}]]></valueExpression>
+				</pieDataset>
+				<piePlot isShowLabels="true" isCircular="true" labelFormat="{0} ({2})" legendLabelFormat="{0} ({2})">
+					<plot>
+						<seriesColor seriesOrder="0" color="#455C73"/>
+						<seriesColor seriesOrder="1" color="#9B59B6"/>
+						<seriesColor seriesOrder="2" color="#BDC3C7"/>
+						<seriesColor seriesOrder="3" color="#26B99A"/>
+						<seriesColor seriesOrder="4" color="#3498DB"/>
+					</plot>
+					<itemLabel>
+						<font size="8"/>
+					</itemLabel>
+				</piePlot>
+			</pieChart>
+		</band>
+	</pageHeader>
+</jasperReport>
