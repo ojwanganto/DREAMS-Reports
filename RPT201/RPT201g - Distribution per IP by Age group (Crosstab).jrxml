@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-01T10:47:16 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201g" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="207150c7-c2ee-47fb-9e47-b89699fcd975">
+<!-- 2016-12-01T15:33:58 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201g" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="207150c7-c2ee-47fb-9e47-b89699fcd975">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
@@ -79,7 +79,7 @@ age_group]]>
 					<crosstabColumnHeader>
 						<cellContents mode="Opaque">
 							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="cf74e668-d647-42c5-88d9-1481dad57ace"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="50" height="20" forecolor="#73879C" uuid="cf74e668-d647-42c5-88d9-1481dad57ace"/>
 								<textFieldExpression><![CDATA[$V{Age group}]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -96,10 +96,10 @@ age_group]]>
 				<measure name="Number of clients_MEASURE" class="java.lang.Long" calculation="Sum">
 					<measureExpression><![CDATA[$F{Number of clients}]]></measureExpression>
 				</measure>
-				<crosstabCell width="60" height="20">
+				<crosstabCell width="50" height="20">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="f3be0d5c-4564-4210-b929-9df0b1ba7286"/>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="50" height="20" forecolor="#73879C" uuid="f3be0d5c-4564-4210-b929-9df0b1ba7286"/>
 							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
@@ -112,10 +112,10 @@ age_group]]>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="60" height="20" rowTotalGroup="IP">
+				<crosstabCell width="50" height="20" rowTotalGroup="IP">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="e66fe5a1-576f-4bde-a0ff-b3ea2bbe9373"/>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="50" height="20" forecolor="#73879C" uuid="e66fe5a1-576f-4bde-a0ff-b3ea2bbe9373"/>
 							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
