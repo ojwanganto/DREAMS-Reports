@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T11:10:40 -->
+<!-- 2016-12-01T11:44:12 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201c - Distribution by IP (Bar)" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
@@ -24,9 +24,7 @@ GROUP BY stag_client_ex.implementing_partner]]>
 			<barChart>
 				<chart isShowLegend="false" evaluationTime="Report" theme="default">
 					<reportElement key="" style="UC Chart" x="-20" y="-20" width="560" height="220" uuid="8c4a2d33-f609-4297-b4c1-fe319d4cea88"/>
-					<chartTitle>
-						<titleExpression><![CDATA["Enrollment Distribution by IP (Bar)"]]></titleExpression>
-					</chartTitle>
+					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend position="Right"/>
 				</chart>

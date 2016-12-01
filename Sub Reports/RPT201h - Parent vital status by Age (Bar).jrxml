@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-01T10:54:53 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201h_2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
+<!-- 2016-12-01T11:43:29 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201h" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="477"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="523"/>
 	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
@@ -30,97 +30,40 @@ FROM
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<summary>
-		<band height="78">
-			<crosstab>
-				<reportElement x="0" y="-2" width="555" height="80" uuid="0160dcf4-b2e9-4128-8e6c-0cef4c912226">
-					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
-					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
-					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
-					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-				</reportElement>
-				<rowGroup name="Age group" width="110" totalPosition="End">
-					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[$F{Age group}]]></bucketExpression>
-					</bucket>
-					<crosstabRowHeader>
-						<cellContents mode="Opaque">
-							<textField>
-								<reportElement style="UC Table Row Bold" x="0" y="0" width="110" height="20" forecolor="#73879C" uuid="9e8b9806-3e91-483f-9d18-6cba5c7ffb2f"/>
-								<textFieldExpression><![CDATA[$V{Age group}]]></textFieldExpression>
-							</textField>
-						</cellContents>
-					</crosstabRowHeader>
-					<crosstabTotalRowHeader>
-						<cellContents mode="Opaque">
-							<staticText>
-								<reportElement style="UC Table Header" x="0" y="0" width="110" height="20" forecolor="#73879C" uuid="a624b32c-3efe-47a1-82c9-85ca3cbc2ae1"/>
-								<text><![CDATA[Total number of clients]]></text>
-							</staticText>
-						</cellContents>
-					</crosstabTotalRowHeader>
-				</rowGroup>
-				<columnGroup name="Parent vital status" height="20" totalPosition="End">
-					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[$F{Parent vital status}]]></bucketExpression>
-					</bucket>
-					<crosstabColumnHeader>
-						<cellContents mode="Opaque">
-							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="1c418ccf-f915-423e-9c87-0ecfd8f5914d"/>
-								<textFieldExpression><![CDATA[$V{Parent vital status}]]></textFieldExpression>
-							</textField>
-						</cellContents>
-					</crosstabColumnHeader>
-					<crosstabTotalColumnHeader>
-						<cellContents mode="Opaque">
-							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="9d381cd6-f1b2-4b2c-af3e-582454d7b16d"/>
-								<text><![CDATA[All]]></text>
-							</staticText>
-						</cellContents>
-					</crosstabTotalColumnHeader>
-				</columnGroup>
-				<measure name="Number of clients_MEASURE" class="java.lang.Long" calculation="Sum">
-					<measureExpression><![CDATA[$F{Number of clients}]]></measureExpression>
-				</measure>
-				<crosstabCell width="90" height="20">
-					<cellContents mode="Opaque">
-						<textField>
-							<reportElement style="UC Table Row Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="9d91e398-910e-4eb6-8df6-7944d62b68c9"/>
-							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
-						</textField>
-					</cellContents>
-				</crosstabCell>
-				<crosstabCell width="60" height="20" columnTotalGroup="Parent vital status">
-					<cellContents mode="Opaque">
-						<textField>
-							<reportElement style="UC Table Row Bold Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="f40f77d1-6b1a-4a04-9392-84ca28441da3"/>
-							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
-						</textField>
-					</cellContents>
-				</crosstabCell>
-				<crosstabCell width="90" height="20" rowTotalGroup="Age group">
-					<cellContents mode="Opaque">
-						<textField>
-							<reportElement style="UC Table Header Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="8118ebb4-6f89-4825-b73a-1305bcacd31f"/>
-							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
-						</textField>
-					</cellContents>
-				</crosstabCell>
-				<crosstabCell width="60" height="20" rowTotalGroup="Age group" columnTotalGroup="Parent vital status">
-					<cellContents mode="Opaque">
-						<textField>
-							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="342d4172-46b5-494a-9be8-b6bcaaf86918"/>
-							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
-						</textField>
-					</cellContents>
-				</crosstabCell>
-			</crosstab>
+	<pageHeader>
+		<band height="211" splitType="Stretch">
+			<barChart>
+				<chart isShowLegend="true" evaluationTime="Report" theme="default">
+					<reportElement key="" style="UC Chart" x="-20" y="-20" width="560" height="220" uuid="1c571ced-3808-4013-852a-5083249ef71b"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Bottom"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{Parent vital status}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Age group}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{Number of clients}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true" isShowTickLabels="true" isShowTickMarks="true">
+					<plot labelRotation="0.0">
+						<seriesColor seriesOrder="0" color="#26B99A"/>
+						<seriesColor seriesOrder="1" color="#455C73"/>
+						<seriesColor seriesOrder="2" color="#9B59B6"/>
+						<seriesColor seriesOrder="3" color="#BDC3C7"/>
+						<seriesColor seriesOrder="4" color="#3498DB"/>
+					</plot>
+					<itemLabel/>
+					<categoryAxisFormat labelRotation="0.0">
+						<axisFormat axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Number of Girls"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
 		</band>
-	</summary>
+	</pageHeader>
 </jasperReport>
