@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-01T10:54:53 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201h_2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
+<!-- 2016-12-01T18:05:03 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201h_2" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="477"/>
@@ -59,7 +59,7 @@ FROM
 						<cellContents mode="Opaque">
 							<staticText>
 								<reportElement style="UC Table Header" x="0" y="0" width="110" height="20" forecolor="#73879C" uuid="a624b32c-3efe-47a1-82c9-85ca3cbc2ae1"/>
-								<text><![CDATA[Total number of clients]]></text>
+								<text><![CDATA[Total]]></text>
 							</staticText>
 						</cellContents>
 					</crosstabTotalRowHeader>
@@ -71,7 +71,7 @@ FROM
 					<crosstabColumnHeader>
 						<cellContents mode="Opaque">
 							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="1c418ccf-f915-423e-9c87-0ecfd8f5914d"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="1c418ccf-f915-423e-9c87-0ecfd8f5914d"/>
 								<textFieldExpression><![CDATA[$V{Parent vital status}]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -88,10 +88,10 @@ FROM
 				<measure name="Number of clients_MEASURE" class="java.lang.Long" calculation="Sum">
 					<measureExpression><![CDATA[$F{Number of clients}]]></measureExpression>
 				</measure>
-				<crosstabCell width="90" height="20">
+				<crosstabCell width="60" height="20">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Row Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="9d91e398-910e-4eb6-8df6-7944d62b68c9"/>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="9d91e398-910e-4eb6-8df6-7944d62b68c9"/>
 							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
@@ -104,10 +104,10 @@ FROM
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="90" height="20" rowTotalGroup="Age group">
+				<crosstabCell width="60" height="20" rowTotalGroup="Age group">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Header Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="8118ebb4-6f89-4825-b73a-1305bcacd31f"/>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="8118ebb4-6f89-4825-b73a-1305bcacd31f"/>
 							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
