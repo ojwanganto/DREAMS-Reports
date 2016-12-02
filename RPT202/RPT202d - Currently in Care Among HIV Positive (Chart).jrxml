@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T16:55:35 -->
+<!-- 2016-12-02T11:21:26 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202d - Currently in Care Among HIV Positive (Chart)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -22,7 +22,9 @@ GROUP BY Enrolled_in_HIV_Care]]>
 		<band height="300">
 			<pieChart>
 				<chart isShowLegend="false" evaluationTime="Report">
-					<reportElement key="" style="UC Base Colour" x="0" y="0" width="400" height="300" uuid="01fb13a1-c290-4230-b985-3209d08f2df6"/>
+					<reportElement key="" style="UC Base Colour" x="0" y="0" width="400" height="150" uuid="01fb13a1-c290-4230-b985-3209d08f2df6">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
