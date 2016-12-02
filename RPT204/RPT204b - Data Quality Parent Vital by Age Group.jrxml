@@ -1,46 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T09:20:55 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT204b - Data Quality Parent Vital by Age Group" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="67c95c70-fba0-43aa-9b12-caa46b9e7797">
+<!-- 2016-12-02T14:24:46 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT204b - Data Quality Parent Vital by Age Group" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ddd8e42f-968e-464b-ad16-10ead787c4ff">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
 	<queryString language="SQL">
-		<![CDATA[select `vw_client_parent_vital_status`.`parent_vital_status` AS `parent_vital_status`,`vw_client_parent_vital_status`.`implementing_partner` AS `implementing_partner`,count(0) AS `count(*)`,`vw_client_ex`.`age_group` AS `age_group`,(case when ((`vw_client_parent_vital_status`.`parent_vital_status` = 'Both Alive') or (`vw_client_parent_vital_status`.`parent_vital_status` = 'None Alive') or (`vw_client_parent_vital_status`.`parent_vital_status` = 'Only One Alive')) then 'Information Present' else `vw_client_parent_vital_status`.`parent_vital_status` end) AS `parent_information`,(case when ((`vw_client_ex`.`age_group` = '15-19') or (`vw_client_ex`.`age_group` = '10-14') or (`vw_client_ex`.`age_group` = '20-24')) then 'Information Present' else `vw_client_ex`.`age_group` end) AS `age_information` from (`vw_client_parent_vital_status` join `vw_client_ex` on((`vw_client_parent_vital_status`.`id` = `vw_client_ex`.`id`))) group by (case when ((`vw_client_parent_vital_status`.`parent_vital_status` = 'Both Alive') or (`vw_client_parent_vital_status`.`parent_vital_status` = 'None Alive') or (`vw_client_parent_vital_status`.`parent_vital_status` = 'Only One Alive')) then 'Information Present' else `vw_client_parent_vital_status`.`parent_vital_status` end),(case when ((`vw_client_ex`.`age_group` = '15-19') or (`vw_client_ex`.`age_group` = '10-14') or (`vw_client_ex`.`age_group` = '20-24')) then 'Information Present' else `vw_client_ex`.`age_group` end),`vw_client_parent_vital_status`.`implementing_partner`]]>
+		<![CDATA[select sum(`Quality_Parent_Vital_By_Age_Group`.`number`) AS `count`,`Quality_Parent_Vital_By_Age_Group`.`implementing_partner` AS `implementing_partner`,(case when ((`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'Information Present') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'Dont Know both parents') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Alive One Dont Know') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Dead One Dont Know')) then 'Information Present' when ((`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Alive Other Missing') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Dont Know Other Missing') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Dead Other Missing') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Missing One Dont Know')) then 'One Parent Missing' when (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'Missing') then 'Both Parents Missing' else `Quality_Parent_Vital_By_Age_Group`.`parent_information` end) AS `parent_information_jasper`,(case when ((`Quality_Parent_Vital_By_Age_Group`.`age_information` = '< 10') or (`Quality_Parent_Vital_By_Age_Group`.`age_information` = '>24')) then 'Age <10, >24' when ((`Quality_Parent_Vital_By_Age_Group`.`age_information` = 'Missing Enrollment Date') or (`Quality_Parent_Vital_By_Age_Group`.`age_information` = 'Missing DOB')) then 'Missing DOB/DOE' else `Quality_Parent_Vital_By_Age_Group`.`age_information` end) AS `age_information_jasper` from `Quality_Parent_Vital_By_Age_Group` group by `Quality_Parent_Vital_By_Age_Group`.`implementing_partner`,(case when ((`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'Information Present') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'Dont Know both parents') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Alive One Dont Know') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Dead One Dont Know')) then 'Information Present' when ((`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Alive Other Missing') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Dont Know Other Missing') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Dead Other Missing') or (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'One Missing One Dont Know')) then 'One Parent Missing' when (`Quality_Parent_Vital_By_Age_Group`.`parent_information` = 'Missing') then 'Both Parents Missing' else `Quality_Parent_Vital_By_Age_Group`.`parent_information` end),(case when ((`Quality_Parent_Vital_By_Age_Group`.`age_information` = '< 10') or (`Quality_Parent_Vital_By_Age_Group`.`age_information` = '>24')) then 'Age <10, >24' when ((`Quality_Parent_Vital_By_Age_Group`.`age_information` = 'Missing Enrollment Date') or (`Quality_Parent_Vital_By_Age_Group`.`age_information` = 'Missing DOB')) then 'Missing DOB/DOE' else `Quality_Parent_Vital_By_Age_Group`.`age_information` end)]]>
 	</queryString>
-	<field name="parent_vital_status" class="java.lang.String"/>
+	<field name="count" class="java.math.BigDecimal"/>
 	<field name="implementing_partner" class="java.lang.String"/>
-	<field name="count(*)" class="java.lang.Long"/>
-	<field name="age_group" class="java.lang.String"/>
-	<field name="parent_information" class="java.lang.String"/>
-	<field name="age_information" class="java.lang.String"/>
-	<group name="implementing_partner">
-		<groupExpression><![CDATA[$F{implementing_partner}]]></groupExpression>
-	</group>
-	<group name="parent_vital_status">
-		<groupExpression><![CDATA[$F{parent_vital_status}]]></groupExpression>
-	</group>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band height="79" splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch"/>
-	</columnHeader>
-	<detail>
-		<band height="125" splitType="Stretch"/>
-	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
+	<field name="parent_information_jasper" class="java.lang.String"/>
+	<field name="age_information_jasper" class="java.lang.String"/>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="220" splitType="Stretch">
+			<crosstab>
+				<reportElement x="10" y="10" width="530" height="200" uuid="d0b457f8-3491-4f89-af66-3ec8167467c0">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
+				</reportElement>
+				<rowGroup name="implementing_partner" width="100" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{implementing_partner}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque">
+							<textField>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="100" height="40" forecolor="#73879C" uuid="ad62e89c-2443-4a85-82cb-58ccb59c82e8"/>
+								<textFieldExpression><![CDATA[$V{implementing_partner}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header" x="0" y="0" width="210" height="20" forecolor="#73879C" uuid="eb9b7428-9bbe-4ead-9231-d9200ded0be4"/>
+								<text><![CDATA[Total implementing_partner]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="parent_information_jasper" width="110" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{parent_information_jasper}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque">
+							<textField isStretchWithOverflow="true">
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="110" height="20" forecolor="#73879C" uuid="a6bc15ec-9c76-4df5-a803-bf64c70077cb"/>
+								<textFieldExpression><![CDATA[$V{parent_information_jasper}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="110" height="20" forecolor="#73879C" uuid="f5b43a01-ea8e-40df-8e0f-1482e915f86b"/>
+								<text><![CDATA[Total parent_information_jasper]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="age_information_jasper" height="20" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{age_information_jasper}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque">
+							<textField isStretchWithOverflow="true">
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="683883c2-721a-4ee0-878c-1ee9fe3021d5"/>
+								<textFieldExpression><![CDATA[$V{age_information_jasper}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="fe8097db-175f-4201-b280-edbfc5eab0b1"/>
+								<text><![CDATA[Total age_information_jasper]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="count_MEASURE" class="java.math.BigDecimal" calculation="Sum">
+					<measureExpression><![CDATA[$F{count}]]></measureExpression>
+				</measure>
+				<crosstabCell width="60" height="20">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="ad1887ab-52d1-4002-adb2-f4ecc9abef4c"/>
+							<textFieldExpression><![CDATA[$V{count_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="90" height="20" columnTotalGroup="age_information_jasper">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="2386dc85-1c99-40bf-9b2e-ad9314a41eeb"/>
+							<textFieldExpression><![CDATA[$V{count_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="implementing_partner">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="9c61b349-afd3-41d1-bd59-a888f1421dc2"/>
+							<textFieldExpression><![CDATA[$V{count_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="90" height="20" rowTotalGroup="implementing_partner" columnTotalGroup="age_information_jasper">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="e56abd3f-ccaf-425d-be87-d15f90c67349"/>
+							<textFieldExpression><![CDATA[$V{count_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="parent_information_jasper">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="3c1091a8-85c6-4ebd-bf60-fbaab8f8e20a"/>
+							<textFieldExpression><![CDATA[$V{count_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="90" height="20" rowTotalGroup="parent_information_jasper" columnTotalGroup="age_information_jasper">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="7ae0c449-cd67-4709-8276-3e0bfda65de2"/>
+							<textFieldExpression><![CDATA[$V{count_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
 	</summary>
 </jasperReport>
