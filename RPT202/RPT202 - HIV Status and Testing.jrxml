@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-02T14:26:30 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406d-d597-4cd4-97fd-eb1a485fbf1e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/RPT202___HIV_Status_and_Testing_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT202___HIV_Status_and_Testing"/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<parameter name="IP" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT NULL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="135" splitType="Stretch">
+			<subreport overflowType="NoStretch">
+				<reportElement x="1" y="40" width="548" height="95" isPrintInFirstWholeBand="true" uuid="6e279d85-ed7d-4db2-a4d0-6d95dda86967">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="TOTAL_PAGES">
+					<subreportParameterExpression><![CDATA[$V{PAGE_COUNT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_DESCRIPTION">
+					<subreportParameterExpression><![CDATA["This report shows the testing status of DREAMS clients for all IPs, or for a single IP."]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FILTER_DESCRIPTION">
+					<subreportParameterExpression><![CDATA[$P{IP} != null ? "IP: " + $P{IP} : "All implementing partners"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["Sub Reports/Report Header.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Report Title" x="1" y="0" width="49" height="30" uuid="655a0186-38c9-4c53-b5ab-899d4982885f"/>
+				<text><![CDATA[202]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Report Title" x="50" y="0" width="500" height="30" uuid="ae10f5b4-3aad-40aa-a0a1-59980679fc26"/>
+				<text><![CDATA[DREAMS – HIV Testing]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="590" splitType="Stretch">
+			<staticText>
+				<reportElement style="UC Header" x="0" y="0" width="530" height="20" uuid="6908d65c-c043-43fe-89ce-4b11d6b84e5b"/>
+				<text><![CDATA[HIV Testing status]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="140" y="30" width="400" height="150" uuid="a1fb9768-100c-430c-88bc-37e825c85894">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT202/RPT202a - Ever Tested For HIV (Chart).jasper"]]></subreportExpression>
+			</subreport>
+			<rectangle>
+				<reportElement x="540" y="0" width="9" height="590" forecolor="#FFFFFF" backcolor="#EED7FC" uuid="a2a7f1be-d441-47fb-ac03-85db7ce7d7cd"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="30" width="140" height="20" uuid="f7efcaec-1e0c-49e0-82ee-88ef95cb5f8b"/>
+				<text><![CDATA[Ever tested for HIV]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="1" y="220" width="529" height="200" uuid="a016dc21-65ea-4e68-8c08-49f4827da68f"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT202/RPT202b - When Last Tested for HIV by Age at Enrollment (Bar).jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Caption" x="1" y="200" width="529" height="20" uuid="2541e20e-92ec-4d48-9f19-2529aca59973"/>
+				<text><![CDATA[When Last Tested for HIV by Age at Enrollment]]></text>
+			</staticText>
+		</band>
+		<band height="590">
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="0" width="529" height="20" uuid="98fecd33-696e-4370-85b5-38364680cdad"/>
+				<text><![CDATA[When Last Tested for HIV by Age at Enrollment]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="30" width="530" height="200" uuid="57b8862f-f490-400c-8b3e-de4edf8c4e86"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT202/RPT202b - When Last Tested for HIV by Age at Enrollment (Crosstab).jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="590">
+			<staticText>
+				<reportElement style="UC Header" x="0" y="0" width="530" height="20" uuid="5e41eedd-7bf3-459f-b8e6-52fa339e3b8b"/>
+				<text><![CDATA[HIV results and in care during enrolment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="30" width="240" height="20" uuid="4b2df910-cb93-4560-ba9a-61ee5f0f2986"/>
+				<text><![CDATA[When Last Tested for HIV by Age at Enrollment]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="130" y="50" width="400" height="150" uuid="1af658bb-3e53-4b30-8a6b-47315f63b269">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT202/RPT202c - Result of Last HIV Test (Chart).jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="220" width="310" height="20" uuid="d6fe2b26-8c26-4399-8b78-2f8cb527c4a7"/>
+				<text><![CDATA[In care during enrolment when HIV positive during enrolment]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="130" y="240" width="400" height="150" uuid="106ca1bd-e2ba-4d60-824e-7028424d4e9d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT202/RPT202d - Currently in Care Among HIV Positive (Chart).jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="0" width="550" height="53" uuid="f1850e0c-6855-4684-aada-bd9323896d82"/>
+				<imageExpression><![CDATA["Images/DREAMS_Banner.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement style="UC Report Footer" x="0" y="53" width="550" height="17" uuid="e4fd48aa-7f0b-4ad2-8888-3480e3623b44">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["RPT 201 - 20161112 (C) UCSF"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
