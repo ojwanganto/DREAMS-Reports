@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-02T15:38:17 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT204c - Data Quality Duplicate IDs by IP" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7ba181e0-719f-462a-9cfb-38d60d28f53b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<queryString language="SQL">
+		<![CDATA[select `Quality_duplicate_Dreams_IDs`.`implementing_partner` AS `implementing_partner`,count(0) AS `count(*)`,(case when ((`Quality_duplicate_Dreams_IDs`.`last_name` = `Quality_duplicate_Dreams_IDs`.`last_name_2`) and (`Quality_duplicate_Dreams_IDs`.`first_name` = `Quality_duplicate_Dreams_IDs`.`first_name_2`) and (`Quality_duplicate_Dreams_IDs`.`date_of_birth` <> `Quality_duplicate_Dreams_IDs`.`date_of_birth_2`)) then 'First Name Last Name Same DOB Not Same' when ((`Quality_duplicate_Dreams_IDs`.`last_name` = `Quality_duplicate_Dreams_IDs`.`last_name_2`) and (`Quality_duplicate_Dreams_IDs`.`first_name` = `Quality_duplicate_Dreams_IDs`.`first_name_2`) and (`Quality_duplicate_Dreams_IDs`.`date_of_birth` = `Quality_duplicate_Dreams_IDs`.`date_of_birth_2`)) then 'First Name Last Name DOB Same' else 'Not Same Person' end) AS `Person_Duplication_Status` from `Quality_duplicate_Dreams_IDs` where (`Quality_duplicate_Dreams_IDs`.`implementing_partner_2` is not null) group by `Quality_duplicate_Dreams_IDs`.`implementing_partner`,(case when ((`Quality_duplicate_Dreams_IDs`.`last_name` = `Quality_duplicate_Dreams_IDs`.`last_name_2`) and (`Quality_duplicate_Dreams_IDs`.`first_name` = `Quality_duplicate_Dreams_IDs`.`first_name_2`) and (`Quality_duplicate_Dreams_IDs`.`date_of_birth` <> `Quality_duplicate_Dreams_IDs`.`date_of_birth_2`)) then 'First Name Last Name Same DOB Not Same' when ((`Quality_duplicate_Dreams_IDs`.`last_name` = `Quality_duplicate_Dreams_IDs`.`last_name_2`) and (`Quality_duplicate_Dreams_IDs`.`first_name` = `Quality_duplicate_Dreams_IDs`.`first_name_2`) and (`Quality_duplicate_Dreams_IDs`.`date_of_birth` = `Quality_duplicate_Dreams_IDs`.`date_of_birth_2`)) then 'First Name Last Name DOB Same' else 'Not Same Person' end)]]>
+	</queryString>
+	<field name="implementing_partner" class="java.lang.String"/>
+	<field name="count(*)" class="java.lang.Long"/>
+	<field name="Person_Duplication_Status" class="java.lang.String"/>
+	<summary>
+		<band height="221" splitType="Stretch">
+			<crosstab>
+				<reportElement x="10" y="21" width="530" height="200" uuid="d14fd361-2190-4341-8c31-ea280eeb6041">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
+				</reportElement>
+				<rowGroup name="implementing_partner" width="60" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{implementing_partner}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque">
+							<textField>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="847da183-62c5-4a04-bde8-81a9e70be26c"/>
+								<textFieldExpression><![CDATA[$V{implementing_partner}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="ad4b5e1a-97d3-4e0d-a73c-2122781443b1"/>
+								<text><![CDATA[Total implementing_partner]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="Person_Duplication_Status" height="20" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{Person_Duplication_Status}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque">
+							<textField isStretchWithOverflow="true">
+								<reportElement style="UC Table Header Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="6e32aa8d-5428-4018-b443-df0430d7d2f6"/>
+								<textFieldExpression><![CDATA[$V{Person_Duplication_Status}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="a375c09b-d8fb-47df-959f-b47ad6d5c2b2"/>
+								<text><![CDATA[Total Person_Duplication_Status]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="count(*)_MEASURE" class="java.lang.Long" calculation="Sum">
+					<measureExpression><![CDATA[$F{count(*)}]]></measureExpression>
+				</measure>
+				<crosstabCell width="90" height="20">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="6c45b802-8204-4c9a-8704-3cec0805ced9"/>
+							<textFieldExpression><![CDATA[$V{count(*)_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="Person_Duplication_Status">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="d591aeac-db47-4250-b499-b1e081acb08c"/>
+							<textFieldExpression><![CDATA[$V{count(*)_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="90" height="20" rowTotalGroup="implementing_partner">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="264a603e-191a-40e6-b06f-bdbd91b576cf"/>
+							<textFieldExpression><![CDATA[$V{count(*)_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="implementing_partner" columnTotalGroup="Person_Duplication_Status">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="8af6f866-0c77-48d5-b076-ada65871f803"/>
+							<textFieldExpression><![CDATA[$V{count(*)_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>
