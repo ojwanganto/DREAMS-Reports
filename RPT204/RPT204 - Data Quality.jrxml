@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-02T16:32:55 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT204" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
+	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/RPT201___Distribution_per_IP_2_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT201___Distribution_per_IP_2"/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<queryString language="SQL">
+		<![CDATA[SELECT NULL]]>
+	</queryString>
+	<pageHeader>
+		<band height="135" splitType="Stretch">
+			<subreport overflowType="NoStretch">
+				<reportElement x="1" y="40" width="548" height="95" isPrintInFirstWholeBand="true" uuid="6e279d85-ed7d-4db2-a4d0-6d95dda86967">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="TOTAL_PAGES">
+					<subreportParameterExpression><![CDATA[$V{PAGE_COUNT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_DESCRIPTION">
+					<subreportParameterExpression><![CDATA["This report shows the distribution of DREAMS clients per IP."]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["Sub Reports/Report Header.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Report Title" x="1" y="0" width="49" height="30" uuid="655a0186-38c9-4c53-b5ab-899d4982885f"/>
+				<text><![CDATA[204]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Report Title" x="50" y="0" width="500" height="30" uuid="ae10f5b4-3aad-40aa-a0a1-59980679fc26"/>
+				<text><![CDATA[DREAMS – Data Quality Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="596" splitType="Stretch">
+			<staticText>
+				<reportElement style="UC Header" x="0" y="0" width="531" height="20" uuid="6908d65c-c043-43fe-89ce-4b11d6b84e5b"/>
+				<text><![CDATA[Data Quality by Age Group]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="540" y="0" width="9" height="590" forecolor="#FFFFFF" backcolor="#EED7FC" uuid="3a5cb19a-9e67-4b38-8633-e367188602a3"/>
+			</rectangle>
+			<subreport>
+				<reportElement x="0" y="40" width="531" height="200" uuid="e59879e1-50cb-456a-97d7-de558fc00fec"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT204/RPT204a - Data Quality by Age Groups.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="596">
+			<subreport>
+				<reportElement x="1" y="30" width="528" height="200" uuid="1906b493-de94-445f-98c6-60a408726843"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT204/RPT204c - Data Quality Duplicate IDs by IP.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Header" x="0" y="0" width="530" height="20" uuid="c0a572f2-69cf-4c9c-aca3-51abf7dd2a96"/>
+				<text><![CDATA[Data Quality Duplicate DREAMS ID by IP]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="0" width="550" height="53" uuid="f1850e0c-6855-4684-aada-bd9323896d82"/>
+				<imageExpression><![CDATA["Images/DREAMS_Banner.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement style="UC Report Footer" x="0" y="53" width="550" height="17" uuid="e4fd48aa-7f0b-4ad2-8888-3480e3623b44">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["RPT 201 - 20161112 (C) UCSF"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
