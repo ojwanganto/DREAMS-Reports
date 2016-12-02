@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T12:47:53 -->
+<!-- 2016-12-02T16:10:18 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202b - When Last Tested for HIV by Age at Enrollment (Bar)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="477"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="523"/>
 	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<parameter name="IP" class="java.lang.String">
+		<parameterDescription><![CDATA[Implementing Patners]]></parameterDescription>
+	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT number_tested, When_tested_last_HIV, age_group, total, ROUND(((number_tested/total)*100), 0) as percentage FROM ( SELECT (SELECT SUM(number_tested) number_tested FROM (SELECT count(id) AS number_tested, IFNULL(When_tested_last_HIV, 'Missing') AS When_tested_last_HIV, age_group
-FROM stag_client_hiv_testing
-GROUP BY age_group
-ORDER BY age_group) A WHERE A.age_group = B.age_group) AS total, B.number_tested, B.When_tested_last_HIV, B.age_group FROM
-(SELECT count(id) AS number_tested, IFNULL(When_tested_last_HIV, 'Missing') AS When_tested_last_HIV, age_group
-FROM stag_client_hiv_testing
-GROUP BY When_tested_last_HIV, age_group
-ORDER BY age_group) B) C]]>
+		<![CDATA[SELECT implementing_partner, number_tested, When_tested_last_HIV, age_group, total, ROUND(((number_tested/total)*100), 0) as percentage 
+FROM 
+
+	( SELECT 
+		(SELECT SUM(number_tested) number_tested FROM 
+			(SELECT count(id) AS number_tested, 
+			IFNULL(When_tested_last_HIV, 'Missing') AS When_tested_last_HIV, age_group, implementing_partner_id
+			FROM stag_client_hiv_testing
+			WHERE ($P{IP} = ' ' OR (implementing_partner =  $P{IP} ))
+			GROUP BY age_group, implementing_partner
+			ORDER BY age_group)
+		A WHERE A.age_group = B.age_group AND
+		($P{IP} = ' ' OR (implementing_partner =  $P{IP} ) ))
+	AS total,B.implementing_partner, B.number_tested, B.When_tested_last_HIV, B.age_group FROM
+	(SELECT count(id) AS number_tested, IFNULL(When_tested_last_HIV, 'Missing') AS When_tested_last_HIV, age_group, implementing_partner
+	FROM stag_client_hiv_testing
+	WHERE ($P{IP} = ' ' OR (implementing_partner =  $P{IP} ) )
+	GROUP BY When_tested_last_HIV, age_group,implementing_partner
+	ORDER BY age_group) B)
+C WHERE ($P{IP} = ' ' OR (implementing_partner =  $P{IP} ) )]]>
 	</queryString>
+	<field name="implementing_partner" class="java.lang.String"/>
 	<field name="number_tested" class="java.lang.Long"/>
 	<field name="When_tested_last_HIV" class="java.lang.String"/>
 	<field name="age_group" class="java.lang.String"/>
