@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-01T14:49:40 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202b - When Last Tested for HIV by Age at Enrollment (Crosstab)" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="207150c7-c2ee-47fb-9e47-b89699fcd975">
+<!-- 2016-12-02T12:07:27 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202b - When Last Tested for HIV by Age at Enrollment (Crosstab)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="207150c7-c2ee-47fb-9e47-b89699fcd975">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
 	<subDataset name="Attending School by IP by Age Group Dataset" uuid="9b077150-231a-43fa-9099-ec93d55d346d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
@@ -54,14 +54,14 @@ ORDER BY age_group) B) C]]>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<rowGroup name="When_tested_last_HIV" width="250" totalPosition="End">
+				<rowGroup name="When_tested_last_HIV" width="180" totalPosition="End">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{When_tested_last_HIV}]]></bucketExpression>
 					</bucket>
 					<crosstabRowHeader>
 						<cellContents mode="Opaque">
 							<textField>
-								<reportElement style="UC Table Row Bold" x="0" y="0" width="250" height="20" forecolor="#73879C" uuid="b637b4f8-ca39-4a7f-aee4-a3eec1fd41d2"/>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="180" height="20" forecolor="#73879C" uuid="b637b4f8-ca39-4a7f-aee4-a3eec1fd41d2"/>
 								<textFieldExpression><![CDATA[$V{When_tested_last_HIV}]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -69,7 +69,7 @@ ORDER BY age_group) B) C]]>
 					<crosstabTotalRowHeader>
 						<cellContents mode="Opaque">
 							<staticText>
-								<reportElement style="UC Table Header" x="0" y="0" width="250" height="20" forecolor="#73879C" uuid="fa79792e-3400-4ec7-ae92-ab45d14beec1"/>
+								<reportElement style="UC Table Header" x="0" y="0" width="180" height="20" forecolor="#73879C" uuid="fa79792e-3400-4ec7-ae92-ab45d14beec1"/>
 								<text><![CDATA[Total ]]></text>
 							</staticText>
 						</cellContents>
@@ -82,7 +82,7 @@ ORDER BY age_group) B) C]]>
 					<crosstabColumnHeader>
 						<cellContents mode="Opaque">
 							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" uuid="bc1c7b88-fc10-49cb-a5d5-5c5aa7fd189f"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="20" uuid="bc1c7b88-fc10-49cb-a5d5-5c5aa7fd189f"/>
 								<textFieldExpression><![CDATA[$V{age_group}]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -90,7 +90,7 @@ ORDER BY age_group) B) C]]>
 					<crosstabTotalColumnHeader>
 						<cellContents mode="Opaque">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="1a171f12-7aad-46fe-9275-cdbce2a299ea"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="20" forecolor="#73879C" uuid="1a171f12-7aad-46fe-9275-cdbce2a299ea"/>
 								<text><![CDATA[Total age_group]]></text>
 							</staticText>
 						</cellContents>
@@ -99,34 +99,34 @@ ORDER BY age_group) B) C]]>
 				<measure name="number_tested_MEASURE" class="java.lang.Long" calculation="Sum">
 					<measureExpression><![CDATA[$F{number_tested}]]></measureExpression>
 				</measure>
-				<crosstabCell width="60" height="20">
+				<crosstabCell width="40" height="20">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="fc51d617-acaf-4bd7-89b9-872d64a6124a"/>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="40" height="20" forecolor="#73879C" uuid="fc51d617-acaf-4bd7-89b9-872d64a6124a"/>
 							<textFieldExpression><![CDATA[$V{number_tested_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="60" height="20" columnTotalGroup="age_group">
+				<crosstabCell width="40" height="20" columnTotalGroup="age_group">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Row Bold Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="34daf304-6540-4716-90db-03e4a7f91786"/>
+							<reportElement style="UC Table Row Bold Number" x="0" y="0" width="40" height="20" forecolor="#73879C" uuid="34daf304-6540-4716-90db-03e4a7f91786"/>
 							<textFieldExpression><![CDATA[$V{number_tested_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="60" height="20" rowTotalGroup="When_tested_last_HIV">
+				<crosstabCell width="40" height="20" rowTotalGroup="When_tested_last_HIV">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="261652c6-f43d-44d0-8a68-8207de4b7b07"/>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="20" forecolor="#73879C" uuid="261652c6-f43d-44d0-8a68-8207de4b7b07"/>
 							<textFieldExpression><![CDATA[$V{number_tested_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="60" height="20" rowTotalGroup="When_tested_last_HIV" columnTotalGroup="age_group">
+				<crosstabCell width="40" height="20" rowTotalGroup="When_tested_last_HIV" columnTotalGroup="age_group">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="efc2a3a7-c1c4-4b2b-ac6b-fd1fda6f5d2f"/>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="20" forecolor="#73879C" uuid="efc2a3a7-c1c4-4b2b-ac6b-fd1fda6f5d2f"/>
 							<textFieldExpression><![CDATA[$V{number_tested_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
