@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T15:38:17 -->
+<!-- 2016-12-02T16:32:55 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT204c - Data Quality Duplicate IDs by IP" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7ba181e0-719f-462a-9cfb-38d60d28f53b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
@@ -49,7 +49,7 @@
 					<crosstabColumnHeader>
 						<cellContents mode="Opaque">
 							<textField isStretchWithOverflow="true">
-								<reportElement style="UC Table Header Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="6e32aa8d-5428-4018-b443-df0430d7d2f6"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="110" height="20" forecolor="#73879C" uuid="6e32aa8d-5428-4018-b443-df0430d7d2f6"/>
 								<textFieldExpression><![CDATA[$V{Person_Duplication_Status}]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -66,10 +66,10 @@
 				<measure name="count(*)_MEASURE" class="java.lang.Long" calculation="Sum">
 					<measureExpression><![CDATA[$F{count(*)}]]></measureExpression>
 				</measure>
-				<crosstabCell width="90" height="20">
+				<crosstabCell width="110" height="20">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Row Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="6c45b802-8204-4c9a-8704-3cec0805ced9"/>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="110" height="20" forecolor="#73879C" uuid="6c45b802-8204-4c9a-8704-3cec0805ced9"/>
 							<textFieldExpression><![CDATA[$V{count(*)_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
@@ -82,10 +82,10 @@
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="90" height="20" rowTotalGroup="implementing_partner">
+				<crosstabCell width="110" height="20" rowTotalGroup="implementing_partner">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Header Number" x="0" y="0" width="90" height="20" forecolor="#73879C" uuid="264a603e-191a-40e6-b06f-bdbd91b576cf"/>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="110" height="20" forecolor="#73879C" uuid="264a603e-191a-40e6-b06f-bdbd91b576cf"/>
 							<textFieldExpression><![CDATA[$V{count(*)_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
