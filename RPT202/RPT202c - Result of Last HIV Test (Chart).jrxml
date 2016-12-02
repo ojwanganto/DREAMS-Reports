@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T11:21:42 -->
+<!-- 2016-12-02T14:07:33 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202c - Result of Last HIV Test (Chart)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<parameter name="IP" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(id) as result_of_last_test_count, Last_HIV_Result as hiv_result 
 FROM stag_client_hiv_testing
 WHERE Last_HIV_Result is not null
+AND
+( 
+	$P{IP} = ' ' 
+	OR
+	(implementing_partner =  $P{IP} )
+	
+)
 GROUP BY Last_HIV_Result]]>
 	</queryString>
 	<field name="result_of_last_test_count" class="java.lang.Long"/>
