@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-01T12:07:00 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT203" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406d-d597-4cd4-97fd-eb1a485fbf1e">
+<!-- 2016-12-02T11:43:05 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT203" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/RPT201___Distribution_per_IP_2_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT201___Distribution_per_IP_2"/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
 	<queryString language="SQL">
 		<![CDATA[SELECT NULL]]>
 	</queryString>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<pageHeader>
-		<band height="104" splitType="Stretch">
-			<subreport>
-				<reportElement x="1" y="40" width="548" height="50" isPrintInFirstWholeBand="true" uuid="6e279d85-ed7d-4db2-a4d0-6d95dda86967"/>
+		<band height="135" splitType="Stretch">
+			<subreport overflowType="NoStretch">
+				<reportElement x="1" y="40" width="548" height="95" isPrintInFirstWholeBand="true" uuid="6e279d85-ed7d-4db2-a4d0-6d95dda86967">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="TOTAL_PAGES">
+					<subreportParameterExpression><![CDATA[$V{PAGE_COUNT}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="REPORT_DESCRIPTION">
 					<subreportParameterExpression><![CDATA["This report shows the distribution of DREAMS clients per IP."]]></subreportParameterExpression>
 				</subreportParameter>
@@ -27,12 +33,31 @@
 			</staticText>
 			<staticText>
 				<reportElement style="UC Report Title" x="50" y="0" width="500" height="30" uuid="ae10f5b4-3aad-40aa-a0a1-59980679fc26"/>
-				<text><![CDATA[DREAMS – Distribution of clients per IP]]></text>
+				<text><![CDATA[DREAMS – Client Sexual Activity and Reproductive Health]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="515" splitType="Stretch"/>
+		<band height="596" splitType="Stretch">
+			<subreport>
+				<reportElement x="33" y="38" width="447" height="202" uuid="2b1d07ef-e75e-4d31-ab16-6cbd12b59868"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT203/RPT203a - Distribution ever had sex by age (Bar).jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="73" y="359" width="307" height="200" uuid="f8032c98-430b-4eb3-8ac7-f5caa3637e1c"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT203/RPT203c - Distribution ever had sex by Age (Crosstab).jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="596"/>
+		<band height="596">
+			<staticText>
+				<reportElement style="UC Header" x="0" y="256" width="529" height="20" uuid="a9c59df3-630b-4dc1-8d75-27ffa200a9c8"/>
+				<text><![CDATA[Clients attending school during enrolment]]></text>
+			</staticText>
+		</band>
+		<band height="590"/>
 	</detail>
 	<pageFooter>
 		<band height="70" splitType="Stretch">
