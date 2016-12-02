@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-01T17:06:20 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT203d" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<queryString>
+		<![CDATA[SELECT *, IF(sex_partners_in_last_12months IS NULL,'Missing',(IF(sex_partners_in_last_12months=0,'None',IF(sex_partners_in_last_12months=1,'1 Partner','1+ Partner')))) as 'Sex partners' 
+ FROM
+(
+SELECT COUNT(*) AS 'Number of clients', sex_partners_in_last_12months, age_group
+FROM stag_client_sexual_activity
+GROUP BY
+sex_partners_in_last_12months,
+age_group) AS sub_query_table]]>
+	</queryString>
+	<field name="Number of clients" class="java.lang.Long"/>
+	<field name="sex_partners_in_last_12months" class="java.lang.Integer"/>
+	<field name="age_group" class="java.lang.String"/>
+	<field name="Sex partners" class="java.lang.String"/>
+	<variable name="Number of clients1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Number of clients}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="90" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<crosstab>
+				<reportElement x="5" y="4" width="546" height="78" uuid="18b0a2d8-dae8-40d3-914c-58bf024bb495">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
+				</reportElement>
+				<rowGroup name="age_group" width="80" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{age_group}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque">
+							<textField>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="80" height="20" forecolor="#73879C" uuid="d5719c76-fa8b-4573-9cd8-60396944a235"/>
+								<textFieldExpression><![CDATA[$V{age_group}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header" x="0" y="0" width="80" height="20" forecolor="#73879C" uuid="c51fa8f7-c06d-42fb-9fb8-c86df833a8bc"/>
+								<text><![CDATA[Total clients]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="Sex partners" height="20" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{Sex partners}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque">
+							<textField>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="9da14c80-1743-43cf-b35a-4bbfc8cd5c51"/>
+								<textFieldExpression><![CDATA[$V{Sex partners}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="490f58dd-3dcc-4525-b8b1-971e8fc8d835"/>
+								<text><![CDATA[All]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="Number of clients_MEASURE" class="java.lang.Long" calculation="Sum">
+					<measureExpression><![CDATA[$F{Number of clients}]]></measureExpression>
+				</measure>
+				<crosstabCell width="60" height="20">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="0daa9cd0-5bbc-4d29-94af-6ec0430800d0"/>
+							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="Sex partners">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Bold Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="56005ea3-77ee-4de2-afcc-44132f31a76a"/>
+							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="age_group">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="0748c999-2f0c-4fd5-9418-75a8aa821d1e"/>
+							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="age_group" columnTotalGroup="Sex partners">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="c4f35654-7fca-4f50-b58d-46596b056966"/>
+							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

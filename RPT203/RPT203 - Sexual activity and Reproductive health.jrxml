@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T11:12:13 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406d-d597-4cd4-97fd-eb1a485fbf1e">
+<!-- 2016-12-01T12:07:00 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT203" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406d-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
@@ -32,27 +32,7 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="515" splitType="Stretch">
-			<subreport>
-				<reportElement x="0" y="30" width="220" height="240" uuid="af95bd5d-880b-4404-ae1e-9ceae1bb9aad"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["Sub Reports/RPT201a - Distribution per IP (List).jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement style="UC Chart" x="240" y="30" width="311" height="240" uuid="fe59588b-1470-4ef5-920b-c049b5397341"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["Sub Reports/RPT201b - Distribution per IP (Chart).jasper"]]></subreportExpression>
-			</subreport>
-			<staticText>
-				<reportElement style="UC Header" x="0" y="0" width="551" height="20" uuid="6908d65c-c043-43fe-89ce-4b11d6b84e5b"/>
-				<text><![CDATA[Distribution of clients per IP]]></text>
-			</staticText>
-			<subreport>
-				<reportElement style="UC Chart" x="2" y="295" width="549" height="220" uuid="fec5ea75-7bd8-43e2-8fc9-942cd906546f"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["Sub Reports/RPT201c - Distribution by IP (Bar).jasper"]]></subreportExpression>
-			</subreport>
-		</band>
+		<band height="515" splitType="Stretch"/>
 	</detail>
 	<pageFooter>
 		<band height="70" splitType="Stretch">
