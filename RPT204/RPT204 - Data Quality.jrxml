@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-01T15:51:17 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406d-d597-4cd4-97fd-eb1a485fbf1e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<queryString language="SQL">
+		<![CDATA[SELECT NULL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="104" splitType="Stretch">
+			<subreport>
+				<reportElement x="1" y="40" width="548" height="50" isPrintInFirstWholeBand="true" uuid="6e279d85-ed7d-4db2-a4d0-6d95dda86967"/>
+				<subreportParameter name="REPORT_DESCRIPTION">
+					<subreportParameterExpression><![CDATA["This report shows the distribution of DREAMS clients per IP."]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["Sub Reports/Report Header.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Report Title" x="1" y="0" width="49" height="30" uuid="655a0186-38c9-4c53-b5ab-899d4982885f"/>
+				<text><![CDATA[201]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Report Title" x="50" y="0" width="500" height="30" uuid="ae10f5b4-3aad-40aa-a0a1-59980679fc26"/>
+				<text><![CDATA[DREAMS – Distribution of clients per IP]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="515" splitType="Stretch"/>
+	</detail>
+	<pageFooter>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="0" width="550" height="53" uuid="f1850e0c-6855-4684-aada-bd9323896d82"/>
+				<imageExpression><![CDATA["Images/DREAMS_Banner.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement style="UC Report Footer" x="0" y="53" width="550" height="17" uuid="e4fd48aa-7f0b-4ad2-8888-3480e3623b44">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["RPT 201 - 20161112 (C) UCSF"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
