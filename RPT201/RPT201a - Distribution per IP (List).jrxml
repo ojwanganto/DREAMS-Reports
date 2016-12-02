@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T10:17:07 -->
+<!-- 2016-12-02T10:28:00 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201a" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/Test2_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/Test2"/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
 	<queryString>
 		<![CDATA[SELECT
 	i.name as 'IP',
 	COUNT(*) as 'Number of clients'
 FROM
-	DreamsApp_client c
+	stag_client_ex c
 INNER JOIN
 	DreamsApp_implementingpartner i
 ON
@@ -29,11 +33,11 @@ GROUP BY
 	<columnHeader>
 		<band height="20">
 			<staticText>
-				<reportElement style="UC Table Header" x="0" y="0" width="120" height="20" uuid="e67e8882-9d13-4c54-9175-29621588f89f"/>
+				<reportElement style="UC Table Header" x="0" y="0" width="100" height="20" uuid="e67e8882-9d13-4c54-9175-29621588f89f"/>
 				<text><![CDATA[IP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="UC Table Header Number" x="120" y="0" width="90" height="20" uuid="dd1b1502-267f-4384-87a9-6b205c6b5168"/>
+				<reportElement style="UC Table Header Number" x="100" y="0" width="110" height="20" uuid="dd1b1502-267f-4384-87a9-6b205c6b5168"/>
 				<text><![CDATA[Number of clients]]></text>
 			</staticText>
 		</band>

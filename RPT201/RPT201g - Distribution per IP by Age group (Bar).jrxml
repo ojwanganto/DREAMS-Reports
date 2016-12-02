@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-02T10:11:11 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201g - Distribution per IP by Age group (Bar)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="477"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="523"/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<queryString language="SQL">
+		<![CDATA[SELECT number_of_clients,ip, age_group, total, ROUND(((number_of_clients/total)*100), 0) as percentage FROM (SELECT (SELECT SUM(number_of_clients) FROM(SELECT COUNT(id) AS 'number_of_clients',
+implementing_partner as 'ip',
+age_group as 'age_group' 
+FROM stag_client_ex
+WHERE implementing_partner IS NOT NULL and age_group IS NOT NULL
+GROUP BY 
+implementing_partner,
+age_group) A WHERE A.ip = B.ip) AS total, number_of_clients, ip, age_group FROM 
+(
+SELECT COUNT(id) AS 'number_of_clients',
+implementing_partner as 'ip',
+age_group as 'age_group' 
+FROM stag_client_ex
+WHERE implementing_partner IS NOT NULL and age_group IS NOT NULL
+GROUP BY 
+implementing_partner,
+age_group
+) AS B GROUP BY 
+
+ ip, age_group) C]]>
+	</queryString>
+	<field name="number_of_clients" class="java.lang.Long"/>
+	<field name="ip" class="java.lang.String"/>
+	<field name="age_group" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="percentage" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="226" splitType="Stretch">
+			<stackedBarChart>
+				<chart isShowLegend="true" evaluationTime="Report" theme="default">
+					<reportElement style="UC Chart" x="0" y="0" width="510" height="220" uuid="4a651536-c341-4815-9dea-4a9ff2b3c3fc">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<chartTitle>
+						<titleExpression><![CDATA["Distribution per IP by Age Group"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend position="Bottom"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{age_group}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{ip}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{percentage}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot orientation="Horizontal">
+						<seriesColor seriesOrder="0" color="#455C73"/>
+						<seriesColor seriesOrder="1" color="#9B59B6"/>
+						<seriesColor seriesOrder="2" color="#BDC3C7"/>
+						<seriesColor seriesOrder="3" color="#26B99A"/>
+						<seriesColor seriesOrder="4" color="#3498DB"/>
+					</plot>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Percentage"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+					<rangeAxisMaxValueExpression><![CDATA[100]]></rangeAxisMaxValueExpression>
+				</barPlot>
+			</stackedBarChart>
+		</band>
+	</pageHeader>
+</jasperReport>

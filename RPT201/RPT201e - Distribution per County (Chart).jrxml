@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T10:07:52 -->
+<!-- 2016-12-02T10:10:25 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201d" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
 	<queryString>
 		<![CDATA[SELECT COUNT(*) AS 'Number of clients',
 county as 'County' FROM 
@@ -22,10 +22,10 @@ county]]>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="260">
+		<band height="204">
 			<pieChart>
-				<chart evaluationTime="Report">
-					<reportElement key="" style="UC Base Colour" x="0" y="0" width="550" height="260" uuid="e262455e-96ea-409d-a4aa-470c42a8932c"/>
+				<chart isShowLegend="false" evaluationTime="Report">
+					<reportElement key="" style="UC Base Colour" x="0" y="0" width="220" height="200" uuid="e262455e-96ea-409d-a4aa-470c42a8932c"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend position="Right"/>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-01T11:37:02 -->
+<!-- 2016-12-02T10:12:12 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201i" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
 	<queryString>
 		<![CDATA[SELECT COUNT(*) 'Number of clients',
 IFNULL(age_group, 'Missing') as 'Age Group'
@@ -24,7 +24,7 @@ age_group]]>
 		<band height="260">
 			<pieChart>
 				<chart isShowLegend="false" evaluationTime="Report">
-					<reportElement key="" style="UC Chart" x="0" y="0" width="290" height="260" uuid="745f8647-29de-48a7-8f71-9331af708286"/>
+					<reportElement key="" style="UC Chart" x="0" y="0" width="220" height="260" uuid="745f8647-29de-48a7-8f71-9331af708286"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend position="Right"/>

@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T10:42:37 -->
+<!-- 2016-12-02T10:27:53 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201b" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/RPT201b___Distribution_per_IP__Chart__files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT201b___Distribution_per_IP__Chart_"/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
 	<queryString>
 		<![CDATA[SELECT
 	i.name as 'IP',
 	COUNT(*) as 'Number of clients'
 FROM
-	DreamsApp_client c
+	stag_client_ex c
 INNER JOIN
 	DreamsApp_implementingpartner i
 ON

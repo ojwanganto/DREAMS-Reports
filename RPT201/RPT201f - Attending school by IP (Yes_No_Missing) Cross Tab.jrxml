@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-01T10:47:16 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201g" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="207150c7-c2ee-47fb-9e47-b89699fcd975">
+<!-- 2016-12-02T10:10:56 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201f_2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="207150c7-c2ee-47fb-9e47-b89699fcd975">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
 	<subDataset name="Attending School by IP by Age Group Dataset" uuid="9b077150-231a-43fa-9099-ec93d55d346d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
@@ -25,23 +25,22 @@ age_group]]>
 	<queryString>
 		<![CDATA[SELECT COUNT(*) AS 'Number of clients',
 implementing_partner as 'IP',
-age_group as 'Age group' 
-FROM stag_client_ex
-WHERE implementing_partner IS NOT NULL and age_group IS NOT NULL
+currently_in_school
+FROM stag_client_education_employment
+WHERE implementing_partner IS NOT NULL
 GROUP BY 
-implementing_partner,
-age_group]]>
+implementing_partner, currently_in_school]]>
 	</queryString>
 	<field name="Number of clients" class="java.lang.Long"/>
 	<field name="IP" class="java.lang.String"/>
-	<field name="Age group" class="java.lang.String"/>
+	<field name="currently_in_school" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<summary>
 		<band height="262">
 			<crosstab>
-				<reportElement x="0" y="0" width="555" height="80" uuid="59c3a80a-ff4f-4743-b515-e0ae86144bc2">
+				<reportElement x="0" y="0" width="555" height="80" uuid="8fb7fe59-7e41-4d19-a718-f957a32acc4c">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
 					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
@@ -51,14 +50,14 @@ age_group]]>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
-				<rowGroup name="IP" width="80" totalPosition="End">
+				<rowGroup name="IP" width="60" totalPosition="End">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{IP}]]></bucketExpression>
 					</bucket>
 					<crosstabRowHeader>
 						<cellContents mode="Opaque">
 							<textField>
-								<reportElement style="UC Table Row Bold" x="0" y="0" width="80" height="20" forecolor="#73879C" uuid="1c7b4fde-7dc8-4266-8fc3-229a74c62d65"/>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="60" height="20" uuid="4a2b6dea-d16d-4555-b8f4-f1617f1e7c7c"/>
 								<textFieldExpression><![CDATA[$V{IP}]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -66,29 +65,29 @@ age_group]]>
 					<crosstabTotalRowHeader>
 						<cellContents mode="Opaque">
 							<staticText>
-								<reportElement style="UC Table Header" x="0" y="0" width="80" height="20" forecolor="#73879C" uuid="627c9303-812b-4fb1-999d-45099221d36a"/>
-								<text><![CDATA[Total clients]]></text>
+								<reportElement style="UC Table Header" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="4929223a-ed7e-4cfc-852c-1bea1ec6210c"/>
+								<text><![CDATA[Total IP]]></text>
 							</staticText>
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
-				<columnGroup name="Age group" height="20" totalPosition="End">
+				<columnGroup name="currently_in_school" height="20" totalPosition="End">
 					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[$F{Age group}]]></bucketExpression>
+						<bucketExpression><![CDATA[$F{currently_in_school}]]></bucketExpression>
 					</bucket>
 					<crosstabColumnHeader>
 						<cellContents mode="Opaque">
 							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="cf74e668-d647-42c5-88d9-1481dad57ace"/>
-								<textFieldExpression><![CDATA[$V{Age group}]]></textFieldExpression>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" uuid="a15aa9a3-5afb-43cf-8609-14480e770028"/>
+								<textFieldExpression><![CDATA[$V{currently_in_school}]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabColumnHeader>
 					<crosstabTotalColumnHeader>
 						<cellContents mode="Opaque">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="80a9ba5e-684a-464d-acb8-dae942e9c616"/>
-								<text><![CDATA[All]]></text>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="ac4eeec9-3cfa-4c13-98c8-3e5e9e0cf4e5"/>
+								<text><![CDATA[Total currently_in_school]]></text>
 							</staticText>
 						</cellContents>
 					</crosstabTotalColumnHeader>
@@ -99,15 +98,15 @@ age_group]]>
 				<crosstabCell width="60" height="20">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="f3be0d5c-4564-4210-b929-9df0b1ba7286"/>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="20" uuid="0ee6505c-ba03-4fc0-a47d-121464ecb913"/>
 							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="60" height="20" columnTotalGroup="Age group">
+				<crosstabCell width="60" height="20" columnTotalGroup="currently_in_school">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Row Bold Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="9afe8dbb-74a5-4838-8926-bdc51f4506cf"/>
+							<reportElement style="UC Table Row Bold Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="a84e8fb9-a4d9-4f97-b4ab-7482d197d9aa"/>
 							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
@@ -115,15 +114,15 @@ age_group]]>
 				<crosstabCell width="60" height="20" rowTotalGroup="IP">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="e66fe5a1-576f-4bde-a0ff-b3ea2bbe9373"/>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="2bdb7312-9de6-4315-9c1b-c3c004ae7cac"/>
 							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="60" height="20" rowTotalGroup="IP" columnTotalGroup="Age group">
+				<crosstabCell width="60" height="20" rowTotalGroup="IP" columnTotalGroup="currently_in_school">
 					<cellContents mode="Opaque">
 						<textField>
-							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="db9366ce-b272-4db8-ad77-9519f1a94143"/>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="5b417fb7-552f-43d7-959d-411edec0b7df"/>
 							<textFieldExpression><![CDATA[$V{Number of clients_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
