@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T16:32:55 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT204" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
+<!-- 2016-12-02T16:59:15 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT204" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4ff4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
 	<property name="ireport.jasperserver.user" value="jasperadmin"/>
-	<property name="ireport.jasperserver.report.resource" value="/reports/RPT201___Distribution_per_IP_2_files/main_jrxml"/>
-	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT201___Distribution_per_IP_2"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/RPT204___Data_Quality_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT204___Data_Quality"/>
 	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
 	<queryString language="SQL">
 		<![CDATA[SELECT NULL]]>
@@ -22,7 +22,7 @@
 					<subreportParameterExpression><![CDATA[$V{PAGE_COUNT}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_DESCRIPTION">
-					<subreportParameterExpression><![CDATA["This report shows the distribution of DREAMS clients per IP."]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["This report shows data quality issues for all IPs."]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["Sub Reports/Report Header.jasper"]]></subreportExpression>
@@ -49,14 +49,14 @@
 			<subreport>
 				<reportElement x="0" y="40" width="531" height="200" uuid="e59879e1-50cb-456a-97d7-de558fc00fec"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["RPT204/RPT204a - Data Quality by Age Groups.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["RPT204a - Data Quality by Age Groups.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="596">
 			<subreport>
 				<reportElement x="1" y="30" width="528" height="200" uuid="1906b493-de94-445f-98c6-60a408726843"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["RPT204/RPT204c - Data Quality Duplicate IDs by IP.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["RPT204c - Data Quality Duplicate IDs by IP.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
 				<reportElement style="UC Header" x="0" y="0" width="530" height="20" uuid="c0a572f2-69cf-4c9c-aca3-51abf7dd2a96"/>
