@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T14:26:30 -->
+<!-- 2016-12-03T12:27:04 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406d-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
@@ -70,6 +70,9 @@
 			</staticText>
 			<subreport>
 				<reportElement x="1" y="220" width="529" height="200" uuid="a016dc21-65ea-4e68-8c08-49f4827da68f"/>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT202/RPT202b - When Last Tested for HIV by Age at Enrollment (Bar).jasper"]]></subreportExpression>
 			</subreport>
@@ -85,6 +88,9 @@
 			</staticText>
 			<subreport>
 				<reportElement x="0" y="30" width="530" height="200" uuid="57b8862f-f490-400c-8b3e-de4edf8c4e86"/>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT202/RPT202b - When Last Tested for HIV by Age at Enrollment (Crosstab).jasper"]]></subreportExpression>
 			</subreport>
