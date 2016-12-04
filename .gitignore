@@ -2,4 +2,6 @@
 .DS_Store
 
 ### Jasper Reports
-.jasper
+*.jasper
+.settings
+
