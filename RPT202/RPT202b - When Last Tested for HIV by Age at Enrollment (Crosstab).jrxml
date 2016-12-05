@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-03T13:27:57 -->
+<!-- 2016-12-05T00:45:58 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202b - When Last Tested for HIV by Age at Enrollment (Crosstab)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="207150c7-c2ee-47fb-9e47-b89699fcd975">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -37,7 +37,7 @@ FROM
 				OR
 				(implementing_partner =  $P{IP} )
 			       )
-			GROUP BY age_group, implementing_partner
+			GROUP BY age_group,  CASE WHEN (($P{IP} = NULL or $P{IP} IS NULL) and implementing_partner LIKE '%%') THEN NULL ELSE implementing_partner END
 			ORDER BY age_group)
 		A WHERE A.age_group = B.age_group AND
 		(
@@ -56,7 +56,7 @@ FROM
 			OR
 			(implementing_partner =  $P{IP} )
 		)
-	GROUP BY When_tested_last_HIV, age_group,implementing_partner
+	GROUP BY When_tested_last_HIV, age_group, CASE WHEN (($P{IP} = NULL or $P{IP} IS NULL) and implementing_partner LIKE '%%') THEN NULL ELSE implementing_partner END
 	ORDER BY age_group) B)
 C WHERE ( 
 		(($P{IP} = NULL or $P{IP} IS NULL) and implementing_partner LIKE '%%') 
