@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-03T12:22:18 -->
+<!-- 2016-12-06T11:54:02 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202a - Ever Tested For HIV (Chart)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -12,7 +12,7 @@ FROM stag_client_hiv_testing
 WHERE implementing_partner IS NOT NULL
 AND
 ( 
-	(($P{IP} = NULL or $P{IP} IS NULL) and implementing_partner LIKE '%%') 
+	(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
 	OR
 	(implementing_partner =  $P{IP} )
 	
