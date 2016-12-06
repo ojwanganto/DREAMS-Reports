@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-06T10:35:56 -->
+<!-- 2016-12-06T12:08:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202b - When Last Tested for HIV by Age at Enrollment (Bar)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams-production"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="367"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="626"/>
 	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
@@ -24,16 +24,16 @@ FROM
 			IFNULL(When_tested_last_HIV, 'Missing') AS When_tested_last_HIV, age_group, implementing_partner_id
 			FROM stag_client_hiv_testing
 			WHERE (
-				(($P{IP} = NULL or $P{IP} IS NULL) and implementing_partner LIKE '%%') 
+				(( $P{IP} IS NULL OR $P{IP}='') and implementing_partner LIKE '%%') 
 				OR
 				(implementing_partner =  $P{IP} )
 			       )
-			GROUP BY age_group,  CASE WHEN (($P{IP} = NULL or $P{IP} IS NULL) and implementing_partner LIKE '%%') THEN NULL ELSE implementing_partner END
+			GROUP BY age_group,  CASE WHEN (( $P{IP} IS NULL OR $P{IP}='') and implementing_partner LIKE '%%') THEN NULL ELSE implementing_partner END
 			ORDER BY age_group)
 		A WHERE A.age_group = B.age_group AND
 		(
 			(
-				(($P{IP} = NULL or $P{IP} IS NULL) and implementing_partner LIKE '%%') 
+				(($P{IP} IS NULL OR $P{IP}='') and implementing_partner LIKE '%%') 
 				OR
 				(implementing_partner =  $P{IP} )
 			)
@@ -43,14 +43,14 @@ FROM
 	FROM stag_client_hiv_testing
 	WHERE 
 		(
-			(($P{IP} = NULL or $P{IP} IS NULL) and implementing_partner LIKE '%%') 
+			(($P{IP} IS NULL OR $P{IP}='') and implementing_partner LIKE '%%') 
 			OR
 			(implementing_partner =  $P{IP} )
 		)
-	GROUP BY When_tested_last_HIV, age_group, CASE WHEN (($P{IP} = NULL or $P{IP} IS NULL) and implementing_partner LIKE '%%') THEN NULL ELSE implementing_partner END
+	GROUP BY When_tested_last_HIV, age_group, CASE WHEN (($P{IP} IS NULL OR $P{IP}='') and implementing_partner LIKE '%%') THEN NULL ELSE implementing_partner END
 	ORDER BY age_group) B)
 C WHERE ( 
-		(($P{IP} = NULL or $P{IP} IS NULL) and implementing_partner LIKE '%%') 
+		(($P{IP} IS NULL OR $P{IP}='') and implementing_partner LIKE '%%') 
 		OR
 		(implementing_partner =  $P{IP} )
     
