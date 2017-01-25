@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T14:16:13 -->
+<!-- 2017-01-24T15:41:57 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT203d" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<parameter name="IP" class="java.lang.String">
+		<parameterDescription><![CDATA[Implementing Partner]]></parameterDescription>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT *, IF(sex_partners_in_last_12months IS NULL,'Missing',(IF(sex_partners_in_last_12months=0,'None',IF(sex_partners_in_last_12months=1,'1 Partner','1+ Partner')))) as 'Sex partners' 
  FROM
 (
 SELECT COUNT(*) AS 'Number of clients', sex_partners_in_last_12months, age_group
 FROM stag_client_sexual_activity
+WHERE Ever_had_sex = 'Yes' AND implementing_partner IS NOT NULL
+AND
+( 
+	(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+	OR
+	(implementing_partner =  $P{IP} )
+	
+)
 GROUP BY
 sex_partners_in_last_12months,
 age_group) AS sub_query_table]]>

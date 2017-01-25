@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-06T12:08:07 -->
+<!-- 2017-01-25T10:31:49 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202b - When Last Tested for HIV by Age at Enrollment (Bar)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="367"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="626"/>
 	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
 	<property name="ireport.jasperserver.user" value="jasperadmin"/>
 	<property name="ireport.jasperserver.report.resource" value="/reports/RPT202___HIV_Status_and_Testing_files/RPT202b___When_Last_Tested_for_HIV_by_Age_at_Enrollment__Bar_.jrxml"/>
 	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT202___HIV_Status_and_Testing"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="1000"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="0"/>
 	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
 	<parameter name="IP" class="java.lang.String">
 		<parameterDescription><![CDATA[Implementing Patners]]></parameterDescription>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT implementing_partner, number_tested, When_tested_last_HIV, age_group, total, ROUND(((number_tested/total)*100), 1) as percentage 
+		<![CDATA[SELECT implementing_partner, number_tested, When_tested_last_HIV, age_group, total, ROUND(((number_tested/total)*100), 1) as percentage
 FROM 
 
 	( SELECT 
@@ -29,7 +31,7 @@ FROM
 				(implementing_partner =  $P{IP} )
 			       )
 			GROUP BY age_group,  CASE WHEN (( $P{IP} IS NULL OR $P{IP}='') and implementing_partner LIKE '%%') THEN NULL ELSE implementing_partner END
-			ORDER BY age_group)
+			ORDER BY age_group,period_id)
 		A WHERE A.age_group = B.age_group AND
 		(
 			(
@@ -48,7 +50,7 @@ FROM
 			(implementing_partner =  $P{IP} )
 		)
 	GROUP BY When_tested_last_HIV, age_group, CASE WHEN (($P{IP} IS NULL OR $P{IP}='') and implementing_partner LIKE '%%') THEN NULL ELSE implementing_partner END
-	ORDER BY age_group) B)
+	ORDER BY age_group, period_id) B)
 C WHERE ( 
 		(($P{IP} IS NULL OR $P{IP}='') and implementing_partner LIKE '%%') 
 		OR
@@ -69,7 +71,7 @@ C WHERE (
 		<band height="253" splitType="Stretch">
 			<stackedBarChart>
 				<chart isShowLegend="true" evaluationTime="Report" theme="default">
-					<reportElement style="UC Chart" x="0" y="0" width="500" height="220" uuid="5e79a526-2cf7-41a4-8622-38164386e284">
+					<reportElement style="UC Chart" x="0" y="0" width="500" height="220" uuid="8644186c-0da2-4c6e-8259-03e9cb644043">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					</reportElement>
 					<chartTitle/>
@@ -81,9 +83,10 @@ C WHERE (
 						<seriesExpression><![CDATA[$F{When_tested_last_HIV}]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{age_group}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{percentage}]]></valueExpression>
+						<labelExpression><![CDATA[$F{percentage}.toPlainString() + " %"]]></labelExpression>
 					</categorySeries>
 				</categoryDataset>
-				<barPlot>
+				<barPlot isShowLabels="true" isShowTickLabels="true" isShowTickMarks="true">
 					<plot orientation="Horizontal">
 						<seriesColor seriesOrder="0" color="#455C73"/>
 						<seriesColor seriesOrder="1" color="#9B59B6"/>
