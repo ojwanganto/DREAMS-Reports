@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-01-30T18:26:47 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT206b" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<subDataset name="InterventionsCountAndPercentages" uuid="b98843d8-dbb5-4e86-bf16-af5ecdb51e3c">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="IP" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+ intervention_category,
+ SUM(IF(age_group="10-14",1, 0)) AS "10_14",
+ ROUND(SUM(IF(age_group="10-14",1, 0))*100/COUNT(*)) AS "10_14 %",
+ SUM(IF(age_group="15-19",1, 0)) AS "15_19",
+ ROUND(SUM(IF(age_group="15-19",1, 0))*100/COUNT(*)) AS "15_19 %",
+ SUM(IF(age_group="20-24",1, 0)) AS "20_24",
+ ROUND(SUM(IF(age_group="20-24",1, 0))*100/COUNT(*)) AS "20_24 %",
+ COUNT(*)
+FROM stag_client_intervention
+WHERE implementing_partner IS NOT NULL
+AND
+( 
+	(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+	OR
+	(implementing_partner =  $P{IP} )
+)
+
+GROUP BY intervention_category;]]>
+		</queryString>
+		<field name="intervention_category" class="java.lang.String"/>
+		<field name="10_14" class="java.math.BigDecimal"/>
+		<field name="10_14 %" class="java.math.BigDecimal"/>
+		<field name="15_19" class="java.math.BigDecimal"/>
+		<field name="15_19 %" class="java.math.BigDecimal"/>
+		<field name="20_24" class="java.math.BigDecimal"/>
+		<field name="20_24 %" class="java.math.BigDecimal"/>
+		<field name="COUNT(*)" class="java.math.BigDecimal"/>
+		<variable name="10_141" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+			<variableExpression><![CDATA[$F{10_14}]]></variableExpression>
+		</variable>
+		<variable name="15_191" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+			<variableExpression><![CDATA[$F{15_19}]]></variableExpression>
+		</variable>
+		<variable name="20_241" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+			<variableExpression><![CDATA[$F{20_24}]]></variableExpression>
+		</variable>
+		<variable name="COUNT(*)1" class="java.lang.Long" resetType="Column" calculation="Sum">
+			<variableExpression><![CDATA[$F{COUNT(*)}]]></variableExpression>
+		</variable>
+		<variable name="10_14 %1" class="java.math.BigDecimal" resetType="Column" calculation="Average">
+			<variableExpression><![CDATA[$F{10_14 %}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="IP" class="java.lang.String">
+		<parameterDescription><![CDATA[Implementing Partner]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT *, IF(sex_partners_in_last_12months IS NULL,'Missing',(IF(sex_partners_in_last_12months=0,'None',IF(sex_partners_in_last_12months=1,'1 Partner','1+ Partner')))) as 'Sex partners' 
+ FROM
+(
+SELECT COUNT(*) AS 'Number of clients', sex_partners_in_last_12months, age_group
+FROM stag_client_sexual_activity
+WHERE Ever_had_sex = 'Yes' AND implementing_partner IS NOT NULL
+AND
+( 
+	(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+	OR
+	(implementing_partner =  $P{IP} )
+	
+)
+GROUP BY
+sex_partners_in_last_12months,
+age_group) AS sub_query_table]]>
+	</queryString>
+	<field name="Number of clients" class="java.lang.Long"/>
+	<field name="sex_partners_in_last_12months" class="java.lang.Integer"/>
+	<field name="age_group" class="java.lang.String"/>
+	<field name="Sex partners" class="java.lang.String"/>
+	<variable name="Number of clients1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Number of clients}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="244" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<componentElement>
+				<reportElement x="9" y="44" width="541" height="96" uuid="a77a58c1-76cd-4f99-b910-1bb6378a99d0">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 1_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="InterventionsCountAndPercentages" uuid="d1cac4e2-680a-4ba3-82b9-a629512e5628">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="120" uuid="9c4557bd-6766-4ef0-b3b3-c00e5d4a0e89">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="30" forecolor="#73879C" uuid="9f9d8d6a-20b2-49ec-bc07-3fa7c584963e"/>
+								<text><![CDATA[]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30">
+							<textField isBlankWhenNull="true">
+								<reportElement style="UC Table Header" x="0" y="0" width="120" height="30" forecolor="#73879C" uuid="f6de62cf-ccef-494c-aa87-bbc8999d04d3"/>
+								<textFieldExpression><![CDATA["Totals"]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="120" height="30" forecolor="#73879C" uuid="1f7c05bd-3cf3-406c-8974-56fad56ba4de"/>
+								<textFieldExpression><![CDATA[$F{intervention_category}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="c634d1d9-7a28-40ae-8f2a-cd52392ce4c3">
+						<jr:columnHeader height="30">
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="50" height="30" forecolor="#73879C" uuid="3dda2dd3-1ede-46a8-b875-1cbd03f7068c"/>
+								<text><![CDATA[10 - 14]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30">
+							<textField>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="50" height="30" forecolor="#73879C" uuid="15522185-4579-4975-8d27-2584f360474d"/>
+								<textFieldExpression><![CDATA[$V{10_141}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="50" height="30" forecolor="#73879C" uuid="fdcc4f67-8b54-4b9f-a181-a1afa00c6a1d"/>
+								<textFieldExpression><![CDATA[$F{10_14}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="1533471c-1254-4995-a3ce-d4381db11897">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="a5bb7931-45f2-437c-8428-49d00e8c2f57"/>
+								<text><![CDATA[10 - 14 %]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30">
+							<textField isBlankWhenNull="true">
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="b8dfa80d-940f-4bab-b0fd-9236509a20bb"/>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="db7c3efb-1fbf-4089-a347-60ec86e5af73"/>
+								<textFieldExpression><![CDATA[$F{10_14 %}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="44f2ec6b-2572-481c-89fa-5e9b028a93a2">
+						<jr:columnHeader height="30">
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="50" height="30" forecolor="#73879C" uuid="f5b27ac5-9dbf-4509-8e36-d29b285da72a"/>
+								<text><![CDATA[15 - 19]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30">
+							<textField>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="50" height="30" forecolor="#73879C" uuid="4f787c6a-c9b8-495f-8a31-cee757814ace"/>
+								<textFieldExpression><![CDATA[$V{15_191}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="50" height="30" forecolor="#73879C" uuid="67ec3e97-5252-4785-8fb8-e374f30a9e0c"/>
+								<textFieldExpression><![CDATA[$F{15_19}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="f8c40f25-08d6-4031-bb10-ea763cad61fb">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="158c479a-083c-4072-948d-578205e31f0f"/>
+								<text><![CDATA[15 - 19 %]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30">
+							<textField isBlankWhenNull="true">
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="53bd475a-0f1b-4e2f-ae61-b25edee9557d"/>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="a62fb0ba-a9ce-44ed-bac8-18f890099cdd"/>
+								<textFieldExpression><![CDATA[$F{15_19 %}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="28485837-2338-452c-83ec-f3d36f50a1c4">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="50" height="30" forecolor="#73879C" uuid="b4179cc4-4a38-4daa-97f1-b7751ee7dea1"/>
+								<text><![CDATA[20 - 24]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30">
+							<textField>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="50" height="30" forecolor="#73879C" uuid="8eb986be-5fa1-4915-bf21-b8a70239f191"/>
+								<textFieldExpression><![CDATA[$V{20_241}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="50" height="30" forecolor="#73879C" uuid="935a16ed-ea48-4975-a0ac-2ca793921fb9"/>
+								<textFieldExpression><![CDATA[$F{20_24}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="0df52413-2a4a-4314-892e-39c85d0d0d8e">
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="0177bd10-72d0-4ffe-bf38-82dbaa0092d9"/>
+								<text><![CDATA[20 - 24 %]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30">
+							<textField isBlankWhenNull="true">
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="fb0ac5b9-24c2-41d7-8f35-461e8084960a"/>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="a675e628-f807-40f2-9ecf-c7f812a8f943"/>
+								<textFieldExpression><![CDATA[$F{20_24 %}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="243c839a-7574-4de6-8fbc-5acf3a74f350">
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="70" height="30" forecolor="#73879C" uuid="835da69a-841a-4c62-b421-782db60fd510"/>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="70" height="30" forecolor="#73879C" uuid="268553d5-910b-4a27-8f16-e197a677d900"/>
+								<textFieldExpression><![CDATA[$V{COUNT(*)1}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Bold Number" x="0" y="0" width="70" height="30" forecolor="#73879C" uuid="7f564396-991d-434a-b621-20f0054c05f0"/>
+								<textFieldExpression><![CDATA[$F{COUNT(*)}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>
