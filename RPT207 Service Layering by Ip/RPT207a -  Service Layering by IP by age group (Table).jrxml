@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-31T15:18:14 -->
+<!-- 2017-02-01T15:05:40 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT207a -  Service Layering by IP by age group (Table)" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfd88cee-64f8-4020-b761-3459776f4a3d">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -199,10 +199,9 @@ from stag_client_intervention
 
 
 
-where implementing_partner IS NOT NULL AND
-
-
-
+where 
+age_group IS NOT NULL AND
+implementing_partner IS NOT NULL AND
 (
 
 
@@ -272,7 +271,7 @@ age_group]]>
 	<field name="6+ %" class="java.math.BigDecimal"/>
 	<field name="total" class="java.lang.Long"/>
 	<summary>
-		<band height="224" splitType="Stretch">
+		<band height="66" splitType="Stretch">
 			<componentElement>
 				<reportElement x="0" y="0" width="555" height="66" uuid="eca2320f-bcd6-498c-b443-ca5c8d6188ce">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>

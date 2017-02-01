@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-31T15:20:55 -->
+<!-- 2017-02-01T14:56:42 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT207" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
@@ -44,11 +44,11 @@
 	<detail>
 		<band height="520" splitType="Stretch">
 			<staticText>
-				<reportElement style="UC Header" x="0" y="5" width="530" height="20" uuid="d8bbb64e-a117-46d0-a4dc-ddaf36973919"/>
-				<text><![CDATA[Service layering by age group]]></text>
+				<reportElement style="UC Header" x="0" y="5" width="551" height="20" uuid="d8bbb64e-a117-46d0-a4dc-ddaf36973919"/>
+				<text><![CDATA[Service layering (Table)]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="0" y="32" width="555" height="200" uuid="21017f3a-b3a8-4727-b77a-5bc7f8a0f16a"/>
+				<reportElement x="0" y="32" width="555" height="138" uuid="21017f3a-b3a8-4727-b77a-5bc7f8a0f16a"/>
 				<subreportParameter name="IP">
 					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -58,6 +58,21 @@
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT207 Service Layering by Ip/RPT207a -  Service Layering by IP by age group (Table).jasper"]]></subreportExpression>
 			</subreport>
+			<subreport>
+				<reportElement x="0" y="281" width="555" height="229" uuid="cef6fdca-b004-46df-a32b-ca9a64de7b30"/>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INTERVENTION_CATEGORY">
+					<subreportParameterExpression><![CDATA[$P{INTERVENTION_CATEGORY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT207 Service Layering by Ip/RPT207b -  Service Layering by IP by age group (Stacked Bar).jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Header" x="0" y="253" width="549" height="20" uuid="1d381892-fb57-41a3-8826-b0213b942334"/>
+				<text><![CDATA[Service layering (Chart)]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<pageFooter>
