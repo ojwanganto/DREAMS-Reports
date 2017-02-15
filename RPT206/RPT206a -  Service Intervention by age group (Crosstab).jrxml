@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-02-02T10:20:00 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT206a" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<parameter name="IP" class="java.lang.String">
+		<parameterDescription><![CDATA[Implementing Partner]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+ intervention_category,
+age_group,
+ COUNT(*)
+FROM stag_client_intervention
+WHERE implementing_partner IS NOT NULL
+AND
+( 
+	(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+	OR
+	(implementing_partner =  $P{IP} )
+)
+GROUP BY intervention_category,age_group;]]>
+	</queryString>
+	<field name="intervention_category" class="java.lang.String"/>
+	<field name="age_group" class="java.lang.String"/>
+	<field name="COUNT(*)" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="239" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<crosstab>
+				<reportElement x="0" y="39" width="555" height="61" uuid="c0a775b4-0fc3-4c48-b1ce-cc0719154223">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
+				</reportElement>
+				<rowGroup name="intervention_category" width="190" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{intervention_category}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque">
+							<textField>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="190" height="20" forecolor="#73879C" uuid="b561e4e7-f338-4875-a21d-7f18601640d9"/>
+								<textFieldExpression><![CDATA[$V{intervention_category}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header" x="0" y="0" width="190" height="20" forecolor="#73879C" uuid="f772a908-bb95-436b-aad1-13e22521513b"/>
+								<text><![CDATA[Totals]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="age_group" height="20" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{age_group}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque">
+							<textField>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="80" height="20" forecolor="#73879C" uuid="0033fafd-16d2-46ef-9752-218c753c3b97"/>
+								<textFieldExpression><![CDATA[$V{age_group}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque">
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="c2e78070-601b-412c-863a-aa2ab4d5cb9f"/>
+								<text><![CDATA[Totals]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="COUNT(*)_MEASURE" class="java.lang.Long" calculation="Sum">
+					<measureExpression><![CDATA[$F{COUNT(*)}]]></measureExpression>
+				</measure>
+				<crosstabCell width="80" height="20">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Number" x="0" y="0" width="80" height="20" forecolor="#73879C" uuid="9f1bb241-b5eb-4fac-b036-e84cecb7d215"/>
+							<textFieldExpression><![CDATA[$V{COUNT(*)_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="age_group">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Row Bold Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="a0371f8b-10c4-42dc-afb4-0a488920308a"/>
+							<textFieldExpression><![CDATA[$V{COUNT(*)_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="80" height="20" rowTotalGroup="intervention_category">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="80" height="20" forecolor="#73879C" uuid="f9d69bc0-4ae9-4f6a-97b6-47a2b20932b9"/>
+							<textFieldExpression><![CDATA[$V{COUNT(*)_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="intervention_category" columnTotalGroup="age_group">
+					<cellContents mode="Opaque">
+						<textField>
+							<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="20" forecolor="#73879C" uuid="ec26c494-754b-46a7-a329-af699b730e18"/>
+							<textFieldExpression><![CDATA[$V{COUNT(*)_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

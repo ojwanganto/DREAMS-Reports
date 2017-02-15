@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-03T12:27:04 -->
+<!-- 2017-01-25T10:59:40 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406d-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
 	<property name="ireport.jasperserver.user" value="jasperadmin"/>
 	<property name="ireport.jasperserver.report.resource" value="/reports/RPT202___HIV_Status_and_Testing_files/main_jrxml"/>
 	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT202___HIV_Status_and_Testing"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
 	<parameter name="IP" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT NULL]]>
 	</queryString>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<pageHeader>
 		<band height="135" splitType="Stretch">
 			<subreport overflowType="NoStretch">
@@ -65,11 +63,11 @@
 				<reportElement x="540" y="0" width="9" height="590" forecolor="#FFFFFF" backcolor="#EED7FC" uuid="a2a7f1be-d441-47fb-ac03-85db7ce7d7cd"/>
 			</rectangle>
 			<staticText>
-				<reportElement style="UC Caption" x="0" y="30" width="140" height="20" uuid="f7efcaec-1e0c-49e0-82ee-88ef95cb5f8b"/>
+				<reportElement style="UC Caption" x="0" y="30" width="130" height="20" uuid="f7efcaec-1e0c-49e0-82ee-88ef95cb5f8b"/>
 				<text><![CDATA[Ever tested for HIV]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="1" y="220" width="529" height="200" uuid="a016dc21-65ea-4e68-8c08-49f4827da68f"/>
+				<reportElement x="1" y="224" width="529" height="200" uuid="a016dc21-65ea-4e68-8c08-49f4827da68f"/>
 				<subreportParameter name="IP">
 					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -83,7 +81,7 @@
 		</band>
 		<band height="590">
 			<staticText>
-				<reportElement style="UC Caption" x="0" y="0" width="529" height="20" uuid="98fecd33-696e-4370-85b5-38364680cdad"/>
+				<reportElement style="UC Caption" x="0" y="6" width="529" height="20" uuid="98fecd33-696e-4370-85b5-38364680cdad"/>
 				<text><![CDATA[When Last Tested for HIV by Age at Enrollment]]></text>
 			</staticText>
 			<subreport>
@@ -95,17 +93,17 @@
 				<subreportExpression><![CDATA["RPT202/RPT202b - When Last Tested for HIV by Age at Enrollment (Crosstab).jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="590">
+		<band height="590" splitType="Stretch">
 			<staticText>
-				<reportElement style="UC Header" x="0" y="0" width="530" height="20" uuid="5e41eedd-7bf3-459f-b8e6-52fa339e3b8b"/>
+				<reportElement style="UC Header" x="0" y="4" width="530" height="20" uuid="5e41eedd-7bf3-459f-b8e6-52fa339e3b8b"/>
 				<text><![CDATA[HIV results and in care during enrolment]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="UC Caption" x="0" y="30" width="240" height="20" uuid="4b2df910-cb93-4560-ba9a-61ee5f0f2986"/>
-				<text><![CDATA[When Last Tested for HIV by Age at Enrollment]]></text>
+				<reportElement style="UC Caption" x="0" y="32" width="240" height="20" uuid="4b2df910-cb93-4560-ba9a-61ee5f0f2986"/>
+				<text><![CDATA[Result of Last HIV Test at Enrollment]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="130" y="50" width="400" height="150" uuid="1af658bb-3e53-4b30-8a6b-47315f63b269">
+				<reportElement x="130" y="60" width="400" height="150" uuid="1af658bb-3e53-4b30-8a6b-47315f63b269">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -117,10 +115,10 @@
 			</subreport>
 			<staticText>
 				<reportElement style="UC Caption" x="0" y="220" width="310" height="20" uuid="d6fe2b26-8c26-4399-8b78-2f8cb527c4a7"/>
-				<text><![CDATA[In care during enrolment when HIV positive during enrolment]]></text>
+				<text><![CDATA[HIV positive and In Care during enrolment]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="130" y="240" width="400" height="150" uuid="106ca1bd-e2ba-4d60-824e-7028424d4e9d">
+				<reportElement x="130" y="246" width="400" height="150" uuid="106ca1bd-e2ba-4d60-824e-7028424d4e9d">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -133,7 +131,7 @@
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="70" splitType="Stretch">
+		<band height="70" splitType="Prevent">
 			<image>
 				<reportElement x="1" y="0" width="550" height="53" uuid="f1850e0c-6855-4684-aada-bd9323896d82"/>
 				<imageExpression><![CDATA["Images/DREAMS_Banner.png"]]></imageExpression>

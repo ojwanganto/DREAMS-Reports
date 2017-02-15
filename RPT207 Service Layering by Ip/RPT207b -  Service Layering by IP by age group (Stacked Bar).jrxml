@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-02-14T11:08:08 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="207b" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="298"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="695"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="595"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="394"/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<parameter name="IP" class="java.lang.String"/>
+	<parameter name="INTERVENTION_CATEGORY" class="java.lang.String"/>
+	<parameter name="COUNTY" class="java.lang.String"/>
+	<parameter name="SUB_COUNTY" class="java.lang.String"/>
+	<parameter name="WARD" class="java.lang.String"/>
+	<parameter name="QUARTER" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT complete_aggregated_list.*,
+	client_count_per_age_group_with_services.*,
+	(complete_aggregated_list.count_of_clients_in_age_group - client_count_per_age_group_with_services.client_count_with_inteventions_count_in_age_group) as count_of_clients_with_0_interventions,
+	ROUND((complete_aggregated_list.count_of_clients_in_age_group - client_count_per_age_group_with_services.client_count_with_inteventions_count_in_age_group)*100/complete_aggregated_list.count_of_clients_in_age_group) as percentage_of_clients_with_0_interventions
+FROM
+(
+	SELECT client_count_per_age_group_per_layering_group.*,
+		ROUND(client_count_per_age_group_per_layering_group.count_of_clients * 100/client_count_per_age_group.count_of_clients_in_age_group) as percentage_of_clients,
+		client_count_per_age_group.count_of_clients_in_age_group
+	FROM
+	(
+		 SELECT
+		 age_group as age_at_enrollment,
+			 IF(intervention_count=1,"1",
+				IF(intervention_count in (2,3),"2-3",
+				  IF(intervention_count in (4,5),"4-5",
+					IF(intervention_count >=6,"6+", "0")))
+			 ) AS layer_count_group
+			, count(intervention_count) as count_of_clients
+			from (
+				SELECT age_group, count(distinct intervention) as intervention_count
+				from stag_client_intervention
+				where implementing_partner IS NOT NULL AND
+				(
+					(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+					OR
+					(implementing_partner =  $P{IP} )
+				)
+				AND intervention_category IS NOT NULL AND
+				(
+					(($P{INTERVENTION_CATEGORY} IS NULL or $P{INTERVENTION_CATEGORY} = '') and intervention_category LIKE '%%') 
+					OR
+					(intervention_category =  $P{INTERVENTION_CATEGORY} )
+				)
+				AND county IS NOT NULL AND
+				( 
+					(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
+					OR
+					(county =  $P{COUNTY} )
+				)
+				AND sub_county IS NOT NULL AND
+				( 
+					(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '') and sub_county LIKE '%%') 
+					OR
+					(sub_county =  $P{SUB_COUNTY} )
+				)
+				AND ward IS NOT NULL AND
+				( 
+					(($P{WARD} IS NULL or $P{WARD} = '') and ward LIKE '%%') 
+					OR
+					(ward =  $P{WARD} )
+				)
+				AND date_of_intervention_quarter IS NOT NULL AND
+				( 
+					(($P{QUARTER} IS NULL or $P{QUARTER} = '') and date_of_intervention_quarter LIKE '%%') 
+					OR
+					(date_of_intervention_quarter =  $P{QUARTER} )
+				)
+				AND age_group IS NOT NULL
+				GROUP BY client_id
+			) c
+			group by
+			age_group, layer_count_group
+		UNION
+		SELECT "10-14", "0", 0
+		UNION
+		SELECT "15-19", "0", 0
+		UNION
+		SELECT "20-24", "0", 0
+	)AS client_count_per_age_group_per_layering_group
+	LEFT OUTER JOIN
+	(
+		SELECT age_group, count(id) as  count_of_clients_in_age_group
+		from stag_client_ex
+		where implementing_partner IS NOT NULL AND
+		(
+			(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+			OR
+			(implementing_partner =  $P{IP} )
+		)AND county IS NOT NULL AND
+		( 
+			(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
+			OR
+			(county =  $P{COUNTY} )
+		)
+		AND sub_county IS NOT NULL AND
+		( 
+			(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '') and sub_county LIKE '%%') 
+			OR
+			(sub_county =  $P{SUB_COUNTY} )
+		)
+		AND ward IS NOT NULL AND
+		( 
+			(($P{WARD} IS NULL or $P{WARD} = '') and ward LIKE '%%') 
+			OR
+			(ward =  $P{WARD} )
+		)
+		AND age_group IS NOT NULL
+		GROUP BY age_group
+	) AS client_count_per_age_group
+	ON client_count_per_age_group_per_layering_group.age_at_enrollment = client_count_per_age_group.age_group
+
+) AS complete_aggregated_list
+LEFT OUTER JOIN
+(
+	SELECT
+		 age_group as age_at_enrollment,
+		count(intervention_count) as client_count_with_inteventions_count_in_age_group
+	FROM (
+		SELECT
+			age_group,
+			count(distinct intervention) as intervention_count
+		FROM stag_client_intervention
+		WHERE implementing_partner IS NOT NULL AND
+		(
+			(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+			OR
+			(implementing_partner =  $P{IP} )
+		)
+		AND intervention_category IS NOT NULL AND
+		(
+			(($P{INTERVENTION_CATEGORY} IS NULL or $P{INTERVENTION_CATEGORY} = '') and intervention_category LIKE '%%') 
+			OR
+			(intervention_category =  $P{INTERVENTION_CATEGORY} )
+		)
+		AND county IS NOT NULL AND
+		( 
+			(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
+			OR
+			(county =  $P{COUNTY} )
+		)
+		AND sub_county IS NOT NULL AND
+		( 
+			(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '') and sub_county LIKE '%%') 
+			OR
+			(sub_county =  $P{SUB_COUNTY} )
+		)
+		AND ward IS NOT NULL AND
+		( 
+			(($P{WARD} IS NULL or $P{WARD} = '') and ward LIKE '%%') 
+			OR
+			(ward =  $P{WARD} )
+		)
+		AND date_of_intervention_quarter IS NOT NULL AND
+		( 
+			(($P{QUARTER} IS NULL or $P{QUARTER} = '') and date_of_intervention_quarter LIKE '%%') 
+			OR
+			(date_of_intervention_quarter =  $P{QUARTER} )
+		)
+		AND age_group IS NOT NULL
+		GROUP BY client_id
+		) c
+	GROUP BY age_group
+) AS client_count_per_age_group_with_services
+ON complete_aggregated_list.age_at_enrollment=client_count_per_age_group_with_services.age_at_enrollment
+ORDER BY complete_aggregated_list.age_at_enrollment, complete_aggregated_list.layer_count_group;]]>
+	</queryString>
+	<field name="age_at_enrollment" class="java.lang.String"/>
+	<field name="layer_count_group" class="java.lang.String"/>
+	<field name="count_of_clients" class="java.lang.Long"/>
+	<field name="percentage_of_clients" class="java.math.BigDecimal"/>
+	<field name="count_of_clients_in_age_group" class="java.lang.Long"/>
+	<field name="COLUMN_6" class="java.lang.String"/>
+	<field name="client_count_with_inteventions_count_in_age_group" class="java.lang.Long"/>
+	<field name="count_of_clients_with_0_interventions" class="java.lang.Long"/>
+	<field name="percentage_of_clients_with_0_interventions" class="java.math.BigDecimal"/>
+	<variable name="Sum of Percentages" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{percentage_of_clients}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="253" splitType="Stretch">
+			<stackedBarChart>
+				<chart isShowLegend="true" evaluationTime="Report" theme="default">
+					<reportElement style="UC Chart" x="0" y="0" width="520" height="220" uuid="c16e96b7-f0af-4bd0-9414-e70d92e1447e">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Bottom"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{layer_count_group}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{age_at_enrollment}]]></categoryExpression>
+						<valueExpression><![CDATA[IF( EQUALS($F{layer_count_group},"0"),$F{percentage_of_clients_with_0_interventions},$F{percentage_of_clients})]]></valueExpression>
+						<labelExpression><![CDATA[IF( EQUALS($F{layer_count_group},"0"),$F{percentage_of_clients_with_0_interventions},$F{percentage_of_clients}).toString() + " %"]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true" isShowTickLabels="true" isShowTickMarks="true">
+					<plot orientation="Horizontal">
+						<seriesColor seriesOrder="0" color="#262471"/>
+						<seriesColor seriesOrder="1" color="#F1716C"/>
+						<seriesColor seriesOrder="2" color="#FAB16A"/>
+						<seriesColor seriesOrder="3" color="#FFFF91"/>
+						<seriesColor seriesOrder="4" color="#3498DB"/>
+					</plot>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Percentage"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+					<domainAxisMaxValueExpression><![CDATA[100]]></domainAxisMaxValueExpression>
+					<rangeAxisMaxValueExpression><![CDATA[100]]></rangeAxisMaxValueExpression>
+				</barPlot>
+			</stackedBarChart>
+		</band>
+	</pageHeader>
+</jasperReport>

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T17:07:43 -->
+<!-- 2017-01-25T12:28:00 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT203" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
 	<property name="ireport.jasperserver.user" value="jasperadmin"/>
 	<property name="ireport.jasperserver.report.resource" value="/reports/RPT201___Distribution_per_IP_2_files/main_jrxml"/>
 	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT201___Distribution_per_IP_2"/>
 	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<parameter name="IP" class="java.lang.String">
+		<parameterDescription><![CDATA[Implementing Partner]]></parameterDescription>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT NULL]]>
 	</queryString>
@@ -25,7 +28,7 @@
 					<subreportParameterExpression><![CDATA["This report shows the distribution of DREAMS clients per IP."]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["repo:Report Header.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["Sub Reports/Report Header.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
 				<reportElement style="UC Report Title" x="1" y="0" width="49" height="30" uuid="655a0186-38c9-4c53-b5ab-899d4982885f"/>
@@ -33,7 +36,7 @@
 			</staticText>
 			<staticText>
 				<reportElement style="UC Report Title" x="50" y="0" width="500" height="30" uuid="ae10f5b4-3aad-40aa-a0a1-59980679fc26"/>
-				<text><![CDATA[DREAMS – Client Sexual Activity and Reproductive Health]]></text>
+				<text><![CDATA[DREAMS – Sexual Activity & Reproductive Health]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -80,13 +83,13 @@
 				<subreportExpression><![CDATA["RPT203e - Distribution Sex partners in last 12 months by Age (Bar).jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="596">
+		<band height="597">
 			<staticText>
 				<reportElement style="UC Header" x="0" y="13" width="529" height="20" uuid="a9c59df3-630b-4dc1-8d75-27ffa200a9c8"/>
 				<text><![CDATA[Have Biological Children]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="0" y="64" width="550" height="200" uuid="fae88bdc-464b-4d8b-84c7-cdafad368f41">
+				<reportElement x="0" y="73" width="550" height="200" uuid="fae88bdc-464b-4d8b-84c7-cdafad368f41">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
@@ -94,20 +97,36 @@
 				<subreportExpression><![CDATA["RPT203g - Distribution have Biological children by Age (Bar).jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="280" y="305" width="260" height="150" uuid="0d4dcca7-5940-4a62-98f3-a547985e06b8">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				<reportElement x="118" y="340" width="319" height="200" uuid="faba33d7-6762-400c-a3e8-ed60f0d90d10">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["RPT203f - Distribution have Biological children (Chart).jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="2" y="335" width="188" height="150" uuid="faba33d7-6762-400c-a3e8-ed60f0d90d10">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT203h - Distribution have Biological childern by age (Crosstab).jasper"]]></subreportExpression>
 			</subreport>
+			<staticText>
+				<reportElement style="UC Caption" x="1" y="310" width="529" height="20" uuid="4d5046be-1980-4de3-a1ac-16774ac22487"/>
+				<text><![CDATA[Number having biological children by age]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="49" width="549" height="20" uuid="b4a07134-7d75-4e5d-9d5e-a06e3e6a62af"/>
+				<text><![CDATA[Have biological children]]></text>
+			</staticText>
+		</band>
+		<band height="597">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="155" y="48" width="400" height="150" uuid="0d4dcca7-5940-4a62-98f3-a547985e06b8">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT203f - Distribution have Biological children (Chart).jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Caption" x="1" y="20" width="219" height="20" uuid="40151f44-272e-471a-8d5a-9db9ee9f59d9"/>
+				<text><![CDATA[Percentage having biological children by age]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<pageFooter>

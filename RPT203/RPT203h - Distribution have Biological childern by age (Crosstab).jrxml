@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T15:25:24 -->
+<!-- 2017-01-25T11:23:55 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT203h" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<parameter name="IP" class="java.lang.String">
+		<parameterDescription><![CDATA[Implementing Partner]]></parameterDescription>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT *, IFNULL(Have_Biological_Children, 'Missing') 'Have children'
 FROM
@@ -12,6 +15,14 @@ FROM
 SELECT 
 COUNT(*) 'Number of clients',Have_Biological_Children, age_group
 FROM stag_client_reproductive_health
+WHERE implementing_partner IS NOT NULL
+AND
+( 
+	(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+	OR
+	(implementing_partner =  $P{IP} )
+	
+)
 GROUP BY
 Have_Biological_Children,
 age_group
@@ -31,7 +42,7 @@ age_group
 		<band height="90" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<crosstab>
-				<reportElement x="1" y="3" width="319" height="61" uuid="70a33888-9d01-4b66-be96-f2ef8c303e9b">
+				<reportElement x="118" y="3" width="319" height="61" uuid="70a33888-9d01-4b66-be96-f2ef8c303e9b">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
 					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
