@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T16:13:46 -->
+<!-- 2017-02-07T15:10:44 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report Header" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0f377c84-afc1-4f51-9657-706864cf495c">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
@@ -8,7 +8,6 @@
 	<parameter name="TOTAL_PAGES" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="FILTER_DESCRIPTION" class="java.lang.String" isForPrompting="false">
 		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA["None"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[]]>
@@ -57,7 +56,7 @@
 				</reportElement>
 				<text><![CDATA[FILTERS]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="UC Report Header Section" x="220" y="25" width="220" height="60" uuid="70106519-6ae5-40d3-9c17-a93150b70232"/>
 				<textFieldExpression><![CDATA[$P{FILTER_DESCRIPTION}]]></textFieldExpression>
 			</textField>

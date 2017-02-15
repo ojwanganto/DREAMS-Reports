@@ -1,135 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-01T15:05:40 -->
+<!-- 2017-02-14T10:56:40 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT207a -  Service Layering by IP by age group (Table)" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfd88cee-64f8-4020-b761-3459776f4a3d">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["RPT207 Service Layering by Ip/UC_Styles.jrtx"]]></template>
-	<subDataset name="ServiceLayeringDataset" uuid="2e2bfb54-c81b-4e37-81b8-39a2ccb62469">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<subDataset name="ServiceLayeringDataset" uuid="0cbeee85-ba65-4c8c-83f8-d5632c907b34">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="IP" class="java.lang.String"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
 		<parameter name="INTERVENTION_CATEGORY" class="java.lang.String"/>
-		<queryString>
-			<![CDATA[SELECT
-
-
-
- age_group as age_at_enrollment,
-
-
-
- SUM(IF(intervention_count=1,1, 0)) AS "1",
-
-
-
- ROUND(SUM(IF(intervention_count=1,1, 0))*100/COUNT(*)) AS "1 %",
-
-
-
- SUM(IF(intervention_count in (2,3),1, 0)) AS "2-3",
-
-
-
- ROUND(SUM(IF(intervention_count in (2,3),1, 0))*100/COUNT(*)) AS "2-3 %",
-
-
-
- SUM(IF(intervention_count in (4,5),1, 0)) AS "4-5",
-
-
-
- ROUND(SUM(IF(intervention_count in (4,5),1, 0))*100/COUNT(*)) AS "4-5 %",
-
-
-
- SUM(IF(intervention_count >=6,1, 0)) AS "6+",
-
-
-
- ROUND(SUM(IF(intervention_count >=6,1, 0))*100/COUNT(*)) AS "6+ %",
-
-
-
- COUNT(*) total
-
-
-
-from (
-
-
-
-SELECT age_group, count(distinct intervention) as intervention_count
-
-
-
-from stag_client_intervention
-
-
-
-where implementing_partner IS NOT NULL AND
-
-
-
+		<parameter name="IP" class="java.lang.String"/>
+		<parameter name="COUNTY" class="java.lang.String"/>
+		<parameter name="SUB_COUNTY" class="java.lang.String"/>
+		<parameter name="WARD" class="java.lang.String"/>
+		<parameter name="QUARTER" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[select 
+age_at_enrollment,
+d.total_clients_in_age_group - c.total as "0",
+ROUND((d.total_clients_in_age_group - c.total)*100/total_clients_in_age_group) AS "0 %",
+c.1, 
+ROUND(c.1*100/d.total_clients_in_age_group) AS "1 %",
+c.Twoto3 as "2-3", 
+ROUND(c.Twoto3*100/d.total_clients_in_age_group) AS "2-3 %",
+c.Fourto5 as "4-5",
+ROUND(c.Fourto5*100/d.total_clients_in_age_group) AS "4-5 %",
+c.sixPlus as "6+",
+ROUND(c.sixPlus*100/d.total_clients_in_age_group) AS "6+ %",
+total,
+d.total_clients_in_age_group
+FROM
 (
-
-
-
-(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
-
-
-
-OR
-
-
-
-(implementing_partner =  $P{IP} )
-
-
-
-)
-
-
-
-AND intervention_category IS NOT NULL AND
-
-
-
+	SELECT
+	 age_group as age_at_enrollment,
+	 SUM(IF(intervention_count=1,1, 0)) AS "1",
+	 SUM(IF(intervention_count in (2,3),1, 0)) AS "Twoto3",
+	 SUM(IF(intervention_count in (4,5),1, 0)) AS "Fourto5",
+	 SUM(IF(intervention_count >=6,1, 0)) AS "sixPlus",
+	 COUNT(*) total
+	from (
+		SELECT age_group, count(distinct intervention) as intervention_count
+		from stag_client_intervention
+		where age_group IS NOT NULL AND 
+		implementing_partner IS NOT NULL AND 
+		intervention_category IS NOT NULL
+		AND
+		(  
+			(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') OR implementing_partner =  $P{IP}
+		)
+		AND 
+		( 
+			(($P{INTERVENTION_CATEGORY} IS NULL or $P{INTERVENTION_CATEGORY} = '') and intervention_category LIKE '%%')  OR intervention_category =  $P{INTERVENTION_CATEGORY} 	
+		)
+		AND county IS NOT NULL AND
+		( 
+			(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
+			OR
+			(county =  $P{COUNTY} )
+		)
+		AND sub_county IS NOT NULL AND
+		( 
+			(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '') and sub_county LIKE '%%') 
+			OR
+			(sub_county =  $P{SUB_COUNTY} )
+		)
+		AND ward IS NOT NULL AND
+		( 
+			(($P{WARD} IS NULL or $P{WARD} = '') and ward LIKE '%%') 
+			OR
+			(ward =  $P{WARD} )
+		)
+		AND date_of_intervention_quarter IS NOT NULL AND
+		( 
+			(($P{QUARTER} IS NULL or $P{QUARTER} = '') and date_of_intervention_quarter LIKE '%%') 
+			OR
+			(date_of_intervention_quarter =  $P{QUARTER} )
+		)
+		GROUP BY client_id
+	) c
+	group by
+	age_group
+)c
+left outer JOIN
 (
-
-
-
-(($P{INTERVENTION_CATEGORY} IS NULL or $P{INTERVENTION_CATEGORY} = '') and intervention_category LIKE '%%') 
-
-
-
-OR
-
-
-
-(intervention_category =  $P{INTERVENTION_CATEGORY} )
-
-
-
-)
-
-
-
-GROUP BY client_id
-
-
-
-) c
-
-
-
-group by
-
-
-
-age_group]]>
+	SELECT age_group, count(id) as total_clients_in_age_group
+	FROM stag_client_ex
+	where 
+	age_group IS NOT NULL 
+	AND 
+	implementing_partner IS NOT NULL 
+	AND
+	(  
+		(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') OR implementing_partner =  $P{IP}
+	)
+	AND county IS NOT NULL AND
+	( 
+		(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
+		OR
+		(county =  $P{COUNTY} )
+	)
+	AND sub_county IS NOT NULL AND
+	( 
+		(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '') and sub_county LIKE '%%') 
+		OR
+		(sub_county =  $P{SUB_COUNTY} )
+	)
+	AND ward IS NOT NULL AND
+	( 
+		(($P{WARD} IS NULL or $P{WARD} = '') and ward LIKE '%%') 
+		OR
+		(ward =  $P{WARD} )
+	)
+	GROUP BY age_group
+)d
+on c.age_at_enrollment = d.age_group
+group by age_at_enrollment]]>
 		</queryString>
 		<field name="age_at_enrollment" class="java.lang.String"/>
+		<field name="0" class="java.lang.Long"/>
+		<field name="0 %" class="java.math.BigDecimal"/>
 		<field name="1" class="java.math.BigDecimal"/>
 		<field name="1 %" class="java.math.BigDecimal"/>
 		<field name="2-3" class="java.math.BigDecimal"/>
@@ -139,126 +130,53 @@ age_group]]>
 		<field name="6+" class="java.math.BigDecimal"/>
 		<field name="6+ %" class="java.math.BigDecimal"/>
 		<field name="total" class="java.lang.Long"/>
+		<field name="total_clients_in_age_group" class="java.lang.Long"/>
 	</subDataset>
 	<parameter name="INTERVENTION_CATEGORY" class="java.lang.String"/>
 	<parameter name="IP" class="java.lang.String"/>
+	<parameter name="COUNTY" class="java.lang.String"/>
+	<parameter name="SUB_COUNTY" class="java.lang.String"/>
+	<parameter name="WARD" class="java.lang.String"/>
+	<parameter name="QUARTER" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-
-
-
- age_group as age_at_enrollment,
-
-
-
- SUM(IF(intervention_count=1,1, 0)) AS "1",
-
-
-
- ROUND(SUM(IF(intervention_count=1,1, 0))*100/COUNT(*)) AS "1 %",
-
-
-
- SUM(IF(intervention_count in (2,3),1, 0)) AS "2-3",
-
-
-
- ROUND(SUM(IF(intervention_count in (2,3),1, 0))*100/COUNT(*)) AS "2-3 %",
-
-
-
- SUM(IF(intervention_count in (4,5),1, 0)) AS "4-5",
-
-
-
- ROUND(SUM(IF(intervention_count in (4,5),1, 0))*100/COUNT(*)) AS "4-5 %",
-
-
-
- SUM(IF(intervention_count >=6,1, 0)) AS "6+",
-
-
-
- ROUND(SUM(IF(intervention_count >=6,1, 0))*100/COUNT(*)) AS "6+ %",
-
-
-
- COUNT(*) total
-
-
-
+ 	age_group as age_at_enrollment,
+ 	SUM(IF(intervention_count=1,1, 0)) AS "1",
+ 	ROUND(SUM(IF(intervention_count=1,1, 0))*100/COUNT(*)) AS "1 %",
+	 SUM(IF(intervention_count in (2,3),1, 0)) AS "2-3",
+	 ROUND(SUM(IF(intervention_count in (2,3),1, 0))*100/COUNT(*)) AS "2-3 %",
+	SUM(IF(intervention_count in (4,5),1, 0)) AS "4-5",
+	ROUND(SUM(IF(intervention_count in (4,5),1, 0))*100/COUNT(*)) AS "4-5 %",
+	SUM(IF(intervention_count >=6,1, 0)) AS "6+",
+	ROUND(SUM(IF(intervention_count >=6,1, 0))*100/COUNT(*)) AS "6+ %",
+	COUNT(*) total
 from (
-
-
-
-SELECT age_group, count(distinct intervention) as intervention_count
-
-
-
-from stag_client_intervention
-
-
-
-where 
-age_group IS NOT NULL AND
-implementing_partner IS NOT NULL AND
-(
-
-
-
-(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
-
-
-
-OR
-
-
-
-(implementing_partner =  $P{IP} )
-
-
-
-)
-
-
-
-AND intervention_category IS NOT NULL AND
-
-
-
-(
-
-
-
-(($P{INTERVENTION_CATEGORY} IS NULL or $P{INTERVENTION_CATEGORY} = '') and intervention_category LIKE '%%') 
-
-
-
-OR
-
-
-
-(intervention_category =  $P{INTERVENTION_CATEGORY} )
-
-
-
-)
-
-
-
-GROUP BY client_id
-
-
-
-) c
-
-
-
+	SELECT 
+		age_group, 
+		count(distinct intervention) as intervention_count
+	from stag_client_intervention
+	where 
+		age_group IS NOT NULL 
+		AND
+		implementing_partner IS NOT NULL 
+		AND
+		(
+			(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+			OR
+			(implementing_partner =  $P{IP} )
+		)
+		AND 
+		intervention_category IS NOT NULL 
+		AND
+		(
+			(($P{INTERVENTION_CATEGORY} IS NULL or $P{INTERVENTION_CATEGORY} = '') and intervention_category LIKE '%%') 
+			OR
+			(intervention_category =  $P{INTERVENTION_CATEGORY} )
+		)
+		GROUP BY client_id
+	) c
 group by
-
-
-
-age_group]]>
+age_group;]]>
 	</queryString>
 	<field name="age_at_enrollment" class="java.lang.String"/>
 	<field name="1" class="java.math.BigDecimal"/>
@@ -277,42 +195,90 @@ age_group]]>
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="ServiceLayeringDataset" uuid="06982612-9f43-4803-af50-6013ce99b803">
+					<datasetRun subDataset="ServiceLayeringDataset" uuid="75d33def-5fc9-4a9e-b2ab-4156668e2500">
+						<datasetParameter name="IP">
+							<datasetParameterExpression><![CDATA[$P{IP}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="INTERVENTION_CATEGORY">
+							<datasetParameterExpression><![CDATA[$P{INTERVENTION_CATEGORY}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="COUNTY">
+							<datasetParameterExpression><![CDATA[$P{COUNTY}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="SUB_COUNTY">
+							<datasetParameterExpression><![CDATA[$P{SUB_COUNTY}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="WARD">
+							<datasetParameterExpression><![CDATA[$P{WARD}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="QUARTER">
+							<datasetParameterExpression><![CDATA[$P{QUARTER}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="120" uuid="dd641f62-cc1b-47cf-8688-34dc1037eb17">
+					<jr:column width="70" uuid="dd641f62-cc1b-47cf-8688-34dc1037eb17">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-						<jr:columnHeader height="30">
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="120" height="30" forecolor="#73879C" uuid="53584fa3-1c2d-4fcb-98b7-cf8925b29b7e"/>
+								<reportElement x="0" y="0" width="70" height="30" forecolor="#73879C" uuid="53584fa3-1c2d-4fcb-98b7-cf8925b29b7e"/>
 								<text><![CDATA[]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Bold" x="0" y="0" width="120" height="30" forecolor="#73879C" uuid="b55e3796-4d47-4e6b-babc-9b069e26fc74"/>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="70" height="30" forecolor="#73879C" uuid="b55e3796-4d47-4e6b-babc-9b069e26fc74"/>
 								<textFieldExpression><![CDATA[$F{age_at_enrollment}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="60" uuid="9df67af3-94e4-4c2c-b359-edbeeae9bf86">
+					<jr:column width="40" uuid="ce804ddd-3acc-4353-b13c-2e415a23c378">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-						<jr:columnHeader height="30">
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="1e759fe2-d0fe-495a-8009-cc33847f9d2f"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="9ea1821c-1888-4907-9805-14fc34da87a9"/>
+								<text><![CDATA[0]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="dea192e6-4558-4345-9444-06db8be406c7"/>
+								<textFieldExpression><![CDATA[$F{0}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="031987e1-87b1-4cac-b6cf-0ebf2eeb635b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="a2a253d7-ea4e-468e-b5c7-ce954d3e5d6f"/>
+								<text><![CDATA[0 %]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="6b75f2e3-2c3a-4ff4-9489-a48ca1ec220f"/>
+								<textFieldExpression><![CDATA[$F{0 %}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="9df67af3-94e4-4c2c-b359-edbeeae9bf86">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="1e759fe2-d0fe-495a-8009-cc33847f9d2f"/>
 								<text><![CDATA[1]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="aa0d0112-7233-4793-974e-6f0e8630869d"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="aa0d0112-7233-4793-974e-6f0e8630869d"/>
 								<textFieldExpression><![CDATA[$F{1}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="40" uuid="a8e57abf-f687-4a02-99bc-d58fba0888c6">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-						<jr:columnHeader height="30">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="f467d662-7f76-499d-b27b-50224558715c"/>
 								<text><![CDATA[1 %]]></text>
@@ -326,8 +292,8 @@ age_group]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="40" uuid="f9315bd0-54d7-4beb-9df3-43fd809fd0cc">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
-						<jr:columnHeader height="30">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="ae2e93a4-7f3d-4319-9d9f-ded0d9379885"/>
 								<text><![CDATA[2-3]]></text>
@@ -341,8 +307,8 @@ age_group]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="40" uuid="cfad05f6-3239-4e20-84b3-ca5de277d1db">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
-						<jr:columnHeader height="30">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="231d8d12-5210-4f8c-b089-f16537f74eab"/>
 								<text><![CDATA[2-3 %]]></text>
@@ -356,8 +322,8 @@ age_group]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="40" uuid="007b092f-2510-447f-b8c4-0deabbe1ed34">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
-						<jr:columnHeader height="30">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="a025a7fd-4c31-46cd-baa7-7acee6bfd322"/>
 								<text><![CDATA[4-5]]></text>
@@ -371,8 +337,8 @@ age_group]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="40" uuid="7f34a48b-596d-4b25-a17b-5e38767aa31d">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
-						<jr:columnHeader height="30">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="9cc0acc6-250e-4640-8498-e5f5e0c667bc"/>
 								<text><![CDATA[4-5 %]]></text>
@@ -386,8 +352,8 @@ age_group]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="40" uuid="7cbab2ff-65fe-4b81-a1a8-3854327274c2">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
-						<jr:columnHeader height="30">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="f4ab34ed-08b3-4fe5-8af4-454b924fcf24"/>
 								<text><![CDATA[6+]]></text>
@@ -401,8 +367,8 @@ age_group]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="40" uuid="c79c7e2f-8e38-4668-b814-b8b9bfa8c4c1">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
-						<jr:columnHeader height="30">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" forecolor="#73879C" uuid="e7bd745c-5158-4e87-a714-95078db94339"/>
 								<text><![CDATA[6+ %]]></text>
@@ -416,8 +382,8 @@ age_group]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="70" uuid="76345b1d-16f1-4b09-8caf-55010d182273">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
-						<jr:columnHeader height="30">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="UC Table Header Number" x="0" y="0" width="70" height="30" forecolor="#73879C" uuid="0ec7bd9b-3262-4509-a88f-fa45cb4056e0"/>
 								<text><![CDATA[total]]></text>
@@ -426,7 +392,7 @@ age_group]]>
 						<jr:detailCell height="30">
 							<textField>
 								<reportElement style="UC Table Row Bold Number" x="0" y="0" width="70" height="30" forecolor="#73879C" uuid="41eeb62b-067d-434b-b91d-808be5b76d5c"/>
-								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{total_clients_in_age_group}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-14T08:21:28 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT206" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
+<!-- 2017-02-07T15:15:28 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT208" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
 	<property name="ireport.jasperserver.user" value="jasperadmin"/>
-	<property name="ireport.jasperserver.report.resource" value="/reports/RPT206___Service_Intervention_by_age_group_files/rxml"/>
-	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT206___Service_Intervention_by_age_group"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/RPT208___Service_Intervention_by_type_and_age_group_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT208___Service_Intervention_by_type_and_age_group"/>
 	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
-	<style name="Style1"/>
 	<parameter name="IP" class="java.lang.String">
 		<parameterDescription><![CDATA[Implementing Partner]]></parameterDescription>
 	</parameter>
-	<parameter name="COUNTY" class="java.lang.String">
-		<parameterDescription><![CDATA[]]></parameterDescription>
-	</parameter>
+	<parameter name="COUNTY" class="java.lang.String"/>
 	<parameter name="SUB_COUNTY" class="java.lang.String"/>
 	<parameter name="WARD" class="java.lang.String"/>
 	<parameter name="QUARTER" class="java.lang.String"/>
+	<parameter name="FILTER_DESCRIPTION" class="java.lang.String" isForPrompting="false" evaluationTime="Late">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[$P{COUNTY}]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT NULL]]>
 	</queryString>
+	<variable name="FILTER_DESCRIPTION" class="java.lang.String">
+		<variableExpression><![CDATA[$P{FILTER_DESCRIPTION}]]></variableExpression>
+		<initialValueExpression><![CDATA["This is the first"]]></initialValueExpression>
+	</variable>
 	<pageHeader>
 		<band height="135" splitType="Stretch">
 			<subreport overflowType="NoStretch">
@@ -34,27 +39,30 @@
 				<subreportParameter name="REPORT_DESCRIPTION">
 					<subreportParameterExpression><![CDATA["This report shows the distribution of DREAMS clients per IP."]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="FILTER_DESCRIPTION">
+					<subreportParameterExpression><![CDATA[$V{FILTER_DESCRIPTION}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["Sub Reports/Report Header.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
 				<reportElement style="UC Report Title" x="1" y="0" width="49" height="30" uuid="655a0186-38c9-4c53-b5ab-899d4982885f"/>
-				<text><![CDATA[206]]></text>
+				<text><![CDATA[208]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="UC Report Title" x="50" y="0" width="500" height="30" uuid="ae10f5b4-3aad-40aa-a0a1-59980679fc26"/>
-				<text><![CDATA[DREAMS – Service Intervention by Category]]></text>
+				<text><![CDATA[DREAMS – Service Intervention by Type]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
 		<band height="520" splitType="Stretch">
 			<staticText>
-				<reportElement style="UC Header" x="-1" y="9" width="550" height="20" uuid="d8bbb64e-a117-46d0-a4dc-ddaf36973919"/>
-				<text><![CDATA[Service Intervention by Category by age group]]></text>
+				<reportElement style="UC Header" x="-1" y="9" width="351" height="20" uuid="d8bbb64e-a117-46d0-a4dc-ddaf36973919"/>
+				<text><![CDATA[Service Intervention by Intervention type by age group]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="37" y="33" width="507" height="257" uuid="cd951e82-1628-4b61-adcb-615e56f1dfe5"/>
+				<reportElement x="0" y="34" width="555" height="200" uuid="94b837ed-c2f5-4288-86e3-71379de191bd"/>
 				<subreportParameter name="IP">
 					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -71,35 +79,8 @@
 					<subreportParameterExpression><![CDATA[$P{QUARTER}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["RPT206/RPT206b -  Service Intervention by age group (Table).jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["RPT208/RPT208a -  Service Intervention by Intervention type and age group (Table).jasper"]]></subreportExpression>
 			</subreport>
-		</band>
-		<band height="320">
-			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-			<subreport>
-				<reportElement x="0" y="60" width="480" height="180" uuid="4bf04705-4a39-4601-9f30-4add27e59307"/>
-				<subreportParameter name="IP">
-					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="COUNTY">
-					<subreportParameterExpression><![CDATA[$P{COUNTY}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUB_COUNTY">
-					<subreportParameterExpression><![CDATA[$P{SUB_COUNTY}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="WARD">
-					<subreportParameterExpression><![CDATA[$P{WARD}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="QUARTER">
-					<subreportParameterExpression><![CDATA[$P{QUARTER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["RPT206/RPT206b -  Service Intervention by age group (Stacked Bar).jasper"]]></subreportExpression>
-			</subreport>
-			<staticText>
-				<reportElement style="UC Header" x="0" y="30" width="544" height="20" uuid="51097bf1-e92d-4603-83d1-c99e8901c35b"/>
-				<text><![CDATA[Service Intervention by Category by age group (%)]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<pageFooter>

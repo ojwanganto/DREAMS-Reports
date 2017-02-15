@@ -7,11 +7,11 @@
 	<style name="UC Base Table Element" style="UC Base Colour" forecolor="#73879C" vTextAlign="Middle">
 		<box leftPadding="2" rightPadding="2"/>
 	</style>
-	<style name="UC Base Reverse" mode="Opaque" forecolor="#ECF0F1" backcolor="#262471"/>
+	<style name="UC Base Reverse" mode="Opaque" forecolor="#ECF0F1" backcolor="#2A3F54"/>
 	<style name="UC Report Title" style="UC Base Reverse" vTextAlign="Middle" fontSize="18">
 		<box leftPadding="3">
 			<pen lineWidth="0.0"/>
-			<bottomPen lineWidth="4.0" lineColor="#FAB16A"/>
+			<bottomPen lineWidth="4.0" lineColor="#1ABB9C"/>
 		</box>
 	</style>
 	<style name="UC Table Header" style="UC Base Table Element" isBold="true">
@@ -41,16 +41,16 @@
 	</style>
 	<style name="UC Report Header Caption" style="UC Base Shade" forecolor="#73879C" fontSize="8">
 		<box topPadding="0">
-			<topPen lineWidth="0.5" lineColor="#262471"/>
-			<leftPen lineWidth="0.5" lineColor="#262471"/>
-			<rightPen lineWidth="0.5" lineColor="#262471"/>
+			<topPen lineWidth="0.5" lineColor="#73879C"/>
+			<leftPen lineWidth="0.5" lineColor="#73879C"/>
+			<rightPen lineWidth="0.5" lineColor="#73879C"/>
 		</box>
 	</style>
 	<style name="UC Report Header Section" style="UC Base Shade" fontSize="9">
 		<box topPadding="6" leftPadding="6" rightPadding="6">
-			<leftPen lineWidth="0.5" lineColor="#262471"/>
-			<bottomPen lineWidth="0.5" lineColor="#262471"/>
-			<rightPen lineWidth="0.5" lineColor="#262471"/>
+			<leftPen lineWidth="0.5" lineColor="#73879C"/>
+			<bottomPen lineWidth="0.5" lineColor="#73879C"/>
+			<rightPen lineWidth="0.5" lineColor="#73879C"/>
 		</box>
 	</style>
 	<style name="UC Report Footer" style="UC Report Title" fontSize="8">

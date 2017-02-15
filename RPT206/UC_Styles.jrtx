@@ -7,11 +7,11 @@
 	<style name="UC Base Table Element" style="UC Base Colour" forecolor="#73879C" vTextAlign="Middle">
 		<box leftPadding="2" rightPadding="2"/>
 	</style>
-	<style name="UC Base Reverse" mode="Opaque" forecolor="#ECF0F1" backcolor="#2A3F54"/>
+	<style name="UC Base Reverse" mode="Opaque" forecolor="#ECF0F1" backcolor="#262471"/>
 	<style name="UC Report Title" style="UC Base Reverse" vTextAlign="Middle" fontSize="18">
 		<box leftPadding="3">
 			<pen lineWidth="0.0"/>
-			<bottomPen lineWidth="4.0" lineColor="#1ABB9C"/>
+			<bottomPen lineWidth="4.0" lineColor="#FAB16A"/>
 		</box>
 	</style>
 	<style name="UC Table Header" style="UC Base Table Element" isBold="true">
