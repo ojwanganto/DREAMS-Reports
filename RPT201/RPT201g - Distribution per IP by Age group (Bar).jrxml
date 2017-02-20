@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T10:11:11 -->
+<!-- 2017-02-20T12:31:51 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201g - Distribution per IP by Age group (Bar)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="477"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="523"/>
-	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
 	<queryString language="SQL">
 		<![CDATA[SELECT number_of_clients,ip, age_group, total, ROUND(((number_of_clients/total)*100), 0) as percentage FROM (SELECT (SELECT SUM(number_of_clients) FROM(SELECT COUNT(id) AS 'number_of_clients',
 implementing_partner as 'ip',
@@ -45,9 +46,7 @@ age_group
 						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					</reportElement>
-					<chartTitle>
-						<titleExpression><![CDATA["Distribution per IP by Age Group"]]></titleExpression>
-					</chartTitle>
+					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend position="Bottom"/>
 				</chart>
@@ -60,11 +59,11 @@ age_group
 				</categoryDataset>
 				<barPlot>
 					<plot orientation="Horizontal">
-						<seriesColor seriesOrder="0" color="#455C73"/>
-						<seriesColor seriesOrder="1" color="#9B59B6"/>
-						<seriesColor seriesOrder="2" color="#BDC3C7"/>
-						<seriesColor seriesOrder="3" color="#26B99A"/>
-						<seriesColor seriesOrder="4" color="#3498DB"/>
+						<seriesColor seriesOrder="0" color="#262471"/>
+						<seriesColor seriesOrder="1" color="#F1716C"/>
+						<seriesColor seriesOrder="2" color="#FAB16A"/>
+						<seriesColor seriesOrder="3" color="#FFFF91"/>
+						<seriesColor seriesOrder="4" color="#1ABB9C"/>
 					</plot>
 					<itemLabel/>
 					<categoryAxisFormat>

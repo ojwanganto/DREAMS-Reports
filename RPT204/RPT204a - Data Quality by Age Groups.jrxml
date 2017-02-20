@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T15:32:55 -->
+<!-- 2017-02-17T12:05:31 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT204a - Data Quality by Age Groups" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="fe07f47f-2c66-4dfb-99c8-a084a8fc0e98">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
-	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
+	<parameter name="IP" class="java.lang.String"/>
+	<parameter name="COUNTY" class="java.lang.String"/>
+	<parameter name="SUB_COUNTY" class="java.lang.String"/>
+	<parameter name="WARD" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[select `vw_client_ex`.`age_at_enrollment` AS `age_at_enrollment`,count(0) AS `count(*)`,`vw_client_ex`.`age_group` AS `age_group`,`vw_client_ex`.`implementing_partner` AS `implementing_partner` from `vw_client_ex` where ((`vw_client_ex`.`age_group` <> '10-14') and (`vw_client_ex`.`age_group` <> '15-19') and (`vw_client_ex`.`age_group` <> '20-24')) group by `vw_client_ex`.`age_group`,`vw_client_ex`.`implementing_partner`]]>
+		<![CDATA[select `vw_client_ex`.`age_at_enrollment` AS `age_at_enrollment`,count(0) AS `count(*)`,`vw_client_ex`.`age_group` AS `age_group`,`vw_client_ex`.`implementing_partner` AS `implementing_partner` from `vw_client_ex` 
+WHERE implementing_partner IS NOT NULL
+AND
+( 
+	(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+	OR
+	(implementing_partner =  $P{IP} )
+)
+AND
+( 
+	(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
+	OR
+	(county =  $P{COUNTY} )
+)
+AND
+( 
+	(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '')  and sub_county LIKE '%%') 
+	OR
+	(sub_county =  $P{SUB_COUNTY} )
+)
+AND
+( 
+	(($P{WARD} IS NULL or $P{WARD} = '')  and ward LIKE '%%') 
+	OR
+	(ward =  $P{WARD} )
+)
+and ((`vw_client_ex`.`age_group` <> '10-14') and (`vw_client_ex`.`age_group` <> '15-19') and (`vw_client_ex`.`age_group` <> '20-24')) group by `vw_client_ex`.`age_group`,`vw_client_ex`.`implementing_partner`]]>
 	</queryString>
 	<field name="age_at_enrollment" class="java.lang.Long"/>
 	<field name="count(*)" class="java.lang.Long"/>
