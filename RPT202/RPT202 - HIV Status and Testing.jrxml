@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-25T10:59:40 -->
+<!-- 2017-02-17T12:15:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406d-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
@@ -9,11 +9,20 @@
 	<property name="ireport.jasperserver.report.resource" value="/reports/RPT202___HIV_Status_and_Testing_files/main_jrxml"/>
 	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT202___HIV_Status_and_Testing"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
 	<parameter name="IP" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT NULL]]>
 	</queryString>
+	<variable name="REPORT_DESCRIPTION" class="java.lang.String">
+		<variableExpression><![CDATA["This report  shows HIV status and Testing by IP, and Age group"]]></variableExpression>
+		<initialValueExpression><![CDATA["This report  shows HIV status and Testing by IP, and Age group"]]></initialValueExpression>
+	</variable>
+	<variable name="FILTERS_DESCRIPTION" class="java.lang.String">
+		<variableExpression><![CDATA[""]]></variableExpression>
+		<initialValueExpression><![CDATA[""]]></initialValueExpression>
+	</variable>
 	<pageHeader>
 		<band height="135" splitType="Stretch">
 			<subreport overflowType="NoStretch">
@@ -24,10 +33,10 @@
 					<subreportParameterExpression><![CDATA[$V{PAGE_COUNT}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_DESCRIPTION">
-					<subreportParameterExpression><![CDATA["This report shows the testing status of DREAMS clients for all IPs, or for a single IP."]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$V{REPORT_DESCRIPTION}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="FILTER_DESCRIPTION">
-					<subreportParameterExpression><![CDATA[$P{IP} != null ? "IP: " + $P{IP} : "All implementing partners"]]></subreportParameterExpression>
+				<subreportParameter name="FILTERS_DESCRIPTION">
+					<subreportParameterExpression><![CDATA[$V{FILTERS_DESCRIPTION}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["Sub Reports/Report Header.jasper"]]></subreportExpression>

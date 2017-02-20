@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T10:27:53 -->
+<!-- 2017-02-20T11:11:42 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT201b" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -8,7 +8,8 @@
 	<property name="ireport.jasperserver.user" value="jasperadmin"/>
 	<property name="ireport.jasperserver.report.resource" value="/reports/RPT201b___Distribution_per_IP__Chart__files/main_jrxml"/>
 	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT201b___Distribution_per_IP__Chart_"/>
-	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
 	<queryString>
 		<![CDATA[SELECT
 	i.name as 'IP',
@@ -45,11 +46,11 @@ GROUP BY
 				</pieDataset>
 				<piePlot isShowLabels="true" isCircular="true" labelFormat="{0} ({2})" legendLabelFormat="{0} ({2})">
 					<plot>
-						<seriesColor seriesOrder="0" color="#455C73"/>
-						<seriesColor seriesOrder="1" color="#9B59B6"/>
-						<seriesColor seriesOrder="2" color="#BDC3C7"/>
-						<seriesColor seriesOrder="3" color="#26B99A"/>
-						<seriesColor seriesOrder="4" color="#3498DB"/>
+						<seriesColor seriesOrder="0" color="#262471"/>
+						<seriesColor seriesOrder="1" color="#F1716C"/>
+						<seriesColor seriesOrder="2" color="#FAB16A"/>
+						<seriesColor seriesOrder="3" color="#FFFF91"/>
+						<seriesColor seriesOrder="4" color="#1ABB9C"/>
 					</plot>
 					<itemLabel>
 						<font size="8"/>
