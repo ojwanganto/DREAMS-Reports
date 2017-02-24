@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-16T10:10:37 -->
+<!-- 2017-02-24T11:46:28 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT207" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
@@ -8,16 +8,21 @@
 	<property name="ireport.jasperserver.user" value="jasperadmin"/>
 	<property name="ireport.jasperserver.report.resource" value="/reports/RPT207____Service_Layering_Report_files/main_jrxml"/>
 	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT207____Service_Layering_Report"/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles_DR.jrtx"]]></template>
 	<parameter name="IP" class="java.lang.String">
 		<parameterDescription><![CDATA[Implementing Partner]]></parameterDescription>
 	</parameter>
-	<parameter name="INTERVENTION_CATEGORY" class="java.lang.String"/>
 	<parameter name="COUNTY" class="java.lang.String"/>
 	<parameter name="SUB_COUNTY" class="java.lang.String"/>
 	<parameter name="WARD" class="java.lang.String"/>
-	<parameter name="QUARTER" class="java.lang.String"/>
+	<parameter name="INTERVENTION_CATEGORY" class="java.util.Collection">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("BEHAVIORAL","BIO-MEDICAL","SOCIAL PROTECTION","OTHER INTERVENTIONS","POST-GBV CARE"))]]></defaultValueExpression>
+	</parameter>
+	<parameter name="QUARTER" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT NULL]]>
 	</queryString>

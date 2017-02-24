@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-17T12:08:04 -->
+<!-- 2017-02-24T12:08:37 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT207a -  Service Layering by IP by age group (Table)" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfd88cee-64f8-4020-b761-3459776f4a3d">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -51,9 +51,9 @@ FROM
 		(  
 			(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') OR implementing_partner =  $P{IP}
 		)
-		AND 
+		AND intervention_category IS NOT NULL AND
 		( 
-			(($P{INTERVENTION_CATEGORY} IS NULL or $P{INTERVENTION_CATEGORY} = '') and intervention_category LIKE '%%')  OR intervention_category =  $P{INTERVENTION_CATEGORY} 	
+			$X{IN, intervention_category, INTERVENTION_CATEGORY}
 		)
 		AND county IS NOT NULL AND
 		( 
@@ -75,9 +75,7 @@ FROM
 		)
 		AND date_of_intervention_quarter IS NOT NULL AND
 		( 
-			(($P{QUARTER} IS NULL or $P{QUARTER} = '') and date_of_intervention_quarter LIKE '%%') 
-			OR
-			(date_of_intervention_quarter =  $P{QUARTER} )
+			$X{IN, date_of_intervention_quarter, QUARTER}
 		)
 		GROUP BY client_id
 	) c
@@ -133,12 +131,16 @@ group by age_at_enrollment]]>
 		<field name="total" class="java.lang.Long"/>
 		<field name="total_clients_in_age_group" class="java.lang.Long"/>
 	</subDataset>
-	<parameter name="INTERVENTION_CATEGORY" class="java.lang.String"/>
 	<parameter name="IP" class="java.lang.String"/>
 	<parameter name="COUNTY" class="java.lang.String"/>
 	<parameter name="SUB_COUNTY" class="java.lang.String"/>
 	<parameter name="WARD" class="java.lang.String"/>
-	<parameter name="QUARTER" class="java.lang.String"/>
+	<parameter name="INTERVENTION_CATEGORY" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("BEHAVIORAL","BIO-MEDICAL","SOCIAL PROTECTION","OTHER INTERVENTIONS","POST-GBV CARE"))]]></defaultValueExpression>
+	</parameter>
+	<parameter name="QUARTER" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
  	age_group as age_at_enrollment,
@@ -170,9 +172,7 @@ from (
 		intervention_category IS NOT NULL 
 		AND
 		(
-			(($P{INTERVENTION_CATEGORY} IS NULL or $P{INTERVENTION_CATEGORY} = '') and intervention_category LIKE '%%') 
-			OR
-			(intervention_category =  $P{INTERVENTION_CATEGORY} )
+			$X{IN, intervention_category, INTERVENTION_CATEGORY}
 		)
 		GROUP BY client_id
 	) c

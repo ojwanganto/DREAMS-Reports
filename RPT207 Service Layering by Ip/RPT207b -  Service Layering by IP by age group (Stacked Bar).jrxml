@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-20T11:50:17 -->
+<!-- 2017-02-24T11:46:46 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="207b" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
@@ -8,14 +8,18 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="695"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="595"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="394"/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles_DR.jrtx"]]></template>
 	<parameter name="IP" class="java.lang.String"/>
-	<parameter name="INTERVENTION_CATEGORY" class="java.lang.String"/>
 	<parameter name="COUNTY" class="java.lang.String"/>
 	<parameter name="SUB_COUNTY" class="java.lang.String"/>
 	<parameter name="WARD" class="java.lang.String"/>
-	<parameter name="QUARTER" class="java.lang.String"/>
+	<parameter name="INTERVENTION_CATEGORY" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("BEHAVIORAL","BIO-MEDICAL","SOCIAL PROTECTION","OTHER INTERVENTIONS","POST-GBV CARE"))]]></defaultValueExpression>
+	</parameter>
+	<parameter name="QUARTER" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT complete_aggregated_list.*,
 	client_count_per_age_group_with_services.*,
@@ -47,9 +51,7 @@ FROM
 				)
 				AND intervention_category IS NOT NULL AND
 				(
-					(($P{INTERVENTION_CATEGORY} IS NULL or $P{INTERVENTION_CATEGORY} = '') and intervention_category LIKE '%%') 
-					OR
-					(intervention_category =  $P{INTERVENTION_CATEGORY} )
+					$X{IN, intervention_category, INTERVENTION_CATEGORY}
 				)
 				AND county IS NOT NULL AND
 				( 
@@ -71,9 +73,7 @@ FROM
 				)
 				AND date_of_intervention_quarter IS NOT NULL AND
 				( 
-					(($P{QUARTER} IS NULL or $P{QUARTER} = '') and date_of_intervention_quarter LIKE '%%') 
-					OR
-					(date_of_intervention_quarter =  $P{QUARTER} )
+					$X{IN, date_of_intervention_quarter, QUARTER}
 				)
 				AND age_group IS NOT NULL
 				GROUP BY client_id
@@ -138,9 +138,7 @@ LEFT OUTER JOIN
 		)
 		AND intervention_category IS NOT NULL AND
 		(
-			(($P{INTERVENTION_CATEGORY} IS NULL or $P{INTERVENTION_CATEGORY} = '') and intervention_category LIKE '%%') 
-			OR
-			(intervention_category =  $P{INTERVENTION_CATEGORY} )
+			$X{IN, intervention_category, INTERVENTION_CATEGORY}
 		)
 		AND county IS NOT NULL AND
 		( 
@@ -162,9 +160,7 @@ LEFT OUTER JOIN
 		)
 		AND date_of_intervention_quarter IS NOT NULL AND
 		( 
-			(($P{QUARTER} IS NULL or $P{QUARTER} = '') and date_of_intervention_quarter LIKE '%%') 
-			OR
-			(date_of_intervention_quarter =  $P{QUARTER} )
+			$X{IN, date_of_intervention_quarter, QUARTER}
 		)
 		AND age_group IS NOT NULL
 		GROUP BY client_id
