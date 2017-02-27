@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-07T15:10:44 -->
+<!-- 2017-02-17T12:09:17 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report Header" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0f377c84-afc1-4f51-9657-706864cf495c">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
 	<parameter name="REPORT_DESCRIPTION" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="TOTAL_PAGES" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="FILTER_DESCRIPTION" class="java.lang.String" isForPrompting="false">
+	<parameter name="FILTERS_DESCRIPTION" class="java.lang.String" isForPrompting="false">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
 	<queryString>
@@ -39,10 +40,10 @@
 				</reportElement>
 				<text><![CDATA[PAGE]]></text>
 			</staticText>
-			<textField evaluationTime="Page">
+			<textField evaluationTime="Master">
 				<reportElement style="UC Report Header Section" x="450" y="65" width="40" height="20" uuid="a45b3983-152e-4b62-ac60-34f549f1543d"/>
 				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="UC Report Header Caption" x="0" y="10" width="210" height="15" uuid="24eb2b18-95f2-4576-849e-e1a40d5c8581">
@@ -58,7 +59,7 @@
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement style="UC Report Header Section" x="220" y="25" width="220" height="60" uuid="70106519-6ae5-40d3-9c17-a93150b70232"/>
-				<textFieldExpression><![CDATA[$P{FILTER_DESCRIPTION}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{FILTERS_DESCRIPTION}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="UC Report Header Caption" x="500" y="50" width="45" height="15" uuid="2e6cd060-3faa-41bd-b8e8-69437b093a10">
@@ -66,10 +67,10 @@
 				</reportElement>
 				<text><![CDATA[TOTAL PAGES]]></text>
 			</staticText>
-			<textField evaluationTime="Report">
+			<textField evaluationTime="Master">
 				<reportElement style="UC Report Header Section" x="500" y="65" width="45" height="20" uuid="4c6a2525-e414-4382-886a-51caf6027372"/>
 				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_TOTAL_PAGES}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

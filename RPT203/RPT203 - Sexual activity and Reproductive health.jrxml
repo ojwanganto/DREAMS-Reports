@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-25T12:28:00 -->
+<!-- 2017-02-17T12:16:59 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT203" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
 	<property name="ireport.jasperserver.user" value="jasperadmin"/>
-	<property name="ireport.jasperserver.report.resource" value="/reports/RPT201___Distribution_per_IP_2_files/main_jrxml"/>
-	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT201___Distribution_per_IP_2"/>
-	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<property name="ireport.jasperserver.report.resource" value="/reports/RPT203___Sexual_activity_and_Reproductive_health_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT203___Sexual_activity_and_Reproductive_health"/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
 	<parameter name="IP" class="java.lang.String">
 		<parameterDescription><![CDATA[Implementing Partner]]></parameterDescription>
+	</parameter>
+	<parameter name="COUNTY" class="java.lang.String"/>
+	<parameter name="SUB_COUNTY" class="java.lang.String"/>
+	<parameter name="WARD" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT NULL]]>
 	</queryString>
+	<variable name="REPORT_DESCRIPTION" class="java.lang.String">
+		<variableExpression><![CDATA["This report shows clients sexual activity and reproductive health."]]></variableExpression>
+		<initialValueExpression><![CDATA["This report shows clients sexual activity and reproductive health."]]></initialValueExpression>
+	</variable>
+	<variable name="FILTERS_DESCRIPTION" class="java.lang.String"/>
 	<pageHeader>
 		<band height="135" splitType="Stretch">
 			<subreport overflowType="NoStretch">
@@ -25,7 +36,10 @@
 					<subreportParameterExpression><![CDATA[$V{PAGE_COUNT}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_DESCRIPTION">
-					<subreportParameterExpression><![CDATA["This report shows the distribution of DREAMS clients per IP."]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$V{REPORT_DESCRIPTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FILTERS_DESCRIPTION">
+					<subreportParameterExpression><![CDATA[$V{FILTERS_DESCRIPTION}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["Sub Reports/Report Header.jasper"]]></subreportExpression>
@@ -48,6 +62,18 @@
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COUNTY">
+					<subreportParameterExpression><![CDATA[$P{COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUB_COUNTY">
+					<subreportParameterExpression><![CDATA[$P{SUB_COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="WARD">
+					<subreportParameterExpression><![CDATA[$P{WARD}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT203a - Distribution ever had sex by age (Bar).jasper"]]></subreportExpression>
 			</subreport>
@@ -55,6 +81,9 @@
 				<reportElement x="118" y="300" width="319" height="200" uuid="f8032c98-430b-4eb3-8ac7-f5caa3637e1c">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT203c - Distribution ever had sex by Age (Crosstab).jasper"]]></subreportExpression>
 			</subreport>
@@ -72,6 +101,9 @@
 				<reportElement x="110" y="280" width="319" height="200" uuid="6dc8dd25-e993-4b01-ba98-ba7a0606eea4">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT203d - Distribution Sex partners in last 12 months by Age (Crosstab).jasper"]]></subreportExpression>
 			</subreport>
@@ -79,6 +111,9 @@
 				<reportElement x="0" y="43" width="550" height="200" uuid="1b523849-4a43-4c07-88a2-337758ea9595">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT203e - Distribution Sex partners in last 12 months by Age (Bar).jasper"]]></subreportExpression>
 			</subreport>
@@ -93,6 +128,9 @@
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT203g - Distribution have Biological children by Age (Bar).jasper"]]></subreportExpression>
 			</subreport>
@@ -100,6 +138,9 @@
 				<reportElement x="118" y="340" width="319" height="200" uuid="faba33d7-6762-400c-a3e8-ed60f0d90d10">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT203h - Distribution have Biological childern by age (Crosstab).jasper"]]></subreportExpression>
 			</subreport>
@@ -120,6 +161,9 @@
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT203f - Distribution have Biological children (Chart).jasper"]]></subreportExpression>
 			</subreport>

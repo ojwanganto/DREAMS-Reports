@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-24T11:48:07 -->
+<!-- 2017-02-20T11:36:57 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT202d - Currently in Care Among HIV Positive (Chart)" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
 	<parameter name="IP" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(id) as number_currently_in_care, IFNULL(Enrolled_in_HIV_Care, 'Missing') Enrolled_in_HIV_Care 
@@ -44,11 +45,11 @@ GROUP BY Enrolled_in_HIV_Care]]>
 				</pieDataset>
 				<piePlot isShowLabels="true" labelFormat="{0} ({2})" legendLabelFormat="">
 					<plot>
-						<seriesColor seriesOrder="0" color="#455C73"/>
-						<seriesColor seriesOrder="1" color="#9B59B6"/>
-						<seriesColor seriesOrder="2" color="#BDC3C7"/>
-						<seriesColor seriesOrder="3" color="#26B99A"/>
-						<seriesColor seriesOrder="4" color="#3498DB"/>
+						<seriesColor seriesOrder="0" color="#262471"/>
+						<seriesColor seriesOrder="1" color="#F1716C"/>
+						<seriesColor seriesOrder="2" color="#FAB16A"/>
+						<seriesColor seriesOrder="3" color="#FFFF91"/>
+						<seriesColor seriesOrder="4" color="#1ABB9C"/>
 					</plot>
 					<itemLabel/>
 				</piePlot>
