@@ -1,128 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-24T15:08:27 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT210c - Cohort Report 20-24" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="336c6aca-11ab-48c0-993e-4c3127a8a5e5">
+<!-- 2017-02-27T11:37:47 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT208b" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3cd46c4b-c8e2-4257-9e66-1f9e97d34eac">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
-	<subDataset name="twenty_to_twenty_four_table" uuid="830d931e-2a6f-44da-952c-3a6f1d860e7b">
-		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
-		<parameter name="IP" class="java.lang.String">
-			<parameterDescription><![CDATA[]]></parameterDescription>
-		</parameter>
-		<queryString language="SQL">
-			<![CDATA[SELECT
-enrollment_cohort, ordering,
-zero as "0", round((zero * 100/total),1) as "0[%]",
-one as "1",round((one * 100/total),1) as "1[%]",
-two_to_three as "2-3",round((two_to_three * 100/total),1) as "2-3[%]",
-four_to_five as "4-5",round((four_to_five * 100/total),1) as "4-5[%]",
-above_five as "6+",round((above_five * 100/total),1) as "6+[%]",
-total
-FROM (
-SELECT
-  enrollment_cohort,
-  ordering,
-  SUM(IF(interventions=0,1, 0)) AS "zero",
-  SUM(IF(interventions=1,1, 0)) AS "one",
-  SUM(IF(interventions in (2,3),1, 0)) AS "two_to_three",
-  SUM(IF(interventions in (4,5),1, 0)) AS "four_to_five",
-  SUM(IF(interventions >=6,1, 0)) AS "above_five",
-  COUNT(distinct id) total
-FROM (
-  SELECT
-    c.id,
-    client_id,
-    c.age_group,
-    c.date_of_enrollment,
-    period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) AS months_since_enrollment,
-    (CASE
-    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 0 AND 3
-    THEN "0-3"
-    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 4 AND 6
-    THEN "4-6"
-    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 7 AND 9
-    THEN "7-9"
-    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 10 AND 12
-    THEN "10-12"
-    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) >= 13
-    THEN "13+"
-    END)  AS enrollment_cohort,
-    (CASE
-    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 0 AND 3
-    THEN 1
-    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 4 AND 6
-    THEN 2
-    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 7 AND 9
-    THEN 3
-    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 10 AND 12
-    THEN 4
-    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) >= 13
-    THEN 5
-    END)  AS ordering,
-    (CASE
-    WHEN client_id is null
-    THEN '0'
-    WHEN count(DISTINCT intervention) = 1
-    THEN "1"
-    WHEN count(DISTINCT intervention) BETWEEN 2 AND 3
-    THEN "2-3"
-    WHEN count(DISTINCT intervention) BETWEEN 4 AND 5
-    THEN "4-5"
-    WHEN count(DISTINCT intervention) > 5
-    THEN "6+"
-    END) interventions,
-    count(DISTINCT intervention) AS intervention_count
-    FROM stag_client_ex c
-    left join stag_client_intervention i on c.id=i.client_id and i.voided=0
-    where c.voided=0 and c.age_group="20-24"
-    AND
-		(  
-			(($P{IP} IS NULL or $P{IP} = '') and c.implementing_partner LIKE '%%') OR c.implementing_partner =  $P{IP}
-		)
-    GROUP BY c.id
-    HAVING months_since_enrollment >= 0
-
-) t
-group by enrollment_cohort 
-order by ordering
-)r
-order by ordering]]>
-		</queryString>
-		<field name="enrollment_cohort" class="java.lang.String"/>
-		<field name="ordering" class="java.lang.Integer"/>
-		<field name="0" class="java.math.BigDecimal"/>
-		<field name="0[%]" class="java.math.BigDecimal"/>
-		<field name="1" class="java.math.BigDecimal"/>
-		<field name="1[%]" class="java.math.BigDecimal"/>
-		<field name="2-3" class="java.math.BigDecimal"/>
-		<field name="2-3[%]" class="java.math.BigDecimal"/>
-		<field name="4-5" class="java.math.BigDecimal"/>
-		<field name="4-5[%]" class="java.math.BigDecimal"/>
-		<field name="6+" class="java.math.BigDecimal"/>
-		<field name="6+[%]" class="java.math.BigDecimal"/>
-		<field name="total" class="java.lang.Long"/>
-		<variable name="01" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
-			<variableExpression><![CDATA[$F{0}]]></variableExpression>
-		</variable>
-		<variable name="11" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
-			<variableExpression><![CDATA[$F{1}]]></variableExpression>
-		</variable>
-		<variable name="2-31" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
-			<variableExpression><![CDATA[$F{2-3}]]></variableExpression>
-		</variable>
-		<variable name="4-51" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
-			<variableExpression><![CDATA[$F{4-5}]]></variableExpression>
-		</variable>
-		<variable name="6+1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
-			<variableExpression><![CDATA[$F{6+}]]></variableExpression>
-		</variable>
-		<variable name="total1" class="java.lang.Long" resetType="Column" calculation="Sum">
-			<variableExpression><![CDATA[$F{total}]]></variableExpression>
-		</variable>
-	</subDataset>
-	<subDataset name="twenty_to_twenty_four_chart" uuid="ea56337b-1a28-4572-9d16-b86044866f9e">
+	<subDataset name="fifteen_to_nineteen_chart" uuid="84f44c24-44fd-4464-8b2d-e68a49614f96">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
 		<parameter name="IP" class="java.lang.String">
@@ -202,7 +85,7 @@ select id,
     THEN "13+"
     END)  AS enrollment_cohort
 from stag_client_ex 
-where age_group="20-24" and date_of_enrollment is not null and date_of_enrollment <= now()
+where age_group="15-19" and date_of_enrollment is not null and date_of_enrollment <= now()
 AND
 		(  
 			(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') OR implementing_partner =  $P{IP}
@@ -210,7 +93,7 @@ AND
 ) t
 group by enrollment_cohort
 ) e on e.enrollment_cohort = t.enrollment_cohort
-where age_group="20-24"
+where age_group="15-19"
 group by t.enrollment_cohort,  interventions
 order by ordering, interventions ;]]>
 		</queryString>
@@ -220,6 +103,123 @@ order by ordering, interventions ;]]>
 		<field name="group_total" class="java.lang.Long"/>
 		<field name="cohort_enrollment" class="java.lang.Long"/>
 		<field name="proportion" class="java.math.BigDecimal"/>
+	</subDataset>
+	<subDataset name="fifteen_to_nineteen_table" uuid="f076ec15-908d-4222-8270-6a4cbe0ea585">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
+		<parameter name="IP" class="java.lang.String">
+			<parameterDescription><![CDATA[]]></parameterDescription>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[SELECT
+enrollment_cohort, ordering,
+zero as "0", round((zero * 100/total),1) as "0[%]",
+one as "1",round((one * 100/total),1) as "1[%]",
+two_to_three as "2-3",round((two_to_three * 100/total),1) as "2-3[%]",
+four_to_five as "4-5",round((four_to_five * 100/total),1) as "4-5[%]",
+above_five as "6+",round((above_five * 100/total),1) as "6+[%]",
+total
+FROM (
+SELECT
+  enrollment_cohort,
+  ordering,
+  SUM(IF(interventions=0,1, 0)) AS "zero",
+  SUM(IF(interventions=1,1, 0)) AS "one",
+  SUM(IF(interventions in (2,3),1, 0)) AS "two_to_three",
+  SUM(IF(interventions in (4,5),1, 0)) AS "four_to_five",
+  SUM(IF(interventions >=6,1, 0)) AS "above_five",
+  COUNT(distinct id) total
+FROM (
+  SELECT
+    c.id,
+    client_id,
+    c.age_group,
+    c.date_of_enrollment,
+    period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) AS months_since_enrollment,
+    (CASE
+    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 0 AND 3
+    THEN "0-3"
+    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 4 AND 6
+    THEN "4-6"
+    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 7 AND 9
+    THEN "7-9"
+    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 10 AND 12
+    THEN "10-12"
+    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) >= 13
+    THEN "13+"
+    END)  AS enrollment_cohort,
+    (CASE
+    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 0 AND 3
+    THEN 1
+    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 4 AND 6
+    THEN 2
+    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 7 AND 9
+    THEN 3
+    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) BETWEEN 10 AND 12
+    THEN 4
+    WHEN period_diff(date_format(now(), '%Y%m'), date_format(c.date_of_enrollment, '%Y%m')) >= 13
+    THEN 5
+    END)  AS ordering,
+    (CASE
+    WHEN client_id is null
+    THEN '0'
+    WHEN count(DISTINCT intervention) = 1
+    THEN "1"
+    WHEN count(DISTINCT intervention) BETWEEN 2 AND 3
+    THEN "2-3"
+    WHEN count(DISTINCT intervention) BETWEEN 4 AND 5
+    THEN "4-5"
+    WHEN count(DISTINCT intervention) > 5
+    THEN "6+"
+    END) interventions,
+    count(DISTINCT intervention) AS intervention_count
+    FROM stag_client_ex c
+    left join stag_client_intervention i on c.id=i.client_id and i.voided=0
+    where c.voided=0 and c.age_group="15-19"
+    AND
+		(  
+			(($P{IP} IS NULL or $P{IP} = '') and c.implementing_partner LIKE '%%') OR c.implementing_partner =  $P{IP}
+		)
+    GROUP BY c.id
+    HAVING months_since_enrollment >= 0
+
+) t
+group by enrollment_cohort 
+order by ordering
+)r
+order by ordering]]>
+		</queryString>
+		<field name="enrollment_cohort" class="java.lang.String"/>
+		<field name="ordering" class="java.lang.Integer"/>
+		<field name="0" class="java.math.BigDecimal"/>
+		<field name="0[%]" class="java.math.BigDecimal"/>
+		<field name="1" class="java.math.BigDecimal"/>
+		<field name="1[%]" class="java.math.BigDecimal"/>
+		<field name="2-3" class="java.math.BigDecimal"/>
+		<field name="2-3[%]" class="java.math.BigDecimal"/>
+		<field name="4-5" class="java.math.BigDecimal"/>
+		<field name="4-5[%]" class="java.math.BigDecimal"/>
+		<field name="6+" class="java.math.BigDecimal"/>
+		<field name="6+[%]" class="java.math.BigDecimal"/>
+		<field name="total" class="java.lang.Long"/>
+		<variable name="01" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+			<variableExpression><![CDATA[$F{0}]]></variableExpression>
+		</variable>
+		<variable name="11" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+			<variableExpression><![CDATA[$F{1}]]></variableExpression>
+		</variable>
+		<variable name="2-31" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+			<variableExpression><![CDATA[$F{2-3}]]></variableExpression>
+		</variable>
+		<variable name="4-51" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+			<variableExpression><![CDATA[$F{4-5}]]></variableExpression>
+		</variable>
+		<variable name="6+1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+			<variableExpression><![CDATA[$F{6+}]]></variableExpression>
+		</variable>
+		<variable name="total1" class="java.lang.Long" resetType="Column" calculation="Sum">
+			<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		</variable>
 	</subDataset>
 	<parameter name="IP" class="java.lang.String"/>
 	<queryString>
@@ -275,7 +275,7 @@ FROM (
     HAVING months_since_enrollment >= 0
 
 ) t
-  where age_group="20-24"
+  where age_group="15-19"
 group by enrollment_cohort,  interventions
 order by ordering, interventions ;]]>
 	</queryString>
@@ -288,17 +288,18 @@ order by ordering, interventions ;]]>
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<barChart>
 				<chart evaluationTime="Report">
-					<reportElement x="-10" y="270" width="520" height="240" uuid="f92f353b-5cdf-465a-a361-8b47e32c4a09"/>
+					<reportElement positionType="FixRelativeToBottom" x="-10" y="280" width="520" height="230" uuid="eb962ff1-0eda-4edf-b5d8-491df4a7adc2"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<categoryDataset>
 					<dataset>
-						<datasetRun subDataset="twenty_to_twenty_four_chart" uuid="8ad0fd15-9db3-4391-8d07-0030e3625595">
+						<datasetRun subDataset="fifteen_to_nineteen_chart" uuid="6d181c5b-9cae-46d9-ba3c-5be882731995">
 							<datasetParameter name="IP">
 								<datasetParameterExpression><![CDATA[$P{IP}]]></datasetParameterExpression>
 							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						</datasetRun>
 					</dataset>
 					<categorySeries>
@@ -325,7 +326,7 @@ order by ordering, interventions ;]]>
 				</barPlot>
 			</barChart>
 			<componentElement>
-				<reportElement x="-10" y="20" width="520" height="200" uuid="a3eb0e18-43c6-4ce5-a00e-702894a9bfe2">
+				<reportElement x="-10" y="20" width="520" height="200" uuid="91946849-9cc5-4d91-aedf-1fac3f1a7c2e">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -333,223 +334,223 @@ order by ordering, interventions ;]]>
 					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="twenty_to_twenty_four_table" uuid="7385e05a-4f44-41cc-bce6-5731e3b66440">
+					<datasetRun subDataset="fifteen_to_nineteen_table" uuid="627b3cae-dc03-4a8f-ac01-386b7e1bfe44">
 						<datasetParameter name="IP">
 							<datasetParameterExpression><![CDATA[$P{IP}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="59" uuid="29948562-9da3-4a32-aaa7-7cee834af1bf">
+					<jr:column width="57" uuid="ee6240ea-f506-4e1e-848d-be7e8238bbb8">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Row Bold" x="0" y="0" width="59" height="30" uuid="674f4958-9d29-4c3c-8034-bb0b1833234a"/>
-								<text><![CDATA[Cohort (Months)]]></text>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="57" height="30" uuid="51ed258b-34ea-487e-9a60-84caf92d687b"/>
+								<text><![CDATA[Cohort(Months)]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30">
 							<staticText>
-								<reportElement style="UC Table Header" x="0" y="0" width="59" height="30" uuid="24d2fdcf-c150-46e5-9b68-f3d1fff3a0b1"/>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="57" height="30" uuid="70e9bff8-337a-4f73-a4e0-c527d2d81f48"/>
 								<text><![CDATA[Total]]></text>
 							</staticText>
 						</jr:columnFooter>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Bold" x="0" y="0" width="59" height="30" uuid="3a34905c-c8c6-4f43-8143-ea340dae5379"/>
+								<reportElement style="UC Table Row Bold" x="0" y="0" width="57" height="30" uuid="31d4ada0-4c94-4408-815f-bb2e465eb8a6"/>
 								<textFieldExpression><![CDATA[$F{enrollment_cohort}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="40" uuid="938446b4-e8fd-4c08-874b-71a6fe99645a">
+					<jr:column width="35" uuid="ca492309-999f-4c28-adef-188362cf6bec">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" uuid="5b4e796d-4950-46f1-9f1c-4545df442753"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="35" height="30" uuid="8282bbde-a408-4e92-8806-8ecc5cf3f271"/>
 								<text><![CDATA[0]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30">
 							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="40" height="30" uuid="910e4f65-65e3-4d8a-ab93-b15e356337be"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="35" height="30" uuid="d16b3505-ea60-4377-a7e6-a6ed6cc626ba"/>
 								<textFieldExpression><![CDATA[$V{01}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="40" height="30" uuid="d2722d7a-0370-450b-a27f-9d801fe3021f"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="35" height="30" uuid="f925036b-ba4c-490a-95f2-84af5480cd02"/>
 								<textFieldExpression><![CDATA[$F{0}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="35" uuid="fcd7a800-ca89-470c-8b4a-e6d564a76a11">
+					<jr:column width="45" uuid="5b89e9fe-654a-40bc-9d72-772259766003">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="35" height="30" uuid="232e146f-41a7-439e-83aa-ff29cdb09c83"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="45" height="30" uuid="adb052bd-44b6-4e42-baf4-b11afd893f76"/>
 								<text><![CDATA[0[%]]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30"/>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="35" height="30" uuid="bca1b4ec-f14f-42ee-8199-9149e6f38bd0"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="45" height="30" uuid="e420d15e-7086-4aac-b552-17154af99899"/>
 								<textFieldExpression><![CDATA[$F{0[%]}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="45" uuid="9a4e4a9b-b72e-41e3-9d69-bc1688bab7d5">
+					<jr:column width="44" uuid="4748f78e-5f0c-4761-b70c-83052b0e3283">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="45" height="30" uuid="93758744-c524-46d6-aaa7-72465fd43fe9"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="44" height="30" uuid="3d61e2ba-99fb-4c1e-a78b-e53d27d253d5"/>
 								<text><![CDATA[1]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30">
 							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="45" height="30" uuid="b3023ea1-c9f3-4c96-b657-a29cb1e0fb0d"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="44" height="30" uuid="7c350568-a35a-4687-bd25-24a1a444b957"/>
 								<textFieldExpression><![CDATA[$V{11}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="45" height="30" uuid="415fcf3a-066e-41f3-ad42-36ab93504a89"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="44" height="30" uuid="d872d997-e32a-4977-9f79-72b4fc80b84f"/>
 								<textFieldExpression><![CDATA[$F{1}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="43" uuid="f748891b-3a35-47a8-abf2-faba18ee4460">
+					<jr:column width="44" uuid="9fc313a6-ea47-4358-bd82-1d106107a1f3">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="ddc40fef-98f8-4098-beda-9f30c7412221"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="44" height="30" uuid="cbd517db-6a97-45d6-9124-a583ca08cd6d"/>
 								<text><![CDATA[1[%]]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30"/>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="43" height="30" uuid="eb3bdb27-1c04-40ae-bbe4-70fe3a231349"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="44" height="30" uuid="18135abb-0c11-4ff1-8114-6956cc3aa225"/>
 								<textFieldExpression><![CDATA[$F{1[%]}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="43" uuid="c7766171-db64-4350-92cb-b08314fcfd88">
+					<jr:column width="44" uuid="12861fd6-5936-4e71-8aa3-9a58974768da">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="5d64b444-4572-4514-b276-887c4ba24cf7"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="44" height="30" uuid="186907ef-1ef2-4ce7-8a63-b1156ec9122c"/>
 								<text><![CDATA[2-3]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30">
 							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="7a731645-de97-45f2-ab0d-127c0701970c"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="44" height="30" uuid="6718b888-9121-4963-98fd-cf3565d648e4"/>
 								<textFieldExpression><![CDATA[$V{2-31}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="43" height="30" uuid="358fd53f-0c96-415c-8d6b-e587129af9eb"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="44" height="30" uuid="a8475792-3aac-4a31-a052-5c82f6af7cab"/>
 								<textFieldExpression><![CDATA[$F{2-3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="43" uuid="ab446c1d-9c26-42f7-b079-e0e1dd30965e">
+					<jr:column width="43" uuid="3188cc1f-be4f-4220-ae25-cc61aa95e432">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="19dc90c8-e3f1-42d8-8d0a-358671892006"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="e81f44a5-d700-44a7-a6ca-df6b9c12cb33"/>
 								<text><![CDATA[2-3[%]]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30"/>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="43" height="30" uuid="89458d07-75ec-494e-935e-75aa316907c8"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="43" height="30" uuid="8eb120ef-b8f1-4f59-8851-3226c2b541a8"/>
 								<textFieldExpression><![CDATA[$F{2-3[%]}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="43" uuid="66e272e2-e93b-4a23-8c0b-592a4e08867c">
+					<jr:column width="43" uuid="d7baffa9-3ec9-46d5-8797-ca0bc8115bf5">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="cb95527d-ae3e-45b6-b525-daf930508ae3"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="7c77fba7-d52a-4246-8a9f-2be9eeafa389"/>
 								<text><![CDATA[4-5]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30">
 							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="5bb90bb5-ca56-4c8c-97a1-4deaa374f6c9"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="27e9d0b9-9db8-4fe2-a74b-1b3917a86930"/>
 								<textFieldExpression><![CDATA[$V{4-51}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="43" height="30" uuid="29fcb3b2-60c0-48ca-9203-e1519245825a"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="43" height="30" uuid="5cb5d952-1304-4785-9bdf-f1199569c8df"/>
 								<textFieldExpression><![CDATA[$F{4-5}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="43" uuid="baf867f6-b14d-49c4-bda1-dd39cf623029">
+					<jr:column width="43" uuid="2978d7d7-5cbc-49e5-9be2-1446bf2bad14">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="eca7d86d-f6c5-4587-88ff-d989f2093334"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="43" height="30" uuid="a1f45891-e19e-4a83-a771-94776982fd8f"/>
 								<text><![CDATA[4-5[%]]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30"/>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="43" height="30" uuid="7071cb9a-c8cc-4a5a-95fc-762d141e04fb"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="43" height="30" uuid="cfbed4af-18c4-4b9a-8198-99f46bb921ab"/>
 								<textFieldExpression><![CDATA[$F{4-5[%]}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="42" uuid="75d350fc-7331-4073-b993-e50b64b9bac5">
+					<jr:column width="41" uuid="384ad541-2184-4ce2-981e-678f4c5a5fa0">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="42" height="30" uuid="73c33185-a9d4-4f0a-bdd1-b8e3b2372dcd"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="41" height="30" uuid="e521cd13-5000-45a9-a2cc-7961be35a117"/>
 								<text><![CDATA[6+]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30">
 							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="42" height="30" uuid="3763a265-c69d-486e-b564-72954d2e1d30"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="41" height="30" uuid="6724d230-212d-40dd-a63a-9462ff026dff"/>
 								<textFieldExpression><![CDATA[$V{6+1}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="42" height="30" uuid="72e4f3cf-2d3e-4036-b1e9-abcf6a72cb70"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="41" height="30" uuid="3f01d708-e06e-4527-8544-60184097e0e0"/>
 								<textFieldExpression><![CDATA[$F{6+}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="42" uuid="2f9b21c5-9de3-4b48-89c8-1880d2108d61">
+					<jr:column width="41" uuid="3d6effff-2163-4fc0-962e-fbed66a48f1a">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="42" height="30" uuid="d195f9c3-981f-49e4-ba41-d43af4f2c665"/>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="41" height="30" uuid="65d6d336-6190-48cd-bad8-6fb2bb7fa356"/>
 								<text><![CDATA[6+[%]]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30"/>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="42" height="30" uuid="e85644a4-6550-4e65-866f-ae7bd6636659"/>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="41" height="30" uuid="fca7e6f1-8978-4886-b754-46a2c4998311"/>
 								<textFieldExpression><![CDATA[$F{6+[%]}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="42" uuid="c53a1ef9-5ea9-4855-bc80-2a94cbcb20b3">
+					<jr:column width="40" uuid="3e0c3f81-a9ec-40c6-9831-10e6e903ace9">
 						<jr:columnHeader height="30">
 							<staticText>
-								<reportElement style="UC Table Row Bold Number" x="0" y="0" width="42" height="30" uuid="93a81d63-fe36-432d-a496-e51f999803fa"/>
+								<reportElement style="UC Table Row Bold Number" x="0" y="0" width="40" height="30" uuid="d5d92305-1a6d-4f86-b1b2-50d0184e6b2e"/>
 								<text><![CDATA[Total]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30">
 							<textField>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="42" height="30" uuid="297549b4-6761-465b-be3a-62df318e16e3"/>
+								<reportElement style="UC Table Row Bold Number" x="0" y="0" width="40" height="30" uuid="c690ed05-d64b-452e-bd8e-6c37b1427738"/>
 								<textFieldExpression><![CDATA[$V{total1}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Bold Number" x="0" y="0" width="42" height="30" uuid="356fada5-240b-4759-a39f-ace935a4415c"/>
+								<reportElement style="UC Table Row Bold Number" x="0" y="0" width="40" height="30" uuid="e9dd0c8f-a479-4491-8e4f-c0dd5d24d379"/>
 								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -557,8 +558,8 @@ order by ordering, interventions ;]]>
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement style="UC Caption" x="-10" y="240" width="313" height="30" uuid="4a3583a4-779d-4c44-a8d9-6f92a8de41e9"/>
-				<text><![CDATA[Proportion of interventions (%)]]></text>
+				<reportElement style="UC Caption" x="-10" y="240" width="270" height="30" uuid="fea7c190-a32b-46a3-b112-cd0ef9b54866"/>
+				<text><![CDATA[Distribution of interventions (%)]]></text>
 			</staticText>
 		</band>
 	</summary>
