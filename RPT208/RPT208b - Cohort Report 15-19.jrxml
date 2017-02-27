@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-27T11:37:47 -->
+<!-- 2017-02-27T14:48:42 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT208b" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3cd46c4b-c8e2-4257-9e66-1f9e97d34eac">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dreams_production"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -202,22 +202,22 @@ order by ordering]]>
 		<field name="6+" class="java.math.BigDecimal"/>
 		<field name="6+[%]" class="java.math.BigDecimal"/>
 		<field name="total" class="java.lang.Long"/>
-		<variable name="01" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variable name="01" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{0}]]></variableExpression>
 		</variable>
-		<variable name="11" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variable name="11" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{1}]]></variableExpression>
 		</variable>
-		<variable name="2-31" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variable name="2-31" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{2-3}]]></variableExpression>
 		</variable>
-		<variable name="4-51" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variable name="4-51" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{4-5}]]></variableExpression>
 		</variable>
-		<variable name="6+1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variable name="6+1" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{6+}]]></variableExpression>
 		</variable>
-		<variable name="total1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variable name="total1" class="java.lang.Long" calculation="Sum">
 			<variableExpression><![CDATA[$F{total}]]></variableExpression>
 		</variable>
 	</subDataset>
