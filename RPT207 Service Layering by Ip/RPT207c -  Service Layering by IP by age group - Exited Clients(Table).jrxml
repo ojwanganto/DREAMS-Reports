@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-27T12:04:00 -->
+<!-- 2017-02-27T13:20:14 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT207a -  Service Layering by IP by age group (Table)" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfd88cee-64f8-4020-b761-3459776f4a3d">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -11,12 +11,17 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
 		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
-		<parameter name="INTERVENTION_CATEGORY" class="java.lang.String"/>
+		<parameter name="INTERVENTION_CATEGORY" class="java.util.Collection">
+			<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
+		</parameter>
 		<parameter name="IP" class="java.lang.String"/>
 		<parameter name="COUNTY" class="java.lang.String"/>
 		<parameter name="SUB_COUNTY" class="java.lang.String"/>
 		<parameter name="WARD" class="java.lang.String"/>
-		<parameter name="QUARTER" class="java.lang.String"/>
+		<parameter name="QUARTER" class="java.lang.String">
+			<parameterDescription><![CDATA[]]></parameterDescription>
+			<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("BEHAVIORAL","BIO-MEDICAL","SOCIAL PROTECTION","OTHER INTERVENTIONS","POST-GBV CARE"))]]></defaultValueExpression>
+		</parameter>
 		<queryString language="SQL">
 			<![CDATA[select 
 age_at_enrollment,
@@ -44,8 +49,8 @@ FROM
 	from (
 		SELECT age_group, count(distinct intervention) as intervention_count
 		from stag_client_intervention
-		where 
-		exited is null or exited <> 1 AND 
+		where
+		exited = 1 AND
 		age_group IS NOT NULL AND 
 		implementing_partner IS NOT NULL AND 
 		intervention_category IS NOT NULL
@@ -81,6 +86,7 @@ FROM
 		)
 		GROUP BY client_id
 	) c
+	WHERE c.age_group IS NOT NULL
 	group by
 	age_group
 )c
@@ -89,7 +95,7 @@ left outer JOIN
 	SELECT age_group, count(id) as total_clients_in_age_group
 	FROM stag_client_ex
 	where 
-	exited is null or exited <> 1 AND
+	exited = 1 AND
 	age_group IS NOT NULL 
 	AND 
 	implementing_partner IS NOT NULL 

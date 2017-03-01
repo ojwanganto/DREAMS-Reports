@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-27T10:45:35 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="206b Stacked" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
+<!-- 2017-02-27T10:58:51 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="206d Stacked" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="477"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="523"/>
 	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
@@ -17,7 +17,7 @@
 	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM
-(	
+(
 	SELECT type_count_tbl.*, category_count_tbl.count_per_category, ROUND((type_count_tbl.count_per_category_per_age_group*100)/category_count_tbl.count_per_category) AS age_group_percentage
 	FROM
 	(SELECT
@@ -26,38 +26,40 @@
 		COUNT(*) as count_per_category_per_age_group
 		FROM stag_client_intervention
 		where 
-		exited is null or exited <> 1 and
-		intervention_category IS NOT NULL  AND 
-		age_group IS NOT NULL AND
-		implementing_partner IS NOT NULL 
+		exited = 1 and
+		intervention_category IS NOT NULL 
+		AND 
+		age_group IS NOT NULL
 		AND
-		( 
-			(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
-			OR
-			(implementing_partner =  $P{IP} )
-		)
-		AND county IS NOT NULL AND
-		( 
-			(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
-			OR
-			(county =  $P{COUNTY} )
-		)
-		AND sub_county IS NOT NULL AND
-		( 
-			(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '') and sub_county LIKE '%%') 
-			OR
-			(sub_county =  $P{SUB_COUNTY} )
-		)
-		AND ward IS NOT NULL AND
-		( 
-			(($P{WARD} IS NULL or $P{WARD} = '') and ward LIKE '%%') 
-			OR
-			(ward =  $P{WARD} )
-		)
-		AND date_of_intervention_quarter IS NOT NULL AND
-		( 
-			$X{IN, date_of_intervention_quarter, QUARTER}
-		)
+		implementing_partner IS NOT NULL 
+			AND
+			( 
+				(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
+				OR
+				(implementing_partner =  $P{IP} )
+			)
+			AND county IS NOT NULL AND
+			( 
+				(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
+				OR
+				(county =  $P{COUNTY} )
+			)
+			AND sub_county IS NOT NULL AND
+			( 
+				(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '') and sub_county LIKE '%%') 
+				OR
+				(sub_county =  $P{SUB_COUNTY} )
+			)
+			AND ward IS NOT NULL AND
+			( 
+				(($P{WARD} IS NULL or $P{WARD} = '') and ward LIKE '%%') 
+				OR
+				(ward =  $P{WARD} )
+			)
+			AND date_of_intervention_quarter IS NOT NULL AND
+			( 
+				$X{IN, date_of_intervention_quarter, QUARTER}
+			)
 		GROUP BY intervention_category, age_group 
 	) as type_count_tbl
 	LEFT OUTER JOIN
@@ -67,9 +69,11 @@
 		COUNT(*) as count_per_category
 		FROM stag_client_intervention
 		where  
-			exited is null or exited <> 1 and
-		    intervention_category IS NOT NULL AND 
-			age_group IS NOT NULL AND
+			exited = 1 AND
+		    intervention_category IS NOT NULL
+		    AND 
+			age_group IS NOT NULL
+		    AND
 			implementing_partner IS NOT NULL 
 			AND
 			( 
@@ -119,7 +123,7 @@ WHERE age_group IS NOT NULL;]]>
 		<band height="200" splitType="Stretch">
 			<stackedBarChart>
 				<chart isShowLegend="true" evaluationTime="Report" theme="default">
-					<reportElement style="UC Chart" x="0" y="0" width="510" height="190" uuid="11a04ff9-13fc-4186-afd0-4ce399f46af8">
+					<reportElement style="UC Chart" x="0" y="0" width="510" height="190" uuid="579f5e41-0b3c-4251-b6f3-ea18f80765fe">
 						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					</reportElement>
