@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-24T10:45:38 -->
+<!-- 2017-02-27T11:38:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT206c" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8609599b-7751-4156-a1dc-6d14489a7f42">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -13,7 +13,9 @@
 		<parameter name="COUNTY" class="java.lang.String"/>
 		<parameter name="SUB_COUNTY" class="java.lang.String"/>
 		<parameter name="WARD" class="java.lang.String"/>
-		<parameter name="QUARTER" class="java.lang.String"/>
+		<parameter name="QUARTER" class="java.util.Collection">
+			<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
+		</parameter>
 		<queryString>
 			<![CDATA[SELECT
  intervention,
@@ -25,7 +27,9 @@
  ROUND(SUM(IF(age_group="20-24",1, 0))*100/COUNT(*)) AS "20_24 %",
  COUNT(*)
 FROM stag_client_intervention
-WHERE implementing_partner IS NOT NULL
+WHERE 
+exited is null or exited <> 1 AND 
+implementing_partner IS NOT NULL 
 AND
 ( 
 	(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
@@ -88,33 +92,12 @@ GROUP BY intervention;]]>
 	<parameter name="SUB_COUNTY" class="java.lang.String"/>
 	<parameter name="WARD" class="java.lang.String"/>
 	<parameter name="QUARTER" class="java.util.Collection">
-		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4")) ]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT *, IF(sex_partners_in_last_12months IS NULL,'Missing',(IF(sex_partners_in_last_12months=0,'None',IF(sex_partners_in_last_12months=1,'1 Partner','1+ Partner')))) as 'Sex partners' 
- FROM
-(
-SELECT COUNT(*) AS 'Number of clients', sex_partners_in_last_12months, age_group
-FROM stag_client_sexual_activity
-WHERE Ever_had_sex = 'Yes' AND implementing_partner IS NOT NULL
-AND
-( 
-	(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
-	OR
-	(implementing_partner =  $P{IP} )
-	
-)
-GROUP BY
-sex_partners_in_last_12months,
-age_group) AS sub_query_table]]>
+		<![CDATA[SELECT NULL;]]>
 	</queryString>
-	<field name="Number of clients" class="java.lang.Long"/>
-	<field name="sex_partners_in_last_12months" class="java.lang.Integer"/>
-	<field name="age_group" class="java.lang.String"/>
-	<field name="Sex partners" class="java.lang.String"/>
-	<variable name="Number of clients1" class="java.lang.Long" resetType="Column" calculation="Sum">
-		<variableExpression><![CDATA[$F{Number of clients}]]></variableExpression>
-	</variable>
+	<field name="NULL" class="java.lang.Object"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -199,13 +182,13 @@ age_group) AS sub_query_table]]>
 						<jr:columnHeader height="30">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="a5bb7931-45f2-437c-8428-49d00e8c2f57"/>
-								<text><![CDATA[10 - 14 %]]></text>
+								<reportElement style="UC Table Header Number Centered" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="a5bb7931-45f2-437c-8428-49d00e8c2f57"/>
+								<text><![CDATA[%]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="db7c3efb-1fbf-4089-a347-60ec86e5af73"/>
+								<reportElement style="UC Table Row Number Centered" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="db7c3efb-1fbf-4089-a347-60ec86e5af73"/>
 								<textFieldExpression><![CDATA[$F{10_14 %}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -242,13 +225,13 @@ age_group) AS sub_query_table]]>
 						<jr:columnHeader height="30">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="158c479a-083c-4072-948d-578205e31f0f"/>
-								<text><![CDATA[15 - 19 %]]></text>
+								<reportElement style="UC Table Header Number Centered" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="158c479a-083c-4072-948d-578205e31f0f"/>
+								<text><![CDATA[%]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="a62fb0ba-a9ce-44ed-bac8-18f890099cdd"/>
+								<reportElement style="UC Table Row Number Centered" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="a62fb0ba-a9ce-44ed-bac8-18f890099cdd"/>
 								<textFieldExpression><![CDATA[$F{15_19 %}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -286,13 +269,13 @@ age_group) AS sub_query_table]]>
 						<jr:columnHeader height="30">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement style="UC Table Header Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="0177bd10-72d0-4ffe-bf38-82dbaa0092d9"/>
-								<text><![CDATA[20 - 24 %]]></text>
+								<reportElement style="UC Table Header Number Centered" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="0177bd10-72d0-4ffe-bf38-82dbaa0092d9"/>
+								<text><![CDATA[%]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30">
 							<textField>
-								<reportElement style="UC Table Row Number" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="a675e628-f807-40f2-9ecf-c7f812a8f943"/>
+								<reportElement style="UC Table Row Number Centered" x="0" y="0" width="60" height="30" forecolor="#73879C" uuid="a675e628-f807-40f2-9ecf-c7f812a8f943"/>
 								<textFieldExpression><![CDATA[$F{20_24 %}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>

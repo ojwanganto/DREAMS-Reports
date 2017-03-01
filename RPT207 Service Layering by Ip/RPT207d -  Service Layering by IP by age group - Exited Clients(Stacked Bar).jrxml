@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-27T13:09:14 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="207b" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
+<!-- 2017-02-27T14:20:23 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="207d" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb2640fb-ac31-44e1-8350-59c0e029b533">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="298"/>
@@ -43,9 +43,7 @@ FROM
 			from (
 				SELECT age_group, count(distinct intervention) as intervention_count
 				from stag_client_intervention
-				where 
-				exited is null or exited <> 1 and 
-				implementing_partner IS NOT NULL AND
+				where implementing_partner IS NOT NULL AND
 				(
 					(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
 					OR
@@ -80,7 +78,7 @@ FROM
 				AND age_group IS NOT NULL
 				GROUP BY client_id
 			) c
-			where c.age_group IS NOT NULL
+			WHERE c.age_group IS NOT NULL
 			group by
 			age_group, layer_count_group
 		UNION
@@ -95,7 +93,7 @@ FROM
 		SELECT age_group, count(id) as  count_of_clients_in_age_group
 		from stag_client_ex
 		where 
-		exited is null or exited <> 1 and 
+		exited = 1 AND
 		implementing_partner IS NOT NULL AND
 		(
 			(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
@@ -136,7 +134,7 @@ LEFT OUTER JOIN
 			count(distinct intervention) as intervention_count
 		FROM stag_client_intervention
 		WHERE 
-		exited is null or exited <> 1 and
+		exited = 1 AND 
 		implementing_partner IS NOT NULL AND
 		(
 			(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') 
@@ -172,6 +170,7 @@ LEFT OUTER JOIN
 		AND age_group IS NOT NULL
 		GROUP BY client_id
 		) c
+		WHERE c.age_group IS NOT NULL
 	GROUP BY age_group
 ) AS client_count_per_age_group_with_services
 ON complete_aggregated_list.age_at_enrollment=client_count_per_age_group_with_services.age_at_enrollment

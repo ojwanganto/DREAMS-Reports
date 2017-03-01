@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-24T08:48:47 -->
+<!-- 2017-02-27T11:26:02 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT206" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS"/>
@@ -19,7 +19,9 @@
 	</parameter>
 	<parameter name="SUB_COUNTY" class="java.lang.String"/>
 	<parameter name="WARD" class="java.lang.String"/>
-	<parameter name="QUARTER" class="java.util.Collection"/>
+	<parameter name="QUARTER" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT NULL]]>
 	</queryString>
@@ -63,7 +65,7 @@
 		<band height="520" splitType="Stretch">
 			<staticText>
 				<reportElement style="UC Header" x="0" y="9" width="544" height="20" isPrintWhenDetailOverflows="true" uuid="d8bbb64e-a117-46d0-a4dc-ddaf36973919"/>
-				<text><![CDATA[Service Intervention by Category by age group]]></text>
+				<text><![CDATA[Service Intervention by Category by age group - Active Clients]]></text>
 			</staticText>
 			<subreport>
 				<reportElement x="37" y="79" width="507" height="169" uuid="cd951e82-1628-4b61-adcb-615e56f1dfe5"/>
@@ -114,14 +116,13 @@
 				<text><![CDATA[Service Intervention by Category by age group(Chart)]]></text>
 			</staticText>
 		</band>
-		<band height="320">
-			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		<band height="520">
 			<staticText>
 				<reportElement style="UC Caption" x="0" y="5" width="310" height="20" isPrintWhenDetailOverflows="true" uuid="c77947d0-6b60-44d0-8bef-fcf45384b957"/>
 				<text><![CDATA[Service Intervention by Interventio type by age group(Table)]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="5" y="19" width="546" height="301" uuid="c9fecac0-e436-4d16-8538-d3605285cacf"/>
+				<reportElement x="5" y="19" width="546" height="491" uuid="c9fecac0-e436-4d16-8538-d3605285cacf"/>
 				<subreportParameter name="IP">
 					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -140,6 +141,96 @@
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT206/RPT206c -  Service Intervention by Intervention type and age group (Table).jasper"]]></subreportExpression>
 			</subreport>
+		</band>
+		<band height="520">
+			<staticText>
+				<reportElement style="UC Header" x="0" y="9" width="544" height="20" isPrintWhenDetailOverflows="true" uuid="d69c2503-6cf2-4b95-a8a5-d25bf42b920a"/>
+				<text><![CDATA[Service Intervention by Category by age group - Exited Clients]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="40" width="280" height="20" isPrintWhenDetailOverflows="true" uuid="b0eace7b-f325-4da8-8822-0d059428c4b2"/>
+				<text><![CDATA[Service Intervention by Category by age group(Table)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="291" width="480" height="180" uuid="16242413-656c-4e0c-adc9-f0c3f2ff8943">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COUNTY">
+					<subreportParameterExpression><![CDATA[$P{COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUB_COUNTY">
+					<subreportParameterExpression><![CDATA[$P{SUB_COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="WARD">
+					<subreportParameterExpression><![CDATA[$P{WARD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="QUARTER">
+					<subreportParameterExpression><![CDATA[$P{QUARTER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT206/RPT206d -  Service Intervention by age group - Exited Clients (Stacked Bar).jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="285" width="308" height="20" isPrintWhenDetailOverflows="true" uuid="8d92c856-abed-41c9-9a98-42be9687f439">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Service Intervention by Category by age group(Chart)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="37" y="79" width="507" height="169" uuid="71e3b75d-024f-4838-833a-e27c93a3ed67">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COUNTY">
+					<subreportParameterExpression><![CDATA[$P{COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUB_COUNTY">
+					<subreportParameterExpression><![CDATA[$P{SUB_COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="WARD">
+					<subreportParameterExpression><![CDATA[$P{WARD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="QUARTER">
+					<subreportParameterExpression><![CDATA[$P{QUARTER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT206/RPT206d -  Service Intervention by age group - Exited Clients(Table).jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="520">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="5" y="19" width="546" height="491" uuid="1948826e-a13b-40f4-9399-2e1abea8fb6a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COUNTY">
+					<subreportParameterExpression><![CDATA[$P{COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUB_COUNTY">
+					<subreportParameterExpression><![CDATA[$P{SUB_COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="WARD">
+					<subreportParameterExpression><![CDATA[$P{WARD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="QUARTER">
+					<subreportParameterExpression><![CDATA[$P{QUARTER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT206/RPT206e -  Service Intervention by Intervention type and age group - Exited Clients(Table).jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="5" width="310" height="20" isPrintWhenDetailOverflows="true" uuid="faca1026-db29-48f4-b4a4-2d4000bd4f93"/>
+				<text><![CDATA[Service Intervention by Interventio type by age group(Table)]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<pageFooter>

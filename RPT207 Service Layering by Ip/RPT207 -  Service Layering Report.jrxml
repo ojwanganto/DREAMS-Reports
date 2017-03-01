@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-24T11:46:28 -->
+<!-- 2017-02-27T14:32:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT207" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
@@ -65,11 +65,11 @@
 	<detail>
 		<band height="520" splitType="Stretch">
 			<staticText>
-				<reportElement style="UC Header" x="0" y="10" width="180" height="20" uuid="d8bbb64e-a117-46d0-a4dc-ddaf36973919"/>
-				<text><![CDATA[Service layering (Table)]]></text>
+				<reportElement style="UC Header" x="0" y="3" width="555" height="20" uuid="d8bbb64e-a117-46d0-a4dc-ddaf36973919"/>
+				<text><![CDATA[Service layering - Active Clients]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="0" y="32" width="555" height="138" uuid="21017f3a-b3a8-4727-b77a-5bc7f8a0f16a"/>
+				<reportElement x="0" y="72" width="555" height="138" uuid="21017f3a-b3a8-4727-b77a-5bc7f8a0f16a"/>
 				<subreportParameter name="IP">
 					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -115,9 +115,84 @@
 				<subreportExpression><![CDATA["RPT207 Service Layering by Ip/RPT207b -  Service Layering by IP by age group (Stacked Bar).jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement style="UC Header" x="0" y="259" width="180" height="20" uuid="1d381892-fb57-41a3-8826-b0213b942334"/>
+				<reportElement style="UC Caption" x="0" y="259" width="180" height="20" uuid="1d381892-fb57-41a3-8826-b0213b942334"/>
 				<text><![CDATA[Service layering (Chart)]]></text>
 			</staticText>
+			<staticText>
+				<reportElement style="UC Caption" x="1" y="47" width="310" height="20" isPrintWhenDetailOverflows="true" uuid="3c7e7215-39b1-4c2a-90aa-099806cb185c"/>
+				<text><![CDATA[Service layering (Table)]]></text>
+			</staticText>
+		</band>
+		<band height="533">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement style="UC Header" x="0" y="3" width="555" height="20" uuid="bd82e571-cc3d-4d71-bb2d-86d0b73ef4e1"/>
+				<text><![CDATA[Service layering - Exited Clients]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Caption" x="1" y="47" width="310" height="20" isPrintWhenDetailOverflows="true" uuid="d2b75b8c-ece8-4887-9ad6-a88165f6b676"/>
+				<text><![CDATA[Service layering (Table)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="72" width="555" height="138" uuid="376c3c98-a616-41a7-a1d7-fc6e682d6128">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COUNTY">
+					<subreportParameterExpression><![CDATA[$P{COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUB_COUNTY">
+					<subreportParameterExpression><![CDATA[$P{SUB_COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="WARD">
+					<subreportParameterExpression><![CDATA[$P{WARD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INTERVENTION_CATEGORY">
+					<subreportParameterExpression><![CDATA[$P{INTERVENTION_CATEGORY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="QUARTER">
+					<subreportParameterExpression><![CDATA[$P{QUARTER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT207 Service Layering by Ip/RPT207c -  Service Layering by IP by age group - Exited Clients(Table).jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="259" width="180" height="20" uuid="ad090deb-9ab5-4b4a-96e8-be59e0a19d8e"/>
+				<text><![CDATA[Service layering (Chart)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="281" width="555" height="229" uuid="74735c51-750d-4ea7-b295-ab841b1733fd">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="IP">
+					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COUNTY">
+					<subreportParameterExpression><![CDATA[$P{COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUB_COUNTY">
+					<subreportParameterExpression><![CDATA[$P{SUB_COUNTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="WARD">
+					<subreportParameterExpression><![CDATA[$P{WARD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INTERVENTION_CATEGORY">
+					<subreportParameterExpression><![CDATA[$P{INTERVENTION_CATEGORY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="QUARTER">
+					<subreportParameterExpression><![CDATA[$P{QUARTER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RPT207 Service Layering by Ip/RPT207d -  Service Layering by IP by age group - Exited Clients(Stacked Bar).jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<pageFooter>
