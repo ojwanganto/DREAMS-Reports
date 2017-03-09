@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-08T10:37:36 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT211" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/RPT207____Service_Layering_Report_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT207____Service_Layering_Report"/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles_DR.jrtx"]]></template>
+	<parameter name="IP" class="java.lang.String">
+		<parameterDescription><![CDATA[Implementing Partner]]></parameterDescription>
+	</parameter>
+	<parameter name="COUNTY" class="java.lang.String"/>
+	<parameter name="SUB_COUNTY" class="java.lang.String"/>
+	<parameter name="WARD" class="java.lang.String"/>
+	<parameter name="INTERVENTION_CATEGORY" class="java.util.Collection">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("BEHAVIORAL","BIO-MEDICAL","SOCIAL PROTECTION","OTHER INTERVENTIONS","POST-GBV CARE"))]]></defaultValueExpression>
+	</parameter>
+	<parameter name="QUARTER" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT NULL]]>
+	</queryString>
+	<variable name="REPORT_DESCRIPTION" class="java.lang.String">
+		<variableExpression><![CDATA["This Service Layering report shows the number of clients that have received given number of services by age group."]]></variableExpression>
+		<initialValueExpression><![CDATA["This Service Layering report shows the number of clients that have received given number of services by age group."]]></initialValueExpression>
+	</variable>
+	<variable name="FILTERS_DESCRIPTION" class="java.lang.String">
+		<variableExpression><![CDATA[IF(EQUALS( TRIM($P{IP}),""), "No IP Filter", $P{IP})]]></variableExpression>
+		<initialValueExpression><![CDATA[IF(EQUALS( TRIM($P{IP}),""), "All IPs", $P{IP})]]></initialValueExpression>
+	</variable>
+	<pageHeader>
+		<band height="135" splitType="Stretch">
+			<subreport overflowType="NoStretch">
+				<reportElement x="1" y="40" width="548" height="95" isPrintInFirstWholeBand="true" uuid="6e279d85-ed7d-4db2-a4d0-6d95dda86967">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="TOTAL_PAGES">
+					<subreportParameterExpression><![CDATA[$V{PAGE_COUNT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_DESCRIPTION">
+					<subreportParameterExpression><![CDATA[$V{REPORT_DESCRIPTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FILTERS_DESCRIPTION">
+					<subreportParameterExpression><![CDATA[$V{FILTERS_DESCRIPTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["Sub Reports/Report Header.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="UC Report Title" x="1" y="0" width="49" height="30" uuid="655a0186-38c9-4c53-b5ab-899d4982885f"/>
+				<text><![CDATA[209]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Report Title" x="50" y="0" width="500" height="30" uuid="ae10f5b4-3aad-40aa-a0a1-59980679fc26"/>
+				<text><![CDATA[DATIM - Quarterly Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="520" splitType="Stretch">
+			<staticText>
+				<reportElement style="UC Header" x="0" y="3" width="555" height="20" uuid="d8bbb64e-a117-46d0-a4dc-ddaf36973919"/>
+				<text><![CDATA[Service layering - Active Clients]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="259" width="180" height="20" uuid="1d381892-fb57-41a3-8826-b0213b942334"/>
+				<text><![CDATA[Service layering (Chart)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Caption" x="1" y="47" width="310" height="20" isPrintWhenDetailOverflows="true" uuid="3c7e7215-39b1-4c2a-90aa-099806cb185c"/>
+				<text><![CDATA[Service layering (Table)]]></text>
+			</staticText>
+		</band>
+		<band height="533">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement style="UC Header" x="0" y="3" width="555" height="20" uuid="bd82e571-cc3d-4d71-bb2d-86d0b73ef4e1"/>
+				<text><![CDATA[Service layering - Exited Clients]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Caption" x="1" y="47" width="310" height="20" isPrintWhenDetailOverflows="true" uuid="d2b75b8c-ece8-4887-9ad6-a88165f6b676"/>
+				<text><![CDATA[Service layering (Table)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="UC Caption" x="0" y="259" width="180" height="20" uuid="ad090deb-9ab5-4b4a-96e8-be59e0a19d8e"/>
+				<text><![CDATA[Service layering (Chart)]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="0" width="550" height="53" uuid="f1850e0c-6855-4684-aada-bd9323896d82"/>
+				<imageExpression><![CDATA["Images/DREAMS_Banner.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement style="UC Report Footer" x="0" y="53" width="550" height="17" uuid="e4fd48aa-7f0b-4ad2-8888-3480e3623b44">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["RPT 201 - 20161112 (C) UCSF"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
