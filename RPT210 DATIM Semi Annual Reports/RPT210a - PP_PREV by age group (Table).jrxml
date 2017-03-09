@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-08T11:06:30 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT210a - PP_PREV" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfd88cee-64f8-4020-b761-3459776f4a3d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
+	<subDataset name="PP_PREVDataset" uuid="0cbeee85-ba65-4c8c-83f8-d5632c907b34">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test"/>
+		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+		<parameter name="INTERVENTION_CATEGORY" class="java.lang.String"/>
+		<parameter name="IP" class="java.lang.String"/>
+		<parameter name="COUNTY" class="java.lang.String"/>
+		<parameter name="SUB_COUNTY" class="java.lang.String"/>
+		<parameter name="WARD" class="java.lang.String"/>
+		<parameter name="QUARTER" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[select 
+age_at_enrollment,
+d.total_clients_in_age_group - c.total as "0",
+ROUND((d.total_clients_in_age_group - c.total)*100/total_clients_in_age_group) AS "0 %",
+c.1, 
+ROUND(c.1*100/d.total_clients_in_age_group) AS "1 %",
+c.Twoto3 as "2-3", 
+ROUND(c.Twoto3*100/d.total_clients_in_age_group) AS "2-3 %",
+c.Fourto5 as "4-5",
+ROUND(c.Fourto5*100/d.total_clients_in_age_group) AS "4-5 %",
+c.sixPlus as "6+",
+ROUND(c.sixPlus*100/d.total_clients_in_age_group) AS "6+ %",
+total,
+d.total_clients_in_age_group
+FROM
+(
+	SELECT
+	 age_group as age_at_enrollment,
+	 SUM(IF(intervention_count=1,1, 0)) AS "1",
+	 SUM(IF(intervention_count in (2,3),1, 0)) AS "Twoto3",
+	 SUM(IF(intervention_count in (4,5),1, 0)) AS "Fourto5",
+	 SUM(IF(intervention_count >=6,1, 0)) AS "sixPlus",
+	 COUNT(*) total
+	from (
+		SELECT age_group, count(distinct intervention) as intervention_count
+		from stag_client_intervention
+		where 
+		exited is null or exited <> 1 AND 
+		age_group IS NOT NULL AND 
+		implementing_partner IS NOT NULL AND 
+		intervention_category IS NOT NULL
+		AND
+		(  
+			(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') OR implementing_partner =  $P{IP}
+		)
+		AND intervention_category IS NOT NULL AND
+		( 
+			$X{IN, intervention_category, INTERVENTION_CATEGORY}
+		)
+		AND county IS NOT NULL AND
+		( 
+			(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
+			OR
+			(county =  $P{COUNTY} )
+		)
+		AND sub_county IS NOT NULL AND
+		( 
+			(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '') and sub_county LIKE '%%') 
+			OR
+			(sub_county =  $P{SUB_COUNTY} )
+		)
+		AND ward IS NOT NULL AND
+		( 
+			(($P{WARD} IS NULL or $P{WARD} = '') and ward LIKE '%%') 
+			OR
+			(ward =  $P{WARD} )
+		)
+		AND date_of_intervention_quarter IS NOT NULL AND
+		( 
+			$X{IN, date_of_intervention_quarter, QUARTER}
+		)
+		GROUP BY client_id
+	) c
+	group by
+	age_group
+)c
+left outer JOIN
+(
+	SELECT age_group, count(id) as total_clients_in_age_group
+	FROM stag_client_ex
+	where 
+	exited is null or exited <> 1 AND
+	age_group IS NOT NULL 
+	AND 
+	implementing_partner IS NOT NULL 
+	AND
+	(  
+		(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') OR implementing_partner =  $P{IP}
+	)
+	AND county IS NOT NULL AND
+	( 
+		(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
+		OR
+		(county =  $P{COUNTY} )
+	)
+	AND sub_county IS NOT NULL AND
+	( 
+		(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '') and sub_county LIKE '%%') 
+		OR
+		(sub_county =  $P{SUB_COUNTY} )
+	)
+	AND ward IS NOT NULL AND
+	( 
+		(($P{WARD} IS NULL or $P{WARD} = '') and ward LIKE '%%') 
+		OR
+		(ward =  $P{WARD} )
+	)
+	GROUP BY age_group
+)d
+on c.age_at_enrollment = d.age_group
+group by age_at_enrollment]]>
+		</queryString>
+		<field name="age_at_enrollment" class="java.lang.String"/>
+		<field name="0" class="java.lang.Long"/>
+		<field name="0 %" class="java.math.BigDecimal"/>
+		<field name="1" class="java.math.BigDecimal"/>
+		<field name="1 %" class="java.math.BigDecimal"/>
+		<field name="2-3" class="java.math.BigDecimal"/>
+		<field name="2-3 %" class="java.math.BigDecimal"/>
+		<field name="4-5" class="java.math.BigDecimal"/>
+		<field name="4-5 %" class="java.math.BigDecimal"/>
+		<field name="6+" class="java.math.BigDecimal"/>
+		<field name="6+ %" class="java.math.BigDecimal"/>
+		<field name="total" class="java.lang.Long"/>
+		<field name="total_clients_in_age_group" class="java.lang.Long"/>
+	</subDataset>
+	<parameter name="IP" class="java.lang.String"/>
+	<parameter name="COUNTY" class="java.lang.String"/>
+	<parameter name="SUB_COUNTY" class="java.lang.String"/>
+	<parameter name="WARD" class="java.lang.String"/>
+	<parameter name="INTERVENTION_CATEGORY" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("BEHAVIORAL","BIO-MEDICAL","SOCIAL PROTECTION","OTHER INTERVENTIONS","POST-GBV CARE"))]]></defaultValueExpression>
+	</parameter>
+	<parameter name="QUARTER" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT NULL;]]>
+	</queryString>
+	<field name="NULL" class="java.lang.Object"/>
+	<summary>
+		<band height="66" splitType="Stretch"/>
+	</summary>
+</jasperReport>

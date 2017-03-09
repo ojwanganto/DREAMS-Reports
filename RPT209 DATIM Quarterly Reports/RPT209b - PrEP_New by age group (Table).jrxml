@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-09T15:25:47 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT209b - PrEP_New" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfd88cee-64f8-4020-b761-3459776f4a3d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Production Adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
+	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
+	<subDataset name="PrEP_NewDataset" uuid="0cbeee85-ba65-4c8c-83f8-d5632c907b34">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Test Adapter"/>
+		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+		<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="647"/>
+		<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="353"/>
+		<parameter name="INTERVENTION_CATEGORY" class="java.lang.String"/>
+		<parameter name="IP" class="java.lang.String"/>
+		<parameter name="COUNTY" class="java.lang.String"/>
+		<parameter name="SUB_COUNTY" class="java.lang.String"/>
+		<parameter name="WARD" class="java.lang.String"/>
+		<parameter name="QUARTER" class="java.util.Collection"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT
+	implementing_partner,
+	MAX(IF(initiation_age_group="10-14", no_of_clients,0)) as "10-14",
+	MAX(IF(initiation_age_group="15-19", no_of_clients,0)) as "15-19",
+	MAX(IF(initiation_age_group="20-24", no_of_clients,0)) as "20-24",
+	SUM(no_of_clients) as total
+FROM 
+(
+	SELECT
+		implementing_partner,
+		initiation_quarter,
+		initiation_age_group,
+		count(client_id) as no_of_clients
+	FROM
+	(
+		SELECT
+			i.client_id,
+			implementing_partner,
+			left(min(concat(i.date_of_intervention_quarter, i.age_group)),7) as initiation_quarter,
+			mid(min(concat(i.date_of_intervention_quarter, i.age_group)),8) as initiation_age_group
+		FROM
+			stag_client_intervention i
+		where 
+			i.intervention_type_id=27 and 
+			i.age_group is not null and age_group in ("10-14","15-19","20-24") and
+	        i.intervention_age_group is not null and intervention_age_group in ("10-14","15-19","20-24") and
+			(  
+				(($P{IP} IS NULL or $P{IP} = '') and implementing_partner LIKE '%%') OR implementing_partner =  $P{IP}
+			)
+			AND county IS NOT NULL AND
+			( 
+				(($P{COUNTY} IS NULL or $P{COUNTY} = '') and county LIKE '%%') 
+				OR
+				(county =  $P{COUNTY} )
+			)
+			AND sub_county IS NOT NULL AND
+			( 
+				(($P{SUB_COUNTY} IS NULL or $P{SUB_COUNTY} = '') and sub_county LIKE '%%') 
+				OR
+				(sub_county =  $P{SUB_COUNTY} )
+			)
+			AND ward IS NOT NULL AND
+			( 
+				(($P{WARD} IS NULL or $P{WARD} = '') and ward LIKE '%%') 
+				OR
+				(ward =  $P{WARD} )
+			)
+			AND date_of_intervention_quarter IS NOT NULL AND
+			( 
+				$X{IN, date_of_intervention_quarter, QUARTER}
+			)
+		group by i.client_id
+	) t
+	-- where initiation_quarter = "2017-Q1"
+	group by implementing_partner, initiation_age_group
+) t
+group by implementing_partner;]]>
+		</queryString>
+		<field name="implementing_partner" class="java.lang.String"/>
+		<field name="10-14" class="java.lang.Long"/>
+		<field name="15-19" class="java.lang.Long"/>
+		<field name="20-24" class="java.lang.Long"/>
+		<field name="total" class="java.math.BigDecimal"/>
+		<group name="IP_Grouping">
+			<groupExpression><![CDATA[$F{implementing_partner}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="IP" class="java.lang.String"/>
+	<parameter name="COUNTY" class="java.lang.String"/>
+	<parameter name="SUB_COUNTY" class="java.lang.String"/>
+	<parameter name="WARD" class="java.lang.String"/>
+	<parameter name="INTERVENTION_CATEGORY" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("BEHAVIORAL","BIO-MEDICAL","SOCIAL PROTECTION","OTHER INTERVENTIONS","POST-GBV CARE"))]]></defaultValueExpression>
+	</parameter>
+	<parameter name="QUARTER" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT NULL;]]>
+	</queryString>
+	<field name="NULL" class="java.lang.Object"/>
+	<summary>
+		<band height="232" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="0" width="555" height="200" uuid="d76169ba-1c98-47f5-902d-2194fd2aa0c2">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="PrEP_NewDataset" uuid="4c28b66f-53bc-4ed9-b307-63c1bd880a83">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="150" uuid="416f68f1-d301-4fe6-a182-38f21fc14fc4">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:groupHeader groupName="IP_Grouping">
+							<jr:cell height="30" rowSpan="1">
+								<textField>
+									<reportElement style="UC Table Row Bold Clear" x="0" y="0" width="150" height="30" forecolor="#73879C" uuid="d7df1862-2042-4bb1-9bb7-002d7ada008a"/>
+									<textFieldExpression><![CDATA[$F{implementing_partner}]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement style="UC Table Header" x="0" y="0" width="150" height="30" forecolor="#73879C" uuid="3e60e5af-e662-4c4c-993d-995ab8dd73a3"/>
+								<text><![CDATA[Implementing Partner]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30"/>
+					</jr:column>
+					<jr:column width="80" uuid="378c2a57-5087-4a14-a06c-729bb2f38adf">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:groupHeader groupName="IP_Grouping">
+							<jr:cell height="30" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="80" height="30" forecolor="#73879C" uuid="fb30b293-bcad-4977-ba58-437621d30e20"/>
+								<text><![CDATA[10-14]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="80" height="30" forecolor="#73879C" uuid="a1c988be-d557-4b4c-be33-6d1a4e9ba5f7"/>
+								<textFieldExpression><![CDATA[$F{10-14}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="80" uuid="148a1199-cbb3-4191-b453-8c0c72ac63d9">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:groupHeader groupName="IP_Grouping">
+							<jr:cell height="30" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="80" height="30" forecolor="#73879C" uuid="58604d93-fdb4-47d9-ae6a-b5d930096d3c"/>
+								<text><![CDATA[15-19]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="80" height="30" forecolor="#73879C" uuid="03eb2682-03eb-4338-b741-c291bdd650a4"/>
+								<textFieldExpression><![CDATA[$F{15-19}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="80" uuid="6ab59f25-7a74-4b82-80ea-5fb30560a836">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:groupHeader groupName="IP_Grouping">
+							<jr:cell height="30" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="80" height="30" forecolor="#73879C" uuid="6ca67f33-abf3-481e-a5e0-a0ace3c31237"/>
+								<text><![CDATA[20-24]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Number" x="0" y="0" width="80" height="30" forecolor="#73879C" uuid="eb1b904b-9f06-4942-ba1c-aa49fabb1c38"/>
+								<textFieldExpression><![CDATA[$F{20-24}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="80" uuid="58ca9f09-8315-4258-9f45-b7b3e817301b">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:groupHeader groupName="IP_Grouping">
+							<jr:cell height="30" rowSpan="1"/>
+						</jr:groupHeader>
+						<jr:columnHeader height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement style="UC Table Header Number" x="0" y="0" width="80" height="30" forecolor="#73879C" uuid="1cbc21e1-037f-4bcf-9257-201bf99daa86"/>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30">
+							<textField>
+								<reportElement style="UC Table Row Bold Number" x="0" y="0" width="80" height="30" forecolor="#73879C" uuid="76c72fb5-d4db-435b-9a2e-1a47b8035051"/>
+								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>
