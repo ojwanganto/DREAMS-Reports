@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-03-09T15:32:08 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT207" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
+<!-- 2017-04-03T11:38:21 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT209" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c71406e-d597-4cd4-97fd-eb1a485fbf1e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DREAMS Production Adapter"/>
 	<property name="ireport.jasperserver.url" value="https://dreams-reports.globalhealthapp.net/jasperserver/"/>
 	<property name="ireport.jasperserver.user" value="jasperadmin"/>
-	<property name="ireport.jasperserver.report.resource" value="/reports/RPT207____Service_Layering_Report_files/main_jrxml"/>
-	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT207____Service_Layering_Report"/>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles.jrtx"]]></template>
-	<template><![CDATA["uc-jasper-reports/styles/UC_Styles_DR.jrtx"]]></template>
+	<property name="ireport.jasperserver.report.resource" value="/reports/RPT209____DATIM_Quarterly_Report_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/RPT209____DATIM_Quarterly_Report"/>
+	<template><![CDATA["repo:UC_Styles.jrtx"]]></template>
+	<template><![CDATA["repo:UC_Styles_DR.jrtx"]]></template>
 	<parameter name="IP" class="java.lang.String">
 		<parameterDescription><![CDATA[Implementing Partner]]></parameterDescription>
 	</parameter>
-	<parameter name="COUNTY" class="java.lang.String"/>
+	<parameter name="COUNTY" class="java.lang.String">
+		<parameterDescription><![CDATA[County of residence]]></parameterDescription>
+	</parameter>
 	<parameter name="SUB_COUNTY" class="java.lang.String"/>
 	<parameter name="WARD" class="java.lang.String"/>
-	<parameter name="INTERVENTION_CATEGORY" class="java.util.Collection">
-		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("BEHAVIORAL","BIO-MEDICAL","SOCIAL PROTECTION","OTHER INTERVENTIONS","POST-GBV CARE"))]]></defaultValueExpression>
-	</parameter>
-	<parameter name="QUARTER" class="java.util.Collection">
-		<defaultValueExpression><![CDATA[(java.util.Collection)(Arrays.asList("2015-Q1","2015-Q2","2015-Q3","2015-Q4","2016-Q1","2016-Q2","2016-Q3","2016-Q4","2017-Q1","2017-Q2","2017-Q3","2017-Q4"))]]></defaultValueExpression>
-	</parameter>
+	<parameter name="QUARTER_DATIM" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT NULL]]>
 	</queryString>
 	<variable name="REPORT_DESCRIPTION" class="java.lang.String">
 		<variableExpression><![CDATA["This Service Layering report shows the number of clients that have received given number of services by age group."]]></variableExpression>
-		<initialValueExpression><![CDATA["This Service Layering report shows the number of clients that have received given number of services by age group."]]></initialValueExpression>
+		<initialValueExpression><![CDATA["DATIM Quarterly Report containing HTS_TST  and PrEP New by age group."]]></initialValueExpression>
 	</variable>
 	<variable name="FILTERS_DESCRIPTION" class="java.lang.String">
 		<variableExpression><![CDATA[IF(EQUALS( TRIM($P{IP}),""), "No IP Filter", $P{IP})]]></variableExpression>
@@ -65,7 +61,7 @@
 	<detail>
 		<band height="526" splitType="Stretch">
 			<staticText>
-				<reportElement style="UC Caption" x="1" y="14" width="310" height="20" isPrintWhenDetailOverflows="true" uuid="3c7e7215-39b1-4c2a-90aa-099806cb185c"/>
+				<reportElement style="UC Caption" x="1" y="14" width="310" height="20" uuid="3c7e7215-39b1-4c2a-90aa-099806cb185c"/>
 				<text><![CDATA[HTS_TST by age group(Table)]]></text>
 			</staticText>
 			<subreport>
@@ -82,24 +78,18 @@
 				<subreportParameter name="WARD">
 					<subreportParameterExpression><![CDATA[$P{WARD}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="INTERVENTION_CATEGORY">
-					<subreportParameterExpression><![CDATA[$P{INTERVENTION_CATEGORY}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="QUARTER">
-					<subreportParameterExpression><![CDATA[$P{QUARTER}]]></subreportParameterExpression>
+				<subreportParameter name="QUARTER_DATIM">
+					<subreportParameterExpression><![CDATA[$P{QUARTER_DATIM}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT209 DATIM Quarterly Reports/RPT209a - HTS_TST by age group (Table).jasper"]]></subreportExpression>
 			</subreport>
-		</band>
-		<band height="526">
-			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<staticText>
-				<reportElement style="UC Caption" x="0" y="23" width="210" height="20" uuid="1d381892-fb57-41a3-8826-b0213b942334"/>
+				<reportElement style="UC Caption" x="0" y="246" width="210" height="20" uuid="1d381892-fb57-41a3-8826-b0213b942334"/>
 				<text><![CDATA[PrEP_New by age group (Table)]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="0" y="54" width="555" height="210" uuid="198b8bab-f8ae-453c-ba83-c75c70483f34"/>
+				<reportElement x="0" y="276" width="555" height="154" uuid="198b8bab-f8ae-453c-ba83-c75c70483f34"/>
 				<subreportParameter name="IP">
 					<subreportParameterExpression><![CDATA[$P{IP}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -112,11 +102,8 @@
 				<subreportParameter name="WARD">
 					<subreportParameterExpression><![CDATA[$P{WARD}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="INTERVENTION_CATEGORY">
-					<subreportParameterExpression><![CDATA[$P{INTERVENTION_CATEGORY}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="QUARTER">
-					<subreportParameterExpression><![CDATA[$P{QUARTER}]]></subreportParameterExpression>
+				<subreportParameter name="QUARTER_DATIM">
+					<subreportParameterExpression><![CDATA[$P{QUARTER_DATIM}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["RPT209 DATIM Quarterly Reports/RPT209b - PrEP_New by age group (Table).jasper"]]></subreportExpression>
@@ -133,7 +120,7 @@
 				<reportElement style="UC Report Footer" x="0" y="53" width="550" height="17" uuid="e4fd48aa-7f0b-4ad2-8888-3480e3623b44">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textFieldExpression><![CDATA["RPT 201 - 20161112 (C) UCSF"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["RPT 209 - 20161112 (C) UCSF"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
